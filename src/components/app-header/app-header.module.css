@@ -1,12 +1,7 @@
 .header {
   display: flex;
   align-items: center;
-}
-
-.nav {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .menu {
@@ -14,6 +9,10 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
+}
+
+.logo {
+  align-self: center;
 }
 
 .menu__item {
