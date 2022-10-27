@@ -1,24 +1,30 @@
 import { useState } from 'react';
 import styles from './burger-ingredients.module.css';
+import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients() {
-  const [current, setCurrent] = useState('buns');
+  const [current, setCurrent] = useState('bun');
 
   return (
     <div className={`${styles.burgerIngredients}`}>
-      <h1 className={`${styles.title} text text_type_main-large`}>Соберите бургер</h1>
+      <h1 className={`text text_type_main-large mt-10 mb-5`}>Соберите бургер</h1>
       <div className={`${styles.ingredientsNav}`}>
-        <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
+        <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
           Булки
         </Tab>
-        <Tab value="sauces" active={current === 'sauces'} onClick={setCurrent}>
+        <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
           Соусы
         </Tab>
-        <Tab value="fillings" active={current === 'fillings'} onClick={setCurrent}>
+        <Tab value="main" active={current === 'main'} onClick={setCurrent}>
           Начинки
         </Tab>
+      </div>
+      <div className={`${styles.ingredientsContainer}`}>
+        <BurgerIngredientsList ingredientType="Булки" type="bun"/>
+        <BurgerIngredientsList ingredientType="Соусы" type="sauce"/>
+        <BurgerIngredientsList ingredientType="Начинки" type="main"/>
       </div>
     </div>
   )
