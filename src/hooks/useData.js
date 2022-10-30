@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 function useData() {
   const [allIngredients, setAllIngredients] = useState([]);
-  // console.log('allIngredients: ', allIngredients);
 
   useEffect(() => {
     fetch(`https://norma.nomoreparties.space/api/ingredients`)

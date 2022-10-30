@@ -6,6 +6,10 @@
   align-items: stretch;
 }
 
+.title {
+  flex-basis: 100%;
+}
+
 .ingredientsNav {
   display: flex;
 }
@@ -25,7 +29,5 @@
 
 .ingredientsContainer::-webkit-scrollbar-thumb {
   background: #8585AD;
-/* text/dark grey (secondary text) */
-
-border: 3px solid #8585AD;
+  border: 3px solid #8585AD;
 }

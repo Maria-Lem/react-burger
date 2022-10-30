@@ -1,10 +1,15 @@
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import styles from './burger-ingredients-card.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredientsCard(props) {
+  const [counter, setCounter] = useState(0);
+  
   return (
     <li className={`${styles.card} pl-4 pr-2 mb-8`}>
+      {counter !== 0 && <span className={`${styles.counter} text text_type_digits-default`}>{counter}</span>}
       <img className={`${styles.image} ml-4 mr-4`} src={props.image} alt={props.name}/>
       <div className={`${styles.price} mt-1 mb-1`}>
         <span className={`${styles.priceVal} text text_type_digits-default`}>{props.price}</span>
@@ -13,6 +18,12 @@ function BurgerIngredientsCard(props) {
       <p className={`${styles.cardTitle} text text_type_main-default`}>{props.name}</p>
     </li>
   )
+}
+
+BurgerIngredientsCard.propTypes = {
+  image: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string
 }
 
 export default BurgerIngredientsCard;
