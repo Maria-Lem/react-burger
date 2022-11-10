@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './burger-constructor-card.module.css';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,6 +15,12 @@ function BurgerConstructorCard(props) {
       />
     </li>
   )
+}
+
+BurgerConstructorCard.propTypes = {
+  image: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string
 }
 
 export default BurgerConstructorCard;

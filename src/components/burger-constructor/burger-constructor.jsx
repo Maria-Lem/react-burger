@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './burger-constructor.module.css';
 import useData from '../../hooks/useData';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
-import ModalOverlay from '../modals/modal-overlay/modal-overlay';
+import Modal from '../modals/modal/modal';
 import OrderDetails from '../modals/order-details/order-details';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -65,9 +65,9 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
-      <ModalOverlay openModal={isOpen} closeModal={() => setIsOpen(false)}>
+      <Modal openModal={isOpen} closeModal={() => setIsOpen(false)}>
         <OrderDetails />
-      </ModalOverlay>
+      </Modal>
     </div>
   )
 }

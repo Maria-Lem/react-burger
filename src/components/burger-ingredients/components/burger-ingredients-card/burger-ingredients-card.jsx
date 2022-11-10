@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import styles from './burger-ingredients-card.module.css';
-import ModalOverlay from '../../../modals/modal-overlay/modal-overlay';
+import Modal from '../../../modals/modal/modal';
 import IngredientDetails from '../../../modals/ingredient-details/ingredient-details';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -31,9 +31,9 @@ function BurgerIngredientsCard(props) {
         </div>
         <p className={`${styles.cardTitle} text text_type_main-default`}>{props.name}</p>
       </li>
-      <ModalOverlay openModal={isOpen} closeModal={() => setIsOpen(false)}>
+      <Modal openModal={isOpen} closeModal={() => setIsOpen(false)}>
           <IngredientDetails props={props}/>
-        </ModalOverlay>
+        </Modal>
     </>
   )
 }
