@@ -23,9 +23,9 @@ function BurgerIngredients() {
           </Tab>
         </div>
         <div className={`${styles.ingredientsContainer}`}>
-          <BurgerIngredientsList ingredientType="Булки" type="bun"/>
-          <BurgerIngredientsList ingredientType="Соусы" type="sauce"/>
-          <BurgerIngredientsList ingredientType="Начинки" type="main"/>
+          <BurgerIngredientsList ingredientType="Булки" type="bun" />
+          <BurgerIngredientsList ingredientType="Соусы" type="sauce" />
+          <BurgerIngredientsList ingredientType="Начинки" type="main" />
         </div>
       </div>
     </>

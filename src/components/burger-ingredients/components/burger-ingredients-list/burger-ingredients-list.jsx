@@ -8,13 +8,18 @@ function BurgerIngredientsList(props) {
 
   const ingredientElement = allIngredients.map(card => (
     <BurgerIngredientsCard 
-    key={card._id}
-    image={card.image}
-    name={card.name}
-    price={card.price}
-    type={card.type}
+      key={card._id}
+      image={card.image}
+      image_large={card.image_large}
+      name={card.name}
+      price={card.price}
+      type={card.type}
+      calories={card.calories}
+      proteins={card.proteins}
+      fat={card.fat}
+      carbohydrates={card.carbohydrates}
     />
-  ));
+    ));
 
   return (
     <>

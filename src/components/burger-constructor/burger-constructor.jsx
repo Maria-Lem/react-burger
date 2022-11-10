@@ -1,12 +1,16 @@
+import { useState } from 'react';
 import styles from './burger-constructor.module.css';
 import useData from '../../hooks/useData';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
+import ModalOverlay from '../modals/modal-overlay/modal-overlay';
+import OrderDetails from '../modals/order-details/order-details';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor() {
+  const [isOpen, setIsOpen] = useState(false);
   const {allIngredients} = useData();
 
   const filling = allIngredients.map(card => {
@@ -23,6 +27,10 @@ function BurgerConstructor() {
 
   if (allIngredients.length === 0) {
     return null;
+  }
+
+  const open = () => {
+    setIsOpen(true)
   }
 
   return (
@@ -53,10 +61,13 @@ function BurgerConstructor() {
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={open}>
           Оформить заказ
         </Button>
       </div>
+      <ModalOverlay openModal={isOpen} closeModal={() => setIsOpen(false)}>
+        <OrderDetails />
+      </ModalOverlay>
     </div>
   )
 }
