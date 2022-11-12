@@ -30,12 +30,12 @@ function IngredientDetails({props}) {
 }
 
 IngredientDetails.propTypes = {
-  image_large: PropTypes.string,
-  calories: PropTypes.number,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  name: PropTypes.string
+  image_large: PropTypes.string.isRequired,
+  calories: PropTypes.number.isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired
 }
 
 export default IngredientDetails;

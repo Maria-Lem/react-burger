@@ -8,5 +8,21 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, .6);
+  /* transition: visibility .5s,opacity .5s; */
+  animation: openModal .1s linear;
   z-index: 10;
 }
+
+@keyframes openModal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* .overlayVisible {
+  visibility: visible;
+  opacity: 1;
+} */

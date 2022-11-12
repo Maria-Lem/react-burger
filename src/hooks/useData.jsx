@@ -2,11 +2,18 @@ import { useState, useEffect } from 'react';
 
 function useData() {
   const [allIngredients, setAllIngredients] = useState([]);
-  const url = 'https://norma.nomoreparties.space/api';
+  const burgerApiUrl = 'https://norma.nomoreparties.space/api';
+
+  const getResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
 
   useEffect(() => {
-    fetch(`${url}/ingredients`)
-      .then(res => res.json())
+    fetch(`${burgerApiUrl}/ingredients`)
+      .then(getResponse)
       .then(data => setAllIngredients(data.data))
       .catch((error) => {
         console.error('Error:', error);
