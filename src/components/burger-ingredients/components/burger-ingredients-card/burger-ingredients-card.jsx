@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './burger-ingredients-card.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredientsCard(props) {
+function BurgerIngredientsCard( props ) {
   // eslint-disable-next-line no-unused-vars
   const [counter, setCounter] = useState(1);
   

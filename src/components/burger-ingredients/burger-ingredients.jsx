@@ -10,6 +10,7 @@ import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients({ ingredients }) {
+  // console.log('ingredients: ', ingredients);
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
@@ -63,7 +64,7 @@ function BurgerIngredients({ ingredients }) {
         </div>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <IngredientDetails props={ingredient}/>
+        <IngredientDetails ingredient={ingredient}/>
       </Modal>
     </>
   )
