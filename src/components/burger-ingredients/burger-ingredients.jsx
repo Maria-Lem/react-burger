@@ -10,7 +10,6 @@ import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients({ ingredients }) {
-  // console.log('ingredients: ', ingredients);
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
@@ -26,15 +25,15 @@ function BurgerIngredients({ ingredients }) {
 
   const ingredientElement = ingredients.map(card => (
     <BurgerIngredientsCard 
-      key={card._id}
-      openModal={() => openModal(card)}
-      {...card}
+    key={card._id}
+    openModal={() => openModal(card)}
+    ingredient={card}
     />
-  ));
+    ));
 
-  const bun = ingredientElement.filter(el => el.props.type === 'bun');
-  const sauce = ingredientElement.filter(el => el.props.type === 'sauce');
-  const main = ingredientElement.filter(el => el.props.type === 'main');
+  const bun = ingredientElement.filter(el => el.props.ingredient.type === 'bun');
+  const sauce = ingredientElement.filter(el => el.props.ingredient.type === 'sauce');
+  const main = ingredientElement.filter(el => el.props.ingredient.type === 'main');
   
   return (
     <>

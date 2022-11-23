@@ -17,10 +17,7 @@ function BurgerConstructor({ ingredients }) {
     return (
       <BurgerConstructorCard 
         key={card._id}
-        price={card.price}
-        name={card.name}
-        image={card.image}
-        type={card.type}
+        ingredient={card}
       />
     )
   });
@@ -48,7 +45,7 @@ function BurgerConstructor({ ingredients }) {
           thumbnail={ingredients[0].image}
         />
         <ul className={`${styles.burgerConstructorFilling}`}>
-          {filling.filter(item => item.props.type !== 'bun')}
+          {filling.filter(item => item.props.ingredient.type !== 'bun')}
         </ul>
         <ConstructorElement
           type="bottom"
@@ -61,7 +58,7 @@ function BurgerConstructor({ ingredients }) {
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {filling.reduce((acc, item) => acc + item.props.price, ingredients[0].price)}
+            {filling.reduce((acc, item) => acc + item.props.ingredient.price, ingredients[0].price)}
           </span>
           <CurrencyIcon type="primary" />
         </div>

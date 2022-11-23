@@ -1,26 +1,24 @@
-import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../../../utils/types';
+
 import styles from './burger-constructor-card.module.css';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructorCard(props) {
+function BurgerConstructorCard({ ingredient }) {
   return (
     <li className={`${styles.burgerConstructorItem} mr-1`}>
       <DragIcon type="primary" />
       <ConstructorElement
-        text={props.name}
-        price={props.price}
-        thumbnail={props.image}
+        text={ingredient.name}
+        price={ingredient.price}
+        thumbnail={ingredient.image}
       />
     </li>
   )
 }
-
 BurgerConstructorCard.propTypes = {
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  ingredient: ingredientPropTypes.isRequired
 }
 
 export default BurgerConstructorCard;
