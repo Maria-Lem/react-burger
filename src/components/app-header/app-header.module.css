@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.logo {
+  align-self: center;
+}
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

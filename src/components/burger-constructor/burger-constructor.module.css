@@ -1,0 +1,44 @@
+.burgerConstructor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-height: 620px;
+  max-width: 600px;
+}
+
+.burgerConstructorFilling {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  max-height: 456px;
+  overflow-y: scroll;
+  list-style-type: none;
+}
+
+.burgerConstructorFilling::-webkit-scrollbar {
+  /* margin-left: 4px; */
+  width: 8px;
+}
+
+.burgerConstructorFilling::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.burgerConstructorFilling::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
+}
+
+.orderDetails {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 16px;
+}
+
+.priceValTotal {
+  margin-right: 8px;
+}
