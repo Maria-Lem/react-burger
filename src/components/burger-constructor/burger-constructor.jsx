@@ -1,6 +1,8 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/types';
+import { useContext, useState } from 'react';
+// import PropTypes from 'prop-types';
+// import { ingredientPropTypes } from '../../utils/types';
+import { IngredientsContext } from '../../utils/ingredientsContext';
+
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
 import Modal from '../modals/modal/modal';
@@ -10,8 +12,22 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor({ ingredients }) {
+const initialTotalPriceState = { price: 0 };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'add':
+      return
+    case 'delete':
+      return
+    default:
+      throw new Error(`Wrong type of action: ${action.type}`);
+  }
+}
+
+function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
+  const ingredients = useContext(IngredientsContext);
 
   const filling = ingredients.map(card => {
     return (
@@ -58,7 +74,7 @@ function BurgerConstructor({ ingredients }) {
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {filling.reduce((acc, item) => acc + item.props.ingredient.price, ingredients[0].price)}
+            {filling.reduce((acc, item) => acc + item.props.ingredient.price, (ingredients[0].price * 2))}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -73,8 +89,8 @@ function BurgerConstructor({ ingredients }) {
   )
 }
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-}
+// BurgerConstructor.propTypes = {
+//   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+// }
 
 export default BurgerConstructor;

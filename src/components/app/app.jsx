@@ -1,4 +1,5 @@
 import useData from '../../hooks/useData';
+import { IngredientsContext } from '../../utils/ingredientsContext';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -18,7 +19,9 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <BurgerIngredients ingredients={allIngredients} />
-        <BurgerConstructor ingredients={allIngredients} />
+        <IngredientsContext.Provider value={allIngredients}>
+          <BurgerConstructor />
+        </IngredientsContext.Provider>
       </main>
     </div>
   );
