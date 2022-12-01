@@ -1,7 +1,5 @@
 import { useContext, useState } from 'react';
-// import PropTypes from 'prop-types';
-// import { ingredientPropTypes } from '../../utils/types';
-import { IngredientsContext } from '../../utils/ingredientsContext';
+import { ConstructorContext } from '../../utils/constructorContext';
 
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
@@ -12,35 +10,26 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const initialTotalPriceState = { price: 0 };
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'add':
-      return
-    case 'delete':
-      return
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
-  const ingredients = useContext(IngredientsContext);
 
-  const filling = ingredients.map(card => {
-    return (
-      <BurgerConstructorCard 
-        key={card._id}
-        ingredient={card}
-      />
-    )
-  });
+  const [state] = useContext(ConstructorContext);
 
-  if (ingredients.length === 0) {
-    return null;
-  }
+  // const ingredients = state.filling.map(card => {
+  //   return (
+  //     <BurgerConstructorCard 
+  //       key={card._id}
+  //       ingredient={card}
+  //       // dispatch={dispatch}
+  //     />
+  //   )
+  // });
+
+  // const filling = ingredients.filter(item => item.props.ingredient.type !== 'bun');
+
+  // if (state.filling.length === 0) {
+  //   return null;
+  // }
 
   const openModal = () => {
     setIsOpen(true)
@@ -53,28 +42,36 @@ function BurgerConstructor() {
   return (
     <div>
       <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
-        <ConstructorElement
+        {state.bun && <ConstructorElement
           type="top"
           isLocked={true}
-          text={`${ingredients[0].name} (верх)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
-        />
+          text={`${state.bun.name} (верх)`}
+          price={state.bun.price}
+          thumbnail={state.bun.image}
+        />}
         <ul className={`${styles.burgerConstructorFilling}`}>
-          {filling.filter(item => item.props.ingredient.type !== 'bun')}
+          {/* {filling} */}
+          {state.filling.map(card => {
+            return (
+              <BurgerConstructorCard 
+                key={card._id}
+                ingredient={card}
+              />
+            )
+          })}
         </ul>
-        <ConstructorElement
+        {state.bun && <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${ingredients[0].name} (низ)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
-        />
+          text={`${state.bun.name} (низ)`}
+          price={state.bun.price}
+          thumbnail={state.bun.image}
+        />}
       </div>
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {filling.reduce((acc, item) => acc + item.props.ingredient.price, (ingredients[0].price * 2))}
+            {state.totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -88,9 +85,5 @@ function BurgerConstructor() {
     </div>
   )
 }
-
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-// }
 
 export default BurgerConstructor;
