@@ -14,12 +14,13 @@ function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
-  const [ state, dispatch ] = useContext(ConstructorContext);
+  // eslint-disable-next-line no-unused-vars
+  const [constructorState, constructorDispatcher] = useContext(ConstructorContext);
   
   const openModal = (card) => {
     setIngredient(card);
     setIsOpen(true);
-    dispatch({ type: 'add', payload: card });
+    constructorDispatcher({ type: 'add', payload: card });
   };
 
   const closeModal = () => {

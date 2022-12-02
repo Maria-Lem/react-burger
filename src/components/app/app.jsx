@@ -12,9 +12,10 @@ const initialTotalPriceState = {
   bun: null,
   filling: [],
   totalPrice: 0,
+  order: []
 };
 
-function reducer(state, action) {
+function constructorReducer(state, action) {
   switch (action.type) {
     case 'add':
       if (action.payload.type === 'bun') {
@@ -22,12 +23,14 @@ function reducer(state, action) {
           ...state,
           bun: action.payload,
           totalPrice: state.totalPrice + action.payload.price * 2,
+          order: [...state.order, action.payload._id]
         };
       } else {
         return { 
           ...state,
           filling: [...state.filling, action.payload],
           totalPrice: state.totalPrice + action.payload.price,
+          order: [...state.order, action.payload._id]
         };
       }
     case 'delete':
@@ -40,8 +43,8 @@ function reducer(state, action) {
 }
 
 function App() {
-  const {allIngredients} = useData();
-  const [state, dispatch] = useReducer(reducer, initialTotalPriceState);
+  const { allIngredients } = useData();
+  const [constructorState, constructorDispatcher] = useReducer(constructorReducer, initialTotalPriceState);
   
   if (allIngredients.length === 0) {
     return null;
@@ -51,7 +54,7 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <ConstructorContext.Provider value={[state, dispatch]}>
+        <ConstructorContext.Provider value={[constructorState, constructorDispatcher]}>
           <BurgerIngredients ingredients={allIngredients} />
           <BurgerConstructor />
         </ConstructorContext.Provider>

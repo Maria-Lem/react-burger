@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import useData from '../../hooks/useData';
 import { ConstructorContext } from '../../utils/constructorContext';
 
 import styles from './burger-constructor.module.css';
@@ -12,8 +13,10 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(null);
+  const { createOrder } = useData();
 
-  const [state] = useContext(ConstructorContext);
+  const [constructorState] = useContext(ConstructorContext);
 
   // const ingredients = state.filling.map(card => {
   //   return (
@@ -32,7 +35,8 @@ function BurgerConstructor() {
   // }
 
   const openModal = () => {
-    setIsOpen(true)
+    setIsOpen(true);
+    createOrder(constructorState.order, setOrderNumber)
   }
 
   const closeModal = () => {
@@ -41,17 +45,18 @@ function BurgerConstructor() {
 
   return (
     <div>
+      {!constructorState.bun && constructorState.filling.length === 0 && <p className={`${styles.emptyBurgerConstructor} text text_type_main-large`}>Empty</p>}
       <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
-        {state.bun && <ConstructorElement
+        {constructorState.bun && <ConstructorElement
           type="top"
           isLocked={true}
-          text={`${state.bun.name} (верх)`}
-          price={state.bun.price}
-          thumbnail={state.bun.image}
+          text={`${constructorState.bun.name} (верх)`}
+          price={constructorState.bun.price}
+          thumbnail={constructorState.bun.image}
         />}
         <ul className={`${styles.burgerConstructorFilling}`}>
           {/* {filling} */}
-          {state.filling.map(card => {
+          {constructorState.filling.map(card => {
             return (
               <BurgerConstructorCard 
                 key={card._id}
@@ -60,18 +65,18 @@ function BurgerConstructor() {
             )
           })}
         </ul>
-        {state.bun && <ConstructorElement
+        {constructorState.bun && <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${state.bun.name} (низ)`}
-          price={state.bun.price}
-          thumbnail={state.bun.image}
+          text={`${constructorState.bun.name} (низ)`}
+          price={constructorState.bun.price}
+          thumbnail={constructorState.bun.image}
         />}
       </div>
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {state.totalPrice}
+            {constructorState.totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -80,7 +85,7 @@ function BurgerConstructor() {
         </Button>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <OrderDetails />
+        <OrderDetails orderNumber={orderNumber} />
       </Modal>
     </div>
   )
