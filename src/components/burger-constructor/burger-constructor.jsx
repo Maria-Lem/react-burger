@@ -45,8 +45,10 @@ function BurgerConstructor() {
 
   return (
     <div>
-      {!constructorState.bun && constructorState.filling.length === 0 && <p className={`${styles.emptyBurgerConstructor} text text_type_main-large`}>Empty</p>}
       <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
+        {!constructorState.bun && constructorState.filling.length === 0 && 
+          <p className={`${styles.emptyBurgerConstructor} text text_type_main-default`}>Вы ещё не добавили ни одного ингредиента из меню</p>
+        }
         {constructorState.bun && <ConstructorElement
           type="top"
           isLocked={true}
