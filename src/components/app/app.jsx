@@ -1,6 +1,6 @@
-import { useReducer } from 'react';
-import useData from '../../hooks/useData';
-import { ConstructorContext } from '../../utils/constructorContext';
+import { useReducer, useEffect, useState } from 'react';
+import { BurgerContext } from '../../utils/burgerContext';
+import { getIngredients } from '../../utils/api';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -43,21 +43,21 @@ function constructorReducer(state, action) {
 }
 
 function App() {
-  const { allIngredients } = useData();
+  const [allIngredients, setAllIngredients] = useState([]);
   const [constructorState, constructorDispatcher] = useReducer(constructorReducer, initialTotalPriceState);
-  
-  if (allIngredients.length === 0) {
-    return null;
-  }
+
+  useEffect(() => {
+    getIngredients(setAllIngredients);
+  }, [])
   
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <ConstructorContext.Provider value={[constructorState, constructorDispatcher]}>
+        <BurgerContext.Provider value={[constructorState, constructorDispatcher]}>
           <BurgerIngredients ingredients={allIngredients} />
           <BurgerConstructor />
-        </ConstructorContext.Provider>
+        </BurgerContext.Provider>
       </main>
     </div>
   );

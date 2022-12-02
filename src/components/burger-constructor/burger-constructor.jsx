@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import useData from '../../hooks/useData';
-import { ConstructorContext } from '../../utils/constructorContext';
+import { BurgerContext } from '../../utils/burgerContext';
+import { createOrder } from '../../utils/api';
 
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
@@ -14,9 +14,8 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
-  const { createOrder } = useData();
 
-  const [constructorState] = useContext(ConstructorContext);
+  const [constructorState] = useContext(BurgerContext);
 
   // const ingredients = state.filling.map(card => {
   //   return (

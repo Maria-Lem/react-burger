@@ -8,12 +8,6 @@
   min-width: 550px;
 }
 
-.emptyBurgerConstructor {
-  max-width: 600px;
-
-  /* word-wrap: break-word; */
-}
-
 .burgerConstructorFilling {
   display: flex;
   flex-direction: column;
