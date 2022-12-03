@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/types';
 import styles from './burger-ingredients.module.css';
@@ -8,15 +8,19 @@ import Modal from '../modals/modal/modal';
 import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { BurgerContext } from '../../utils/burgerContext';
 
 function BurgerIngredients({ ingredients }) {
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
   const [ingredient, setIngredient] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [constructorState, constructorDispatcher] = useContext(BurgerContext);
   
   const openModal = (card) => {
     setIngredient(card);
     setIsOpen(true);
+    constructorDispatcher({ type: 'add', payload: card });
   };
 
   const closeModal = () => {
@@ -25,9 +29,9 @@ function BurgerIngredients({ ingredients }) {
 
   const ingredientElement = ingredients.map(card => (
     <BurgerIngredientsCard 
-    key={card._id}
-    openModal={() => openModal(card)}
-    ingredient={card}
+      key={card._id}
+      openModal={() => openModal(card)}
+      ingredient={card}
     />
     ));
 

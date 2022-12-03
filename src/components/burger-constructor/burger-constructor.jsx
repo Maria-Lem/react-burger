@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/types';
+import { useContext, useState } from 'react';
+import { BurgerContext } from '../../utils/burgerContext';
+import { createOrder } from '../../utils/api';
+
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
 import Modal from '../modals/modal/modal';
@@ -10,24 +11,31 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor({ ingredients }) {
+function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(null);
 
-  const filling = ingredients.map(card => {
-    return (
-      <BurgerConstructorCard 
-        key={card._id}
-        ingredient={card}
-      />
-    )
-  });
+  const [constructorState] = useContext(BurgerContext);
 
-  if (ingredients.length === 0) {
-    return null;
-  }
+  // const ingredients = state.filling.map(card => {
+  //   return (
+  //     <BurgerConstructorCard 
+  //       key={card._id}
+  //       ingredient={card}
+  //       // dispatch={dispatch}
+  //     />
+  //   )
+  // });
+
+  // const filling = ingredients.filter(item => item.props.ingredient.type !== 'bun');
+
+  // if (state.filling.length === 0) {
+  //   return null;
+  // }
 
   const openModal = () => {
-    setIsOpen(true)
+    setIsOpen(true);
+    createOrder(constructorState.order, setOrderNumber)
   }
 
   const closeModal = () => {
@@ -37,28 +45,39 @@ function BurgerConstructor({ ingredients }) {
   return (
     <div>
       <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
-        <ConstructorElement
+        {!constructorState.bun && constructorState.filling.length === 0 && 
+          <p className={`${styles.emptyBurgerConstructor} text text_type_main-default`}>Вы ещё не добавили ни одного ингредиента из меню</p>
+        }
+        {constructorState.bun && <ConstructorElement
           type="top"
           isLocked={true}
-          text={`${ingredients[0].name} (верх)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
-        />
+          text={`${constructorState.bun.name} (верх)`}
+          price={constructorState.bun.price}
+          thumbnail={constructorState.bun.image}
+        />}
         <ul className={`${styles.burgerConstructorFilling}`}>
-          {filling.filter(item => item.props.ingredient.type !== 'bun')}
+          {/* {filling} */}
+          {constructorState.filling.map(card => {
+            return (
+              <BurgerConstructorCard 
+                key={card._id}
+                ingredient={card}
+              />
+            )
+          })}
         </ul>
-        <ConstructorElement
+        {constructorState.bun && <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${ingredients[0].name} (низ)`}
-          price={ingredients[0].price}
-          thumbnail={ingredients[0].image}
-        />
+          text={`${constructorState.bun.name} (низ)`}
+          price={constructorState.bun.price}
+          thumbnail={constructorState.bun.image}
+        />}
       </div>
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {filling.reduce((acc, item) => acc + item.props.ingredient.price, ingredients[0].price)}
+            {constructorState.totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -67,14 +86,10 @@ function BurgerConstructor({ ingredients }) {
         </Button>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <OrderDetails />
+        <OrderDetails orderNumber={orderNumber} />
       </Modal>
     </div>
   )
-}
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default BurgerConstructor;
