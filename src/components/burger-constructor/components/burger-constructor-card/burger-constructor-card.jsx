@@ -17,6 +17,7 @@ function BurgerConstructorCard({ ingredient }) {
     </li>
   )
 }
+
 BurgerConstructorCard.propTypes = {
   ingredient: ingredientPropTypes.isRequired
 }

@@ -1,6 +1,8 @@
-import { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/types';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIngredientDetail,removeIngredientDetail } from '../../services/actions/ingredient';
+import { addIngredient } from '../../services/actions/burgerConstructor';
+
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
 import BurgerIngredientsCard from './components/burger-ingredients-card/burger-ingredients-card';
@@ -8,22 +10,25 @@ import Modal from '../modals/modal/modal';
 import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerContext } from '../../utils/burgerContext';
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
-  const [ingredient, setIngredient] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [constructorState, constructorDispatcher] = useContext(BurgerContext);
+
+  const dispatch = useDispatch();
+
+  const { ingredients } = useSelector(store => ({
+    ingredients: store.ingredients.ingredients,
+  }));
   
   const openModal = (card) => {
-    setIngredient(card);
     setIsOpen(true);
-    constructorDispatcher({ type: 'add', payload: card });
+    dispatch(setIngredientDetail(card));
+    dispatch(addIngredient(card));
   };
 
   const closeModal = () => {
+    dispatch(removeIngredientDetail());
     setIsOpen(false);
   };
 
@@ -67,14 +72,10 @@ function BurgerIngredients({ ingredients }) {
         </div>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <IngredientDetails ingredient={ingredient}/>
+        <IngredientDetails />
       </Modal>
     </>
   )
-}
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default BurgerIngredients;
