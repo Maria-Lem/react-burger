@@ -24,7 +24,6 @@ function BurgerIngredients() {
   const openModal = (card) => {
     setIsOpen(true);
     dispatch(setIngredientDetail(card));
-    dispatch(addIngredient(card));
   };
 
   const closeModal = () => {
@@ -38,7 +37,7 @@ function BurgerIngredients() {
       openModal={() => openModal(card)}
       ingredient={card}
     />
-    ));
+  ));
 
   const bun = ingredientElement.filter(el => el.props.ingredient.type === 'bun');
   const sauce = ingredientElement.filter(el => el.props.ingredient.type === 'sauce');

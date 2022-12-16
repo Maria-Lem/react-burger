@@ -5,7 +5,7 @@ import styles from './burger-constructor-card.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructorCard({ ingredient }) {
+function BurgerConstructorCard({ ingredient, handleDelete }) {
   return (
     <li className={`${styles.burgerConstructorItem} mr-1`}>
       <DragIcon type="primary" />
@@ -13,6 +13,7 @@ function BurgerConstructorCard({ ingredient }) {
         text={ingredient.name}
         price={ingredient.price}
         thumbnail={ingredient.image}
+        handleClose={() => handleDelete(ingredient)}
       />
     </li>
   )

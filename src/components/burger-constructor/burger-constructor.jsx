@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 import { createNewOrder } from '../../services/actions/order';
+import { addIngredient, deleteIngredient } from '../../services/actions/burgerConstructor';
 
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
@@ -16,43 +18,70 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const { bun, filling, totalPrice, orderList } = useSelector(store => ({
+    // filling: console.log(store.burger),
     bun: store.burger.bun,
     filling: store.burger.filling,
     totalPrice: store.burger.totalPrice,
     orderList: store.burger.orderList
   }));
 
+  const [{ isHover }, dropRef] = useDrop({
+    accept: 'ingredient',
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient))
+    }
+  });
+
+  const orderListId = () => {
+    if (bun && filling) {
+      return  [bun._id, ...filling.map(ingredient => ingredient._id)]
+    }
+  };
+
   const openModal = () => {
     setIsOpen(true);
-    dispatch(createNewOrder(orderList));
+    dispatch(createNewOrder(orderListId()));
   }
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
+  const handleDelete = (ingredient) => {
+    dispatch(deleteIngredient(ingredient))
+  }
+
+  const opacity = isHover ? 0.5 : 1;
+
   return (
     <div>
-      <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
-        {!bun && filling.length === 0 && 
-          <p className={`${styles.emptyBurgerConstructor} text text_type_main-default`}>Вы ещё не добавили ни одного ингредиента из меню</p>
+      <div ref={dropRef} style={{opacity}} className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
+        {!bun 
+          ? <p className={`${styles.emptyBurgerConstructor} text text_type_main-medium`}>Добавьте булочку</p>
+          : <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
         }
-        {bun && <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />}
         <ul className={`${styles.burgerConstructorFilling}`}>
-          {filling.map(card => {
-            return (
-              <BurgerConstructorCard 
-                key={card._id}
-                ingredient={card}
-              />
-            )
-          })}
+          {filling.length === 0
+            ? <p className={`${styles.emptyBurgerConstructor} text text_type_main-medium`}>Добавьте начинку</p>
+            : filling.map(card => {
+                return (
+                  <BurgerConstructorCard 
+                    key={card.nanoId}
+                    ingredient={card}
+                    handleDelete={handleDelete}
+                  />
+                )
+              })
+            }
         </ul>
         {bun && <ConstructorElement
           type="bottom"
