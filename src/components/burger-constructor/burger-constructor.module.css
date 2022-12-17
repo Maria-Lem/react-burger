@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  height: 620px;
   max-height: 620px;
   max-width: 600px;
   min-width: 550px;
@@ -11,9 +12,13 @@
 .burgerConstructorFilling {
   display: flex;
   flex-direction: column;
+  /* align-items: flex-end; */
   gap: 10px;
   margin: 0;
   padding: 0;
+  max-width: 600px;
+  min-width: 550px;
+  height: 456px;
   max-height: 456px;
   overflow-y: scroll;
   list-style-type: none;
@@ -30,6 +35,11 @@
 .burgerConstructorFilling::-webkit-scrollbar-thumb {
   background: #8585AD;
   border: 3px solid #8585AD;
+}
+
+.emptyBurgerConstructor {
+  min-height: 80px;
+  text-align: center;
 }
 
 .orderDetails {

@@ -1,6 +1,8 @@
-import { useContext, useState } from 'react';
-import { BurgerContext } from '../../utils/burgerContext';
-import { createOrder } from '../../utils/api';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
+import { createNewOrder } from '../../services/actions/order';
+import { addIngredient, deleteIngredient } from '../../services/actions/burgerConstructor';
 
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
@@ -13,71 +15,86 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
-  const [orderNumber, setOrderNumber] = useState(null);
+  const dispatch = useDispatch();
 
-  const [constructorState] = useContext(BurgerContext);
+  const { bun, filling, totalPrice } = useSelector(store => ({
+    bun: store.burger.bun,
+    filling: store.burger.filling,
+    totalPrice: store.burger.totalPrice,
+  }));
 
-  // const ingredients = state.filling.map(card => {
-  //   return (
-  //     <BurgerConstructorCard 
-  //       key={card._id}
-  //       ingredient={card}
-  //       // dispatch={dispatch}
-  //     />
-  //   )
-  // });
+  const [{ isHover }, dropRef] = useDrop({
+    accept: 'ingredient',
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      dispatch(addIngredient(ingredient))
+    }
+  });
 
-  // const filling = ingredients.filter(item => item.props.ingredient.type !== 'bun');
-
-  // if (state.filling.length === 0) {
-  //   return null;
-  // }
+  const orderListId = () => {
+    if (bun && filling) {
+      return  [bun._id, ...filling.map(ingredient => ingredient._id)]
+    }
+  };
 
   const openModal = () => {
     setIsOpen(true);
-    createOrder(constructorState.order, setOrderNumber)
+    dispatch(createNewOrder(orderListId()));
   }
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
+  const handleDelete = (ingredient) => {
+    dispatch(deleteIngredient(ingredient))
+  }
+
+  const opacity = isHover ? 0.5 : 1;
+
   return (
     <div>
-      <div className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
-        {!constructorState.bun && constructorState.filling.length === 0 && 
-          <p className={`${styles.emptyBurgerConstructor} text text_type_main-default`}>Вы ещё не добавили ни одного ингредиента из меню</p>
+      <div ref={dropRef} style={{opacity}} className={`${styles.burgerConstructor} ml-3 mr-3 mb-10`}>
+        {!bun 
+          ? <p className={`${styles.emptyBurgerConstructor} text text_type_main-medium`}>Добавьте булочку</p>
+          : <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
         }
-        {constructorState.bun && <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${constructorState.bun.name} (верх)`}
-          price={constructorState.bun.price}
-          thumbnail={constructorState.bun.image}
-        />}
         <ul className={`${styles.burgerConstructorFilling}`}>
-          {/* {filling} */}
-          {constructorState.filling.map(card => {
-            return (
-              <BurgerConstructorCard 
-                key={card._id}
-                ingredient={card}
-              />
-            )
-          })}
+          {filling.length === 0
+            ? <p className={`${styles.emptyBurgerConstructor} text text_type_main-medium`}>Добавьте начинку</p>
+            : filling.map((card, index) => {
+                return (
+                  <BurgerConstructorCard 
+                    key={card.nanoId}
+                    ingredient={card}
+                    handleDelete={handleDelete}
+                    id={card.nanoId}
+                    index={index}
+                  />
+                )
+              })
+            }
         </ul>
-        {constructorState.bun && <ConstructorElement
+        {bun && <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={`${constructorState.bun.name} (низ)`}
-          price={constructorState.bun.price}
-          thumbnail={constructorState.bun.image}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
         />}
       </div>
       <div className={`${styles.orderDetails}`}>
         <div className={`${styles.priceTotal} mr-10`}>
           <span className={`${styles.priceValTotal} text text_type_digits-medium`}>
-            {constructorState.totalPrice}
+            {totalPrice}
           </span>
           <CurrencyIcon type="primary" />
         </div>
@@ -86,7 +103,7 @@ function BurgerConstructor() {
         </Button>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <OrderDetails orderNumber={orderNumber} />
+        <OrderDetails />
       </Modal>
     </div>
   )
