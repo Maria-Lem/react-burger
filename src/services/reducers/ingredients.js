@@ -1,6 +1,4 @@
 import {
-  INCREASE_INGREDIENT,
-  DECREASE_INGREDIENT,
   TAB_SWITCH,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -36,26 +34,6 @@ export const ingredientsReducer = (state = initialIngredientsState, action) => {
         ingredientsFailed: true
       };
     }
-    // case INCREASE_INGREDIENT: {
-    //   return {
-    //     ...state,
-    //     ingredients: [...state.ingredients].map(ingredient => {
-    //       return ingredient._id === action._id 
-    //         ? { ...ingredient, quantity: ++ingredient.quantity }
-    //         : ingredient
-    //     })
-    //   };
-    // }
-    // case DECREASE_INGREDIENT: {
-    //   return {
-    //     ...state,
-    //     ingredients: [...state.ingredients].map(ingredient => {
-    //       return ingredient._id === action._id
-    //         ? { ...ingredient, quantity: --ingredient.quantity }
-    //         : ingredient
-    //     })
-    //   };
-    // }
     default: {
       return state;
     }

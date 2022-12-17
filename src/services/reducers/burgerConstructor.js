@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
-import { ADD_INGREDIENT, DELETE_INGREDIENT } from "../actions/burgerConstructor";
+import update from 'immutability-helper';
+import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT } from "../actions/burgerConstructor";
 
 const initialBurgerConstructorState = { 
   bun: null,
@@ -27,11 +28,7 @@ export function burgerConstructorReducer(state = initialBurgerConstructorState, 
       } else {
         return { 
           ...state,
-          filling: [...state.filling, {
-              ...action.ingredient, 
-              nanoId: nanoid(),
-              quantity: state.filling.filter(ingredient => ingredient._id === action.ingredient._id).length
-            }],
+          filling: [...state.filling, { ...action.ingredient, nanoId: nanoid()}],
           totalPrice: state.totalPrice + action.ingredient.price,
         };
       }
@@ -41,6 +38,20 @@ export function burgerConstructorReducer(state = initialBurgerConstructorState, 
         filling: [...state.filling].filter(item => item.nanoId !== action.ingredient.nanoId),
         totalPrice: state.totalPrice - action.ingredient.price,
       }
+    }
+    case REORDER_INGREDIENT: {
+      // const card = state.filling.filter(ing => ing.id === action.ingredient._id)[0];
+      // const index = state.filling.indexOf(card);
+
+      return {
+        ...state,
+        filling: update(state.filling, {
+          $splice: [
+            [action.dragIndex, 1],
+            [action.hoverIndex, 0, state.filling[action.dragIndex]]
+          ],
+        }),
+      };
     }
     default: {
       return state;

@@ -72,12 +72,14 @@ function BurgerConstructor() {
         <ul className={`${styles.burgerConstructorFilling}`}>
           {filling.length === 0
             ? <p className={`${styles.emptyBurgerConstructor} text text_type_main-medium`}>Добавьте начинку</p>
-            : filling.map(card => {
+            : filling.map((card, index) => {
                 return (
                   <BurgerConstructorCard 
                     key={card.nanoId}
                     ingredient={card}
                     handleDelete={handleDelete}
+                    id={card.nanoId}
+                    index={index}
                   />
                 )
               })
