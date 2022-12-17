@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { createNewOrder } from '../../services/actions/order';
@@ -17,12 +17,10 @@ function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const { bun, filling, totalPrice, orderList } = useSelector(store => ({
-    // filling: console.log(store.burger),
+  const { bun, filling, totalPrice } = useSelector(store => ({
     bun: store.burger.bun,
     filling: store.burger.filling,
     totalPrice: store.burger.totalPrice,
-    orderList: store.burger.orderList
   }));
 
   const [{ isHover }, dropRef] = useDrop({

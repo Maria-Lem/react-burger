@@ -21,17 +21,17 @@ function BurgerIngredientsCard({ ingredient, openModal }) {
     }
   }, [bun, filling, ingredient._id])
 
-  const [{ isDrag }, dragRef] = useDrag({
+  const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
     item: ingredient,
     collect: monitor => ({
-      isDrag: monitor.isDragging()
+      opacity: monitor.isDragging() ? 0.5 : 1
     })
   }, [bun, filling]);
   
   return (
     <>
-      <li ref={dragRef} className={`${styles.card} pl-4 pr-2 mb-8`} onClick={openModal} draggable>
+      <li ref={dragRef} style={{opacity}} className={`${styles.card} pl-4 pr-2 mb-8`} onClick={openModal} draggable>
         {
           quantity > 0 && 
             <Counter count={quantity} size="default" extraClass={`${styles.counter} m-1`} />

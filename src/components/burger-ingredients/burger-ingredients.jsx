@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
 import { setIngredientDetail,removeIngredientDetail } from '../../services/actions/ingredient';
-import { addIngredient } from '../../services/actions/burgerConstructor';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
@@ -31,6 +31,22 @@ function BurgerIngredients() {
     setIsOpen(false);
   };
 
+  const options = { threshold: 0.3 };
+
+  const [bunRef, inViewBun] = useInView(options);
+  const [sauceRef, inViewSauce] = useInView(options);
+  const [mainRef, inViewMain] = useInView(options);
+
+  useEffect(() => {
+    if (inViewBun) {
+      setCurrent('bun');
+    } else if (inViewSauce) {
+      setCurrent('sauce');
+    } else if (inViewMain) {
+      setCurrent('main');
+    }
+  }, [inViewBun, inViewSauce, inViewMain]);
+
   const ingredientElement = ingredients.map(card => (
     <BurgerIngredientsCard 
       key={card._id}
@@ -59,13 +75,13 @@ function BurgerIngredients() {
           </Tab>
         </div>
         <div className={`${styles.ingredientsContainer}`}>
-          <BurgerIngredientsList ingredientType="Булки">
+          <BurgerIngredientsList ref={bunRef} ingredientType="Булки">
             {bun}
           </BurgerIngredientsList>
-          <BurgerIngredientsList ingredientType="Соусы">
+          <BurgerIngredientsList ref={sauceRef} ingredientType="Соусы">
             {sauce}
           </BurgerIngredientsList>
-          <BurgerIngredientsList ingredientType="Начинки">
+          <BurgerIngredientsList ref={mainRef} ingredientType="Начинки">
             {main}
           </BurgerIngredientsList>
         </div>
