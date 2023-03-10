@@ -19,7 +19,9 @@ function BurgerIngredientsCard({ ingredient, openModal }) {
     } else {
       return filling.filter(ing => ing._id === ingredient._id).length;
     }
-  }, [bun, filling, ingredient._id])
+  }, 
+  [bun, filling, ingredient._id]
+  );
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { createNewOrder } from '../../services/actions/order';
 import { addIngredient, deleteIngredient } from '../../services/actions/burgerConstructor';
+import { resetBurger } from '../../services/actions/burgerConstructor';
 
 import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
@@ -12,15 +13,19 @@ import OrderDetails from '../modals/order-details/order-details';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import Loader from '../loader/loader';
+import Failed from '../failed/failed';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const { bun, filling, totalPrice } = useSelector(store => ({
+  const { bun, filling, totalPrice, orderRequest, orderFailed } = useSelector(store => ({
     bun: store.burger.bun,
     filling: store.burger.filling,
     totalPrice: store.burger.totalPrice,
+    orderRequest: store.order.orderRequest,
+    orderFailed: store.order.orderFailed,
   }));
 
   const [{ isHover }, dropRef] = useDrop({
@@ -42,6 +47,9 @@ function BurgerConstructor() {
   const openModal = () => {
     setIsOpen(true);
     dispatch(createNewOrder(orderListId()));
+    if (!orderRequest && !orderFailed) {
+      return dispatch(resetBurger());
+    }
   }
 
   const closeModal = () => {
@@ -102,9 +110,16 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
-      <Modal openModal={isOpen} closeModal={closeModal}>
-        <OrderDetails />
-      </Modal>
+      {
+        orderRequest
+          ? <Loader />
+          : <Modal openModal={isOpen} closeModal={closeModal}>
+              {orderFailed
+                ? <Failed />
+                : <OrderDetails />
+              }
+            </Modal>
+      }
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import update from 'immutability-helper';
-import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT } from "../actions/burgerConstructor";
+import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT, RESET_INGREDIENT } from "../actions/burgerConstructor";
 
 const initialBurgerConstructorState = { 
   bun: null,
@@ -52,6 +52,9 @@ export function burgerConstructorReducer(state = initialBurgerConstructorState, 
           ],
         }),
       };
+    }
+    case RESET_INGREDIENT: {
+      return initialBurgerConstructorState;
     }
     default: {
       return state;

@@ -1,6 +1,7 @@
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT';
 export const REORDER_INGREDIENT = 'REORDER_INGREDIENT';
+export const RESET_INGREDIENT = 'RESET_INGREDIENT';
 
 export const addIngredient = (item) => {
   return {
@@ -21,5 +22,11 @@ export const reorderFilling = (dragIndex, hoverIndex) => {
     type: REORDER_INGREDIENT,
     dragIndex,
     hoverIndex
+  };
+};
+
+export const resetBurger = () => {
+  return {
+    type: RESET_INGREDIENT
   };
 };

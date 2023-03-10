@@ -1,0 +1,10 @@
+.modalContent {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  line-height: 2.5;
+}

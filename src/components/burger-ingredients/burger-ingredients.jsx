@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { setIngredientDetail,removeIngredientDetail } from '../../services/actions/ingredient';
+import { filterIngredientElements } from '../../utils/utils';
 
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
@@ -55,9 +56,18 @@ function BurgerIngredients() {
     />
   ));
 
-  const bun = ingredientElement.filter(el => el.props.ingredient.type === 'bun');
-  const sauce = ingredientElement.filter(el => el.props.ingredient.type === 'sauce');
-  const main = ingredientElement.filter(el => el.props.ingredient.type === 'main');
+  const bun = useMemo(
+    () => filterIngredientElements(ingredientElement, 'bun'),
+    [ingredientElement]
+  );
+  const sauce = useMemo(
+    () => filterIngredientElements(ingredientElement, 'sauce'),
+    [ingredientElement]
+  );
+  const main = useMemo(
+    () => filterIngredientElements(ingredientElement, 'main'),
+    [ingredientElement]
+  );
   
   return (
     <>
