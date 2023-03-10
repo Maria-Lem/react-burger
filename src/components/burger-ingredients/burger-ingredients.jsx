@@ -1,6 +1,9 @@
-import { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/types';
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import { setIngredientDetail,removeIngredientDetail } from '../../services/actions/ingredient';
+import { filterIngredientElements } from '../../utils/utils';
+
 import styles from './burger-ingredients.module.css';
 import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
 import BurgerIngredientsCard from './components/burger-ingredients-card/burger-ingredients-card';
@@ -8,24 +11,42 @@ import Modal from '../modals/modal/modal';
 import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerContext } from '../../utils/burgerContext';
 
-function BurgerIngredients({ ingredients }) {
+function BurgerIngredients() {
   const [current, setCurrent] = useState('bun');
   const [isOpen, setIsOpen] = useState(false);
-  const [ingredient, setIngredient] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [constructorState, constructorDispatcher] = useContext(BurgerContext);
+
+  const dispatch = useDispatch();
+
+  const { ingredients } = useSelector(store => ({
+    ingredients: store.ingredients.ingredients,
+  }));
   
   const openModal = (card) => {
-    setIngredient(card);
     setIsOpen(true);
-    constructorDispatcher({ type: 'add', payload: card });
+    dispatch(setIngredientDetail(card));
   };
 
   const closeModal = () => {
+    dispatch(removeIngredientDetail());
     setIsOpen(false);
   };
+
+  const options = { threshold: 0.3 };
+
+  const [bunRef, inViewBun] = useInView(options);
+  const [sauceRef, inViewSauce] = useInView(options);
+  const [mainRef, inViewMain] = useInView(options);
+
+  useEffect(() => {
+    if (inViewBun) {
+      setCurrent('bun');
+    } else if (inViewSauce) {
+      setCurrent('sauce');
+    } else if (inViewMain) {
+      setCurrent('main');
+    }
+  }, [inViewBun, inViewSauce, inViewMain]);
 
   const ingredientElement = ingredients.map(card => (
     <BurgerIngredientsCard 
@@ -33,11 +54,20 @@ function BurgerIngredients({ ingredients }) {
       openModal={() => openModal(card)}
       ingredient={card}
     />
-    ));
+  ));
 
-  const bun = ingredientElement.filter(el => el.props.ingredient.type === 'bun');
-  const sauce = ingredientElement.filter(el => el.props.ingredient.type === 'sauce');
-  const main = ingredientElement.filter(el => el.props.ingredient.type === 'main');
+  const bun = useMemo(
+    () => filterIngredientElements(ingredientElement, 'bun'),
+    [ingredientElement]
+  );
+  const sauce = useMemo(
+    () => filterIngredientElements(ingredientElement, 'sauce'),
+    [ingredientElement]
+  );
+  const main = useMemo(
+    () => filterIngredientElements(ingredientElement, 'main'),
+    [ingredientElement]
+  );
   
   return (
     <>
@@ -55,26 +85,22 @@ function BurgerIngredients({ ingredients }) {
           </Tab>
         </div>
         <div className={`${styles.ingredientsContainer}`}>
-          <BurgerIngredientsList ingredientType="Булки">
+          <BurgerIngredientsList ref={bunRef} ingredientType="Булки">
             {bun}
           </BurgerIngredientsList>
-          <BurgerIngredientsList ingredientType="Соусы">
+          <BurgerIngredientsList ref={sauceRef} ingredientType="Соусы">
             {sauce}
           </BurgerIngredientsList>
-          <BurgerIngredientsList ingredientType="Начинки">
+          <BurgerIngredientsList ref={mainRef} ingredientType="Начинки">
             {main}
           </BurgerIngredientsList>
         </div>
       </div>
       <Modal openModal={isOpen} closeModal={closeModal}>
-        <IngredientDetails ingredient={ingredient}/>
+        <IngredientDetails />
       </Modal>
     </>
   )
-}
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default BurgerIngredients;
