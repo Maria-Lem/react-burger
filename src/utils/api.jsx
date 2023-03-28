@@ -30,3 +30,13 @@ export const createOrder = (orderList) => {
     })
   });
 };
+
+export const forgotPassword = (email) => {
+  return request(`${burgerApiUrl.baseUrl}/password-reset`, {
+    method: 'POST',
+    headers: burgerApiUrl.headers,
+    body: JSON.stringify({
+      email,
+    })
+  });
+};

@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* .inputContainer {
+  display: flex;
+  align-items: center;
+  width: 480px;
+}
+
+.input {
+  width: 100%;
+} */
