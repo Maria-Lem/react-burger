@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import styles from './register.module.css';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -16,58 +15,53 @@ function Register() {
     console.log('Icon Click Callback')
   }
   return (
-    <main className={`${styles.main}`}>
-      <Form title="Регистрация">
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass="mb-6"
-          />
-        </FormInputContainer>
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'E-mail'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Пароль'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            icon={'ShowIcon'}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormSubmitBtn buttonName="Зарегистрироваться" />
-        <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />
-      </Form>
-    </main>
+    <Form title="Регистрация">
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'E-mail'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'Пароль'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          icon={'ShowIcon'}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormSubmitBtn buttonName="Зарегистрироваться" />
+      <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />
+    </Form>
   )
 };
 

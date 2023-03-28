@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import styles from './forgot-password.module.css';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -16,27 +15,24 @@ function ForgotPassword() {
     console.log('Icon Click Callback')
   }
   return (
-    <main className={`${styles.main}`}>
-      <Form title="Восстановление пароля">
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Укажите e-mail'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormSubmitBtn buttonName="Восстановить" />
-        <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
-      </Form>
-    </main>
+    <Form title="Восстановление пароля">
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'Укажите e-mail'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormSubmitBtn buttonName="Восстановить" />
+      <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
+    </Form>
   )
 };
 

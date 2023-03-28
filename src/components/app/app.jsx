@@ -18,6 +18,7 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import Ingredient from '../../pages/ingredient/ingredient';
 import Profile from '../../pages/profile/profile';
+import Layout from '../layout/layout';
 
 function App() {
   const dispatch = useDispatch();
@@ -32,13 +33,15 @@ function App() {
       <AppHeader />
       <Router>
         <Routes>
+          <Route element={<Layout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/ingredients/:id" element={<Ingredient />} />
+          </Route>
           <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/ingredients/:id" element={<Ingredient />} />
         </Routes>
       </Router>
       {/* <Ingredient/> */}

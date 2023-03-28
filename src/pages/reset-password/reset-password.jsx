@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import styles from './reset-password.module.css';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -16,43 +15,39 @@ function ResetPassword() {
     console.log('Icon Click Callback')
   }
   return (
-    <main className={`${styles.main}`}>
-      <Form title="Восстановление пароля">
+    <Form title="Восстановление пароля">
       <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Введите новый пароль'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            icon={'ShowIcon'}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Введите код из письма'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormSubmitBtn buttonName="Сохранить" />
-        <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
-      </Form>
-    </main>
+        <Input
+          type={'text'}
+          placeholder={'Введите новый пароль'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          icon={'ShowIcon'}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'Введите код из письма'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormSubmitBtn buttonName="Сохранить" />
+      <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
+    </Form>
   )
 };
 

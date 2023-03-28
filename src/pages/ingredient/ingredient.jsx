@@ -3,7 +3,7 @@ import styles from './ingredient.module.css';
 function Ingredient({ ingredient }) {
 
   return (
-    <main className={`${styles.main}`}>
+    <>
       <h3 className={`${styles.title} text text_type_main-large`}>Детали ингредиента</h3>
       <img className={`mb-4`} src={ingredient.image_large} alt={ingredient.name} />
       <h5 className={`${styles.cardTitle} text text_type_main-medium mb-8`}>{ingredient.name}</h5>
@@ -25,7 +25,7 @@ function Ingredient({ ingredient }) {
           <span className={`text text_type_digits-default`}>{ingredient.carbohydrates}</span>
         </li>
       </ul>
-    </main>
+    </>
   )
 }
 

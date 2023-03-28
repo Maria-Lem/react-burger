@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import styles from './login.module.css';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -16,44 +15,40 @@ function Login() {
     console.log('Icon Click Callback')
   }
   return (
-    <main className={`${styles.main}`}>
-      <Form title="Вход">
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'E-mail'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormInputContainer>
-          <Input
-            type={'text'}
-            placeholder={'Пароль'}
-            onChange={e => setValue(e.target.value)}
-            value={value}
-            icon={'ShowIcon'}
-            name={'name'}
-            error={false}
-            ref={inputRef}
-            onIconClick={onIconClick}
-            errorText={'Ошибка'}
-            size={'default'}
-            extraClass={`${styles.input}`}
-          />
-        </FormInputContainer>
-        <FormSubmitBtn buttonName="Войти" />
-        <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="register" />
-        <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="forgot-password" />
-      </Form>
-    </main>
+    <Form title="Вход">
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'E-mail'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormInputContainer>
+        <Input
+          type={'text'}
+          placeholder={'Пароль'}
+          onChange={e => setValue(e.target.value)}
+          value={value}
+          icon={'ShowIcon'}
+          name={'name'}
+          error={false}
+          ref={inputRef}
+          onIconClick={onIconClick}
+          errorText={'Ошибка'}
+          size={'default'}
+        />
+      </FormInputContainer>
+      <FormSubmitBtn buttonName="Войти" />
+      <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="register" />
+      <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="forgot-password" />
+    </Form>
   )
 };
 
