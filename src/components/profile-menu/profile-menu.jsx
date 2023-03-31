@@ -13,7 +13,7 @@ function ProfileMenu() {
           <NavLink to="/profile" className={activeLinkStyle}>Профиль</NavLink>
         </li>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
-          <NavLink to="/order-history" className={activeLinkStyle}>История заказов</NavLink>
+          <NavLink to="/profile/orders" className={activeLinkStyle}>История заказов</NavLink>
         </li>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
           <NavLink to="/logout" className={activeLinkStyle}>Выход</NavLink>

@@ -30,8 +30,8 @@ function App() {
   
   return (
     <div className={styles.app}>
-      <AppHeader />
       <Router>
+        <AppHeader />
         <Routes>
           <Route element={<Layout />}>
             <Route path="/login" element={<Login />} />

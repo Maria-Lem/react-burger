@@ -20,3 +20,14 @@
   align-items: center;
   cursor: pointer;
 }
+
+.activeLink, .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.activeLink {
+  color: #F2F2F3;
+}

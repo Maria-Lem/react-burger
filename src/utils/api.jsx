@@ -31,12 +31,35 @@ export const createOrder = (orderList) => {
   });
 };
 
+export const register = (email, password, name) => {
+  return request(`${burgerApiUrl.baseUrl}/auth/register`, {
+    method: 'POST',
+    headers:burgerApiUrl.headers,
+    body: JSON.stringify({
+      email,
+      password,
+      name,
+    })
+  });
+};
+
 export const forgotPassword = (email) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
     body: JSON.stringify({
       email,
+    })
+  });
+};
+
+export const resetPassword = (password, token) => {
+  return request(`${burgerApiUrl.baseUrl}/password-reset/reset`, {
+    method: 'POST',
+    headers: burgerApiUrl.headers,
+    body: JSON.stringify({
+      password,
+      token,
     })
   });
 };

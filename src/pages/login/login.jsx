@@ -8,21 +8,25 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
-  const [value, setValue] = useState('')
-  const inputRef = useRef(null)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const inputRef = useRef(null);
+
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
     console.log('Icon Click Callback')
-  }
+  };
+
   return (
     <Form title="Вход">
       <FormInputContainer>
         <Input
           type={'text'}
           placeholder={'E-mail'}
-          onChange={e => setValue(e.target.value)}
-          value={value}
-          name={'name'}
+          onChange={e => setEmail(e.target.value)}
+          value={email}
+          name={'email'}
           error={false}
           ref={inputRef}
           onIconClick={onIconClick}
@@ -34,10 +38,10 @@ function Login() {
         <Input
           type={'text'}
           placeholder={'Пароль'}
-          onChange={e => setValue(e.target.value)}
-          value={value}
+          onChange={e => setPassword(e.target.value)}
+          value={password}
           icon={'ShowIcon'}
-          name={'name'}
+          name={'password'}
           error={false}
           ref={inputRef}
           onIconClick={onIconClick}
