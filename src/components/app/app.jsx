@@ -19,6 +19,7 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Ingredient from '../../pages/ingredient/ingredient';
 import Profile from '../../pages/profile/profile';
 import Layout from '../layout/layout';
+import NotFound404 from '../../pages/not-found-404/not-found-404';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,19 +43,9 @@ function App() {
           </Route>
           <Route path="/" element={<Homepage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFound404 />} />
         </Routes>
       </Router>
-      {/* <Ingredient/> */}
-      {/* <ResetPassword /> */}
-      {/* <ForgotPassword></ForgotPassword> */}
-      {/* <Login></Login> */}
-        {/* <Register></Register> */}
-      {/* <main className={styles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main> */}
     </div>
   );
 }
