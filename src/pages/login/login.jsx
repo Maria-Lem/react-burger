@@ -8,10 +8,21 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+  
   const inputRef = useRef(null);
+  
+  const handleChange = (e) => {
+    const target = e.target;
+
+    setForm(prevFormData => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }))
+  };
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
@@ -24,8 +35,8 @@ function Login() {
         <Input
           type={'text'}
           placeholder={'E-mail'}
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          onChange={handleChange}
+          value={form.email}
           name={'email'}
           error={false}
           ref={inputRef}
@@ -38,8 +49,8 @@ function Login() {
         <Input
           type={'text'}
           placeholder={'Пароль'}
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          onChange={handleChange}
+          value={form.password}
           icon={'ShowIcon'}
           name={'password'}
           error={false}

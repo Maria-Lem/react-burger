@@ -1,17 +1,27 @@
 import { useState, useRef } from 'react';
 import Form from '../form/form';
 import FormInputContainer from '../form/form-input-container/form-input-container';
-import styles from './profile-form.module.css';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 function ProfileForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  
   const inputRef = useRef(null);
+
+  const handleChange = (e) => {
+    const target = e.target;
+
+    setForm(prevFormData => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }))
+  };
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
@@ -24,8 +34,8 @@ function ProfileForm() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => setName(e.target.value)}
-          value={name}
+          onChange={handleChange}
+          value={form.name}
           name={'name'}
           icon={'EditIcon'}
           error={false}
@@ -39,8 +49,8 @@ function ProfileForm() {
         <Input
           type={'text'}
           placeholder={'Логин'}
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          onChange={handleChange}
+          value={form.email}
           name={'email'}
           icon={'EditIcon'}
           error={false}
@@ -54,8 +64,8 @@ function ProfileForm() {
         <Input
           type={'text'}
           placeholder={'Пароль'}
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          onChange={handleChange}
+          value={form.password}
           name={'password'}
           icon={'EditIcon'}
           error={false}

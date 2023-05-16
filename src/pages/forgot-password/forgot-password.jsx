@@ -8,9 +8,20 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function ForgotPassword() {
-  const [email, setEmail] = useState('');
+  const [form, setForm] = useState({
+    email: '',
+  });
 
   const inputRef = useRef(null);
+
+  const handleChange = (e) => {
+    const target = e.target;
+
+    setForm(prevFormData => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }))
+  };
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
@@ -23,8 +34,8 @@ function ForgotPassword() {
         <Input
           type={'text'}
           placeholder={'Укажите e-mail'}
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          onChange={handleChange}
+          value={form.email}
           name={'email'}
           error={false}
           ref={inputRef}

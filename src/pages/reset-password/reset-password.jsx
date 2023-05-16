@@ -8,10 +8,23 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function ResetPassword() {
-  const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
+  const [form, setForm] = useState({
+    password: '',
+    token: '',
+  });
 
   const inputRef = useRef(null);
+  
+  const handleChange = (e) => {
+    const target = e.target;
+
+    setForm(prevFormData => {
+      return {
+        ...prevFormData,
+        [target.name]: target.value,
+      }
+    })
+  };
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0)
@@ -24,8 +37,8 @@ function ResetPassword() {
         <Input
           type={'text'}
           placeholder={'Введите новый пароль'}
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          onChange={handleChange}
+          value={form.password}
           icon={'ShowIcon'}
           name={'password'}
           error={false}
@@ -39,8 +52,8 @@ function ResetPassword() {
         <Input
           type={'text'}
           placeholder={'Введите код из письма'}
-          onChange={e => setToken(e.target.value)}
-          value={token}
+          onChange={handleChange}
+          value={form.token}
           name={'token'}
           error={false}
           ref={inputRef}

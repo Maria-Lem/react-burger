@@ -34,11 +34,22 @@ export const createOrder = (orderList) => {
 export const register = (email, password, name) => {
   return request(`${burgerApiUrl.baseUrl}/auth/register`, {
     method: 'POST',
-    headers:burgerApiUrl.headers,
+    headers: burgerApiUrl.headers,
     body: JSON.stringify({
       email,
       password,
       name,
+    })
+  });
+};
+
+export const logIn = (email, password) => {
+  return request(`${burgerApiUrl.baseUrl}/auth/login`, {
+    method: 'POST',
+    headers: burgerApiUrl.headers,
+    body: JSON.stringify({
+      email,
+      password,
     })
   });
 };
@@ -61,5 +72,22 @@ export const resetPassword = (password, token) => {
       password,
       token,
     })
+  });
+};
+
+export const refreshToken = (refreshToken) => {
+  return request(`${burgerApiUrl.baseUrl}/auth/token`, {
+    method: 'POST',
+    headers: burgerApiUrl.headers,
+    body: JSON.stringify({
+      token: refreshToken
+    })
+  });
+};
+
+export const logOut = () => {
+  return request(`${burgerApiUrl.baseUrl}/auth/logout`, {
+    method: 'POST',
+    headers: burgerApiUrl.headers,
   });
 };

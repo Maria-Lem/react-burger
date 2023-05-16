@@ -1,7 +1,10 @@
 import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAILED
+  USER_REGISTER_FAILED,
+  PASSWORD_FORGOT_REQUEST,
+  PASSWORD_FORGOT_SUCCESS,
+  PASSWORD_FORGOT_FAILED,
 } from '../actions/user';
 
 const initialUserState = {
@@ -10,6 +13,12 @@ const initialUserState = {
   registerRequest: false,
   registerSuccess: false,
   registerFailed: false,
+
+  passwordRecoverySuccess: null,
+
+  passwordForgotRequest: false,
+  passwordForgotSuccess: false,
+  passwordForgotFailed: false,
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -37,6 +46,31 @@ export const userReducer = (state = initialUserState, action) => {
         registerRequest: false,
         registerSuccess: false,
         registerFailed: true,
+      };
+    }
+    case PASSWORD_FORGOT_REQUEST: {
+      return {
+        ...state,
+        passwordForgotRequest: true,
+        passwordForgotSuccess: false,
+        passwordForgotFailed: false,
+      };
+    }
+    case PASSWORD_FORGOT_SUCCESS: {
+      return {
+        ...state,
+        passwordForgotRequest: false,
+        passwordForgotSuccess: true,
+        passwordForgotFailed: false,
+        passwordRecoverySuccess: action.success
+      };
+    }
+    case PASSWORD_FORGOT_FAILED: {
+      return {
+        ...state,
+        passwordForgotRequest: false,
+        passwordForgotSuccess: false,
+        passwordForgotFailed: true,
       };
     }
     default: {

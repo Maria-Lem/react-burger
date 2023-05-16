@@ -1,4 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { createNewUser } from '../../services/actions/user';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -8,9 +11,30 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    name: '',
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const target = e.target;
+
+    setForm(prevFormData => ({
+      ...prevFormData,
+      [target.name]: target.value,
+    }))
+  };
+
+  const handleSubmit = useCallback((e) => {
+      console.log('clicked');
+      e.preventDefault();
+      dispatch(createNewUser(form.email, form.password, form.name));
+    },
+    [dispatch, form.email, form.name, form.password]
+  );
 
   const inputRef = useRef(null);
 
@@ -25,8 +49,8 @@ function Register() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => setName(e.target.value)}
-          value={name}
+          onChange={handleChange}
+          value={form.name}
           name={'name'}
           error={false}
           ref={inputRef}
@@ -39,8 +63,8 @@ function Register() {
         <Input
           type={'text'}
           placeholder={'E-mail'}
-          onChange={e => setEmail(e.target.value)}
-          value={email}
+          onChange={handleChange}
+          value={form.email}
           name={'email'}
           error={false}
           ref={inputRef}
@@ -53,8 +77,8 @@ function Register() {
         <Input
           type={'text'}
           placeholder={'Пароль'}
-          onChange={e => setPassword(e.target.value)}
-          value={password}
+          onChange={handleChange}
+          value={form.password}
           icon={'ShowIcon'}
           name={'password'}
           error={false}
@@ -64,7 +88,7 @@ function Register() {
           size={'default'}
         />
       </FormInputContainer>
-      <FormSubmitBtn buttonName="Зарегистрироваться" />
+      <FormSubmitBtn buttonName="Зарегистрироваться" handleSubmit={handleSubmit} />
       <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />
     </Form>
   )
