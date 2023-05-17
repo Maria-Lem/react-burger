@@ -54,7 +54,7 @@ export const logIn = (email, password) => {
   });
 };
 
-export const forgotPassword = (email) => {
+export const forgotPasswordRequest = (email) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
@@ -64,7 +64,7 @@ export const forgotPassword = (email) => {
   });
 };
 
-export const resetPassword = (password, token) => {
+export const resetPasswordRequest = (password, token) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset/reset`, {
     method: 'POST',
     headers: burgerApiUrl.headers,

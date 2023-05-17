@@ -5,6 +5,9 @@ import {
   PASSWORD_FORGOT_REQUEST,
   PASSWORD_FORGOT_SUCCESS,
   PASSWORD_FORGOT_FAILED,
+  PASSWORD_RESET_REQUEST,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILED,
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILED,
@@ -18,10 +21,13 @@ const initialUserState = {
   registerFailed: false,
 
   passwordRecoverySuccess: null,
+  passwordResetSuccess: null,
 
   passwordForgotRequest: false,
-  passwordForgotSuccess: false,
   passwordForgotFailed: false,
+
+  passwordResetRequest: false,
+  passwordResetFailed: false,
 
   logOutRequest: false,
   logOutSuccess: false,
@@ -59,7 +65,6 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         passwordForgotRequest: true,
-        passwordForgotSuccess: false,
         passwordForgotFailed: false,
       };
     }
@@ -67,7 +72,6 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         passwordForgotRequest: false,
-        passwordForgotSuccess: true,
         passwordForgotFailed: false,
         passwordRecoverySuccess: action.success
       };
@@ -76,8 +80,29 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         passwordForgotRequest: false,
-        passwordForgotSuccess: false,
         passwordForgotFailed: true,
+      };
+    }
+    case PASSWORD_RESET_REQUEST: {
+      return {
+        ...state,
+        passwordResetRequest: false,
+        passwordResetFailed: false,
+      };
+    }
+    case PASSWORD_RESET_SUCCESS: {
+      return {
+        ...state,
+        passwordResetRequest: false,
+        passwordResetFailed: false,
+        passwordResetSuccess: action.success
+      };
+    }
+    case PASSWORD_RESET_FAILED: {
+      return {
+        ...state,
+        passwordResetRequest: false,
+        passwordResetFailed: false,
       };
     }
     case LOG_OUT_REQUEST: {
