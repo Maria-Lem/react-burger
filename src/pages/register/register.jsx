@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import { createNewUser } from '../../services/actions/user';
 
@@ -9,8 +10,11 @@ import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Register() {
+  const { user } = useSelector(store => store.user);
+
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -36,12 +40,11 @@ function Register() {
     [dispatch, form.email, form.name, form.password]
   );
 
-  const inputRef = useRef(null);
-
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0)
-    console.log('Icon Click Callback')
-  };
+  if (user) {
+    return (
+      <Navigate to="/" replace />
+    );
+  }
 
   return (
     <Form title="Регистрация">
@@ -53,8 +56,6 @@ function Register() {
           value={form.name}
           name={'name'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
@@ -67,26 +68,16 @@ function Register() {
           value={form.email}
           name={'email'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
       </FormInputContainer>
       <FormInputContainer>
-        <Input
-          type={'text'}
-          placeholder={'Пароль'}
-          onChange={handleChange}
-          value={form.password}
-          icon={'ShowIcon'}
-          name={'password'}
-          error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
-          errorText={'Ошибка'}
-          size={'default'}
-        />
+      <PasswordInput
+        onChange={handleChange}
+        value={form.password}
+        name={'password'}
+      />
       </FormInputContainer>
       <FormSubmitBtn buttonName="Зарегистрироваться" handleSubmit={handleSubmit} />
       <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />

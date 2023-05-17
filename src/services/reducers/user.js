@@ -5,6 +5,9 @@ import {
   PASSWORD_FORGOT_REQUEST,
   PASSWORD_FORGOT_SUCCESS,
   PASSWORD_FORGOT_FAILED,
+  LOG_OUT_REQUEST,
+  LOG_OUT_SUCCESS,
+  LOG_OUT_FAILED,
 } from '../actions/user';
 
 const initialUserState = {
@@ -19,6 +22,10 @@ const initialUserState = {
   passwordForgotRequest: false,
   passwordForgotSuccess: false,
   passwordForgotFailed: false,
+
+  logOutRequest: false,
+  logOutSuccess: false,
+  logOutFailed: false,
 };
 
 export const userReducer = (state = initialUserState, action) => {
@@ -71,6 +78,31 @@ export const userReducer = (state = initialUserState, action) => {
         passwordForgotRequest: false,
         passwordForgotSuccess: false,
         passwordForgotFailed: true,
+      };
+    }
+    case LOG_OUT_REQUEST: {
+      return {
+        ...state,
+        logOutRequest: true,
+        logOutSuccess: false,
+        logOutFailed: false,
+      };
+    }
+    case LOG_OUT_SUCCESS: {
+      return {
+        ...state,
+        logOutRequest: false,
+        logOutSuccess: true,
+        logOutFailed: false,
+        user: null,
+      };
+    }
+    case LOG_OUT_FAILED: {
+      return {
+        ...state,
+        logOutRequest: false,
+        logOutSuccess: false,
+        logOutFailed: true,
       };
     }
     default: {

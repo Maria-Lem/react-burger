@@ -85,9 +85,12 @@ export const refreshToken = (refreshToken) => {
   });
 };
 
-export const logOut = () => {
+export const logOut = (refreshToken) => {
   return request(`${burgerApiUrl.baseUrl}/auth/logout`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
+    body: JSON.stringify( {
+      token: refreshToken
+    })
   });
 };
