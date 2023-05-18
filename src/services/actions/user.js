@@ -1,4 +1,4 @@
-import { register, forgotPasswordRequest, logOut } from "../../utils/api";
+import { register, forgotPasswordRequest, logOut, resetPasswordRequest } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/utils";
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
@@ -49,6 +49,24 @@ export function forgotPassword(email) {
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: PASSWORD_FORGOT_FAILED });
+      })
+  }
+}
+
+export function resetPassword(password, token) {
+  return function(dispatch) {
+    dispatch({ type: PASSWORD_RESET_REQUEST });
+
+    resetPasswordRequest(password, token)
+      .then(data => {
+        dispatch({
+          type: PASSWORD_RESET_SUCCESS,
+          success: data.success
+        })
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        dispatch({ type: PASSWORD_RESET_FAILED });
       })
   }
 }
