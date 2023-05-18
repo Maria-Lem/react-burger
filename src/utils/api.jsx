@@ -18,7 +18,10 @@ export const request = (url, options) => {
 };
 
 export const getIngredients = () => {
-  return request(`${burgerApiUrl.baseUrl}/ingredients`);
+  return request(`${burgerApiUrl.baseUrl}/ingredients`, {
+    method: 'GET',
+    headers: burgerApiUrl.headers
+  });
 };
 
 export const createOrder = (orderList) => {
@@ -52,6 +55,16 @@ export const logIn = (email, password) => {
       password,
     })
   });
+};
+
+export const getUser = (accessToken) => {
+  return request(`${burgerApiUrl.baseUrl}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: accessToken
+    },
+  })
 };
 
 export const forgotPasswordRequest = (email) => {
