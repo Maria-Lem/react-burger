@@ -8,6 +8,9 @@ import {
   PASSWORD_RESET_REQUEST,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILED,
   LOG_OUT_REQUEST,
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILED,
@@ -28,6 +31,10 @@ const initialUserState = {
 
   passwordResetRequest: false,
   passwordResetFailed: false,
+
+  logInRequest: false,
+  logInSuccess: false,
+  logInFailed: false,
 
   logOutRequest: false,
   logOutSuccess: false,
@@ -103,6 +110,31 @@ export const userReducer = (state = initialUserState, action) => {
         ...state,
         passwordResetRequest: false,
         passwordResetFailed: false,
+      };
+    }
+    case LOG_IN_REQUEST: {
+      return {
+        ...state,
+        logInRequest: true,
+        logInSuccess: false,
+        logInFailed: false,
+      };
+    }
+    case LOG_IN_SUCCESS: {
+      return {
+        ...state,
+        logInRequest: false,
+        logInSuccess: true,
+        logInFailed: false,
+        user: action.user
+      };
+    }
+    case LOG_IN_FAILED: {
+      return {
+        ...state,
+        logInRequest: false,
+        logInSuccess: false,
+        logInFailed: true,
       };
     }
     case LOG_OUT_REQUEST: {

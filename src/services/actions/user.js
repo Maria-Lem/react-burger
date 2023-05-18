@@ -1,4 +1,4 @@
-import { register, forgotPasswordRequest, logOut, resetPasswordRequest } from "../../utils/api";
+import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/utils";
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
@@ -10,6 +10,9 @@ export const PASSWORD_FORGOT_FAILED = 'PASSWORD_FORGOT_FAILED';
 export const PASSWORD_RESET_REQUEST = 'PASSWORD_RESET_REQUEST';
 export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 export const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
+export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_FAILED = 'LOG_IN_FAILED';
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILED = 'LOG_OUT_FAILED';
@@ -62,11 +65,31 @@ export function resetPassword(password, token) {
         dispatch({
           type: PASSWORD_RESET_SUCCESS,
           success: data.success
-        })
+        });
       })
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: PASSWORD_RESET_FAILED });
+      })
+  }
+}
+
+export function logInUser(email, password) {
+  return function(dispatch) {
+    dispatch({ type: LOG_IN_REQUEST });
+
+    logIn(email, password)
+      .then(data => {
+        setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch({
+          type: LOG_IN_SUCCESS,
+          user: data.user
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        dispatch({ type: LOG_IN_FAILED });
       })
   }
 }
