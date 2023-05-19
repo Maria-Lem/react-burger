@@ -65,7 +65,9 @@ function Login() {
         name={'password'}
       />
       </FormInputContainer>
-      <FormSubmitBtn buttonName="Войти" handleSubmit={handleSubmit} />
+      <div className="mb-20">
+        <FormSubmitBtn buttonName="Войти" handleSubmit={handleSubmit} />
+      </div>
       <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="register" />
       <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="forgot-password" />
     </Form>

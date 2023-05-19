@@ -1,9 +1,14 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import styles from './profile-form.module.css';
+
 import Form from '../form/form';
 import FormInputContainer from '../form/form-input-container/form-input-container';
+import FormSubmitBtn from '../form/form-submit-btn/form-submit-btn';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function ProfileForm() {
   const [form, setForm] = useState({
@@ -11,9 +16,9 @@ function ProfileForm() {
     email: '',
     password: '',
   });
-  
-  const inputRef = useRef(null);
 
+  const dispatch = useDispatch();
+  
   const handleChange = (e) => {
     const target = e.target;
 
@@ -23,10 +28,10 @@ function ProfileForm() {
     }))
   };
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0)
-    console.log('Icon Click Callback')
-  };
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+    console.log('clicked')
+  }, [])
 
   return (
     <Form>
@@ -39,8 +44,6 @@ function ProfileForm() {
           name={'name'}
           icon={'EditIcon'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
@@ -54,27 +57,24 @@ function ProfileForm() {
           name={'email'}
           icon={'EditIcon'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
       </FormInputContainer>
       <FormInputContainer>
-        <Input
-          type={'text'}
-          placeholder={'Пароль'}
-          onChange={handleChange}
-          value={form.password}
-          name={'password'}
-          icon={'EditIcon'}
-          error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
-          errorText={'Ошибка'}
-          size={'default'}
-        />
+      <PasswordInput
+        onChange={handleChange}
+        value={form.password}
+        name={'password'}
+        icon="EditIcon"
+      />
       </FormInputContainer>
+      <div className={styles.btnContainer}>
+        <Button htmlType="button" type="secondary" size="medium">
+          Отмена
+        </Button>
+        <FormSubmitBtn buttonName="Сохранить" handleSubmit={handleSubmit} />
+      </div>
     </Form>
   );
 }

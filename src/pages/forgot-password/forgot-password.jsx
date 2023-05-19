@@ -44,7 +44,9 @@ function ForgotPassword() {
           size={'default'}
         />
       </FormInputContainer>
-      <FormSubmitBtn buttonName="Восстановить" />
+      <div className="mb-20">
+        <FormSubmitBtn buttonName="Восстановить" />
+      </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
     </Form>
   )

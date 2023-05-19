@@ -79,7 +79,9 @@ function Register() {
         name={'password'}
       />
       </FormInputContainer>
-      <FormSubmitBtn buttonName="Зарегистрироваться" handleSubmit={handleSubmit} />
+      <div className="mb-20">
+        <FormSubmitBtn buttonName="Зарегистрироваться" handleSubmit={handleSubmit} />
+      </div>
       <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />
     </Form>
   )

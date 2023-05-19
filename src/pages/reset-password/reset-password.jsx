@@ -62,7 +62,9 @@ function ResetPassword() {
           size={'default'}
         />
       </FormInputContainer>
-      <FormSubmitBtn buttonName="Сохранить" />
+      <div className="mb-20">
+        <FormSubmitBtn buttonName="Сохранить" />
+      </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
     </Form>
   )
