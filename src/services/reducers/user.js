@@ -14,6 +14,9 @@ import {
   EDIT_USER_REQUEST,
   EDIT_USER_SUCCESS,
   EDIT_USER_FAILED,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_FAILED,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
@@ -45,6 +48,10 @@ const initialUserState = {
   editUserRequest: false,
   editUserSuccess: false,
   editUserFailed: false,
+
+  refreshTokenRequest: false,
+  refreshTokenSuccess: false,
+  refreshTokenFailed: false,
 
   logInRequest: false,
   logInSuccess: false,
@@ -174,6 +181,30 @@ export const userReducer = (state = initialUserState, action) => {
         editUserRequest: false,
         editUserSuccess: false,
         editUserFailed: true,
+      };
+    }
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequest: true,
+        refreshTokenSuccess: false,
+        refreshTokenFailed: false,
+      };
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenSuccess: true,
+        refreshTokenFailed: false,
+      };
+    }
+    case REFRESH_TOKEN_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequest: false,
+        refreshTokenSuccess: false,
+        refreshTokenFailed: true,
       };
     }
     case LOG_IN_REQUEST: {

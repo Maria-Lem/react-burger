@@ -1,4 +1,4 @@
-import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn, getUser, patchUser } from "../../utils/api";
+import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn, getUser, patchUser, refreshTokenRequest } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/utils";
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
@@ -16,6 +16,9 @@ export const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILED = 'LOG_IN_FAILED';
@@ -112,6 +115,27 @@ export function editUser(name, email, password, accessToken) {
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: EDIT_USER_FAILED });
+      })
+  }
+}
+
+export function refreshToken(refreshToken) {
+  return function(dispatch) {
+    dispatch({ type: REFRESH_TOKEN_REQUEST });
+
+    refreshTokenRequest(refreshToken)
+      .then(data => {
+        setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        dispatch({ type: REFRESH_TOKEN_SUCCESS });
+        return data;
+      })
+      .then(data => {
+        getCurrentUser(data.accessToken.split('Bearer ')[1]);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        dispatch({ type: REFRESH_TOKEN_FAILED });
       })
   }
 }
