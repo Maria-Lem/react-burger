@@ -67,6 +67,21 @@ export const getUser = (accessToken) => {
   })
 };
 
+export const patchUser = (name, email, password, accessToken) => {
+  return request(`${burgerApiUrl.baseUrl}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: accessToken
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password
+    })
+  })
+};
+
 export const forgotPasswordRequest = (email) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset`, {
     method: 'POST',

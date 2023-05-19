@@ -2,12 +2,18 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILED,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
   PASSWORD_FORGOT_REQUEST,
   PASSWORD_FORGOT_SUCCESS,
   PASSWORD_FORGOT_FAILED,
   PASSWORD_RESET_REQUEST,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
+  EDIT_USER_REQUEST,
+  EDIT_USER_SUCCESS,
+  EDIT_USER_FAILED,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
@@ -23,6 +29,10 @@ const initialUserState = {
   registerSuccess: false,
   registerFailed: false,
 
+  getUserRequest: false,
+  getUserSuccess: false,
+  getUserFailed: false,
+
   passwordRecoverySuccess: null,
   passwordResetSuccess: null,
 
@@ -31,6 +41,10 @@ const initialUserState = {
 
   passwordResetRequest: false,
   passwordResetFailed: false,
+
+  editUserRequest: false,
+  editUserSuccess: false,
+  editUserFailed: false,
 
   logInRequest: false,
   logInSuccess: false,
@@ -66,6 +80,31 @@ export const userReducer = (state = initialUserState, action) => {
         registerRequest: false,
         registerSuccess: false,
         registerFailed: true,
+      };
+    }
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        getUserRequest: true,
+        getUserSuccess: false,
+        getUserFailed: false,
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        getUserRequest: false,
+        getUserSuccess: true,
+        getUserFailed: false,
+        user: action.user
+      };
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        getUserRequest: false,
+        getUserSuccess: false,
+        getUserFailed: true,
       };
     }
     case PASSWORD_FORGOT_REQUEST: {
@@ -110,6 +149,31 @@ export const userReducer = (state = initialUserState, action) => {
         ...state,
         passwordResetRequest: false,
         passwordResetFailed: false,
+      };
+    }
+    case EDIT_USER_REQUEST: {
+      return {
+        ...state,
+        editUserRequest: true,
+        editUserSuccess: false,
+        editUserFailed: false,
+      };
+    }
+    case EDIT_USER_SUCCESS: {
+      return {
+        ...state,
+        editUserRequest: false,
+        editUserSuccess: true,
+        editUserFailed: false,
+        user: action.user
+      };
+    }
+    case EDIT_USER_FAILED: {
+      return {
+        ...state,
+        editUserRequest: false,
+        editUserSuccess: false,
+        editUserFailed: true,
       };
     }
     case LOG_IN_REQUEST: {

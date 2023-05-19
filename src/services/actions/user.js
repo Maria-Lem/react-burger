@@ -1,15 +1,21 @@
-import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn } from "../../utils/api";
+import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn, getUser, patchUser } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/utils";
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
 export const USER_REGISTER_FAILED = 'USER_REGISTER_FAILED';
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
 export const PASSWORD_FORGOT_REQUEST = 'PASSWORD_FORGOT_REQUEST';
 export const PASSWORD_FORGOT_SUCCESS = 'PASSWORD_FORGOT_SUCCESS';
 export const PASSWORD_FORGOT_FAILED = 'PASSWORD_FORGOT_FAILED';
 export const PASSWORD_RESET_REQUEST = 'PASSWORD_RESET_REQUEST';
 export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 export const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
+export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILED = 'LOG_IN_FAILED';
@@ -34,6 +40,24 @@ export function createNewUser(email, password, name) {
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: USER_REGISTER_FAILED });
+      });
+  }
+}
+
+export function getCurrentUser(accessToken) {
+  return function(dispatch) {
+    dispatch({ type: GET_USER_REQUEST });
+
+    getUser(accessToken)
+      .then(data => {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          user: data.user
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        dispatch({ type: GET_USER_FAILED });
       });
   }
 }
@@ -70,6 +94,24 @@ export function resetPassword(password, token) {
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: PASSWORD_RESET_FAILED });
+      })
+  }
+}
+
+export function editUser(name, email, password, accessToken) {
+  return function(dispatch) {
+    dispatch({ type: EDIT_USER_REQUEST });
+
+    patchUser(name, email, password, accessToken)
+      .then(data => {
+        dispatch({
+          type: EDIT_USER_SUCCESS,
+          user: data.user
+        })
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        dispatch({ type: EDIT_USER_FAILED });
       })
   }
 }
