@@ -16,9 +16,10 @@ function Login() {
     email: '',
     password: '',
   });
-
+  // console.log('form: ', form);
+  
   const { user } = useSelector(store => store.user);
-
+  
   const dispatch = useDispatch();
   
   const handleChange = (e) => {
@@ -29,7 +30,7 @@ function Login() {
       [target.name]: target.value,
     }))
   };
-
+  
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     console.log('clicked');
@@ -37,12 +38,14 @@ function Login() {
   },
   [dispatch, form.email, form.password]
   );
-
+  
   if (user) {
+    console.log(user)
     return (
       <Navigate to="/" replace />
-    );
-  }
+      );
+    }
+    console.log('user', user);
 
   return (
     <Form title="Вход">

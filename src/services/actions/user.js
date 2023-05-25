@@ -148,6 +148,7 @@ export function logInUser(email, password) {
       .then(data => {
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
+        console.log('data.refreshToken: ', data.refreshToken);
         dispatch({
           type: LOG_IN_SUCCESS,
           user: data.user
@@ -165,10 +166,11 @@ export function logOutUser(refreshToken) {
     dispatch({ type: LOG_OUT_REQUEST });
 
     logOut(refreshToken)
-      .then(() => {
+      .then(data => {
         deleteCookie('accessToken');
         localStorage.removeItem('refreshToken');
-        dispatch({ type: LOG_OUT_SUCCESS });
+        dispatch({ type: LOG_OUT_SUCCESS, user: null });
+        console.log(data)
       })
       .catch(error => {
         console.error('Error:', error);

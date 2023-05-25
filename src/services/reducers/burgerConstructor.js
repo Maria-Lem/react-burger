@@ -40,9 +40,6 @@ export function burgerConstructorReducer(state = initialBurgerConstructorState, 
       }
     }
     case REORDER_INGREDIENT: {
-      // const card = state.filling.filter(ing => ing.id === action.ingredient._id)[0];
-      // const index = state.filling.indexOf(card);
-
       return {
         ...state,
         filling: update(state.filling, {

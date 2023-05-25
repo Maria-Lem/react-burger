@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './profile-form.module.css';
 
 import Form from '../form/form';
@@ -18,6 +18,20 @@ function ProfileForm() {
   });
 
   const dispatch = useDispatch();
+
+  const { user } = useSelector(store => store.user);
+
+  useEffect(() => {
+    if (user) {
+      console.log('user: ', user);
+
+      setForm(prevFormData => ({
+        ...prevFormData,
+        name: user.name,
+        email: user.email,
+      }))
+    }
+  }, [user])
   
   const handleChange = (e) => {
     const target = e.target;
