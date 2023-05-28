@@ -1,3 +1,5 @@
+import { getCookie } from "./utils";
+
 const burgerApiUrl = {
   baseUrl: 'https://norma.nomoreparties.space/api',
   headers: {
@@ -57,12 +59,12 @@ export const logIn = (email, password) => {
   });
 };
 
-export const getUser = (accessToken) => {
+export const getUser = () => {
   return request(`${burgerApiUrl.baseUrl}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      authorization: accessToken
+      authorization: 'Bearer ' + getCookie('accessToken')
     },
   })
 };

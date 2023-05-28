@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -12,8 +14,11 @@ function ForgotPassword() {
     email: '',
   });
 
-  const inputRef = useRef(null);
-
+  const { user } = useSelector(store => ({
+    user: store.user.user,
+  }));
+  console.log('user: ', user);
+  
   const handleChange = (e) => {
     const target = e.target;
 
@@ -23,10 +28,13 @@ function ForgotPassword() {
     }))
   };
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0)
-    console.log('Icon Click Callback')
-  };
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
+  if (user) {
+    return <Navigate to="/" replace />
+  }
 
   return (
     <Form title="Восстановление пароля">
@@ -38,14 +46,12 @@ function ForgotPassword() {
           value={form.email}
           name={'email'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Восстановить" />
+        <FormSubmitBtn buttonName="Восстановить" handleSubmit={handleSubmit} />
       </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
     </Form>

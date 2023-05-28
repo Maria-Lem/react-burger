@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -6,6 +8,7 @@ import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function ResetPassword() {
   const [form, setForm] = useState({
@@ -13,8 +16,12 @@ function ResetPassword() {
     token: '',
   });
 
-  const inputRef = useRef(null);
-  
+  const { user, passwordRecoverySuccess } = useSelector(store => ({
+    user: store.user.user,
+    passwordRecoverySuccess: store.user.passwordRecoverySuccess,
+  }))
+  // console.log('user: ', user);
+
   const handleChange = (e) => {
     const target = e.target;
 
@@ -26,26 +33,25 @@ function ResetPassword() {
     })
   };
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0)
-    console.log('Icon Click Callback')
-  };
+  const handleSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
+  // if (!user && !passwordRecoverySuccess) {
+  //   return <Navigate to="/forgot-password" replace />
+  // }
+
+  // if (user) {
+  //   return <Navigate to="/" replace />
+  // }
 
   return (
     <Form title="Восстановление пароля">
       <FormInputContainer>
-        <Input
-          type={'text'}
-          placeholder={'Введите новый пароль'}
+        <PasswordInput
           onChange={handleChange}
           value={form.password}
-          icon={'ShowIcon'}
           name={'password'}
-          error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
-          errorText={'Ошибка'}
-          size={'default'}
         />
       </FormInputContainer>
       <FormInputContainer>
@@ -56,14 +62,12 @@ function ResetPassword() {
           value={form.token}
           name={'token'}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
         />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Сохранить" />
+        <FormSubmitBtn buttonName="Сохранить" handleSubmit={handleSubmit} />
       </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
     </Form>

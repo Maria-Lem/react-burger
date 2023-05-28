@@ -1,15 +1,16 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
 import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn';
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
+import { logInUser } from '../../services/actions/user';
+
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logInUser } from '../../services/actions/user';
-import { Navigate } from 'react-router-dom';
 
 function Login() {
   const [form, setForm] = useState({
@@ -18,34 +19,36 @@ function Login() {
   });
   // console.log('form: ', form);
   
-  const { user } = useSelector(store => store.user);
+  const { user, logOutRequest } = useSelector(store => ({
+    user: store.user.user,
+    logOutRequest: store.user.logOutRequest
+  }));
+  console.log('logOutRequest: ', logOutRequest);
+  // console.log('user: ', user);
   
   const dispatch = useDispatch();
   
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const target = e.target;
 
     setForm(prevFormData => ({
       ...prevFormData,
       [target.name]: target.value,
     }))
-  };
+  }, []);
   
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    console.log('clicked');
     dispatch(logInUser(form.email, form.password));
-  },
-  [dispatch, form.email, form.password]
-  );
+  }, [dispatch, form.email, form.password]);
   
-  if (user) {
-    console.log(user)
+  if (user && !logOutRequest) {
+    // console.log(user)
     return (
       <Navigate to="/" replace />
-      );
-    }
-    console.log('user', user);
+    );
+  }
+    // console.log('user', user);
 
   return (
     <Form title="Вход">
@@ -62,11 +65,11 @@ function Login() {
         />
       </FormInputContainer>
       <FormInputContainer>
-      <PasswordInput
-        onChange={handleChange}
-        value={form.password}
-        name={'password'}
-      />
+        <PasswordInput
+          onChange={handleChange}
+          value={form.password}
+          name={'password'}
+        />
       </FormInputContainer>
       <div className="mb-20">
         <FormSubmitBtn buttonName="Войти" handleSubmit={handleSubmit} />

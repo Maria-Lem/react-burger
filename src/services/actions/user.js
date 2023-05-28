@@ -1,5 +1,5 @@
 import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn, getUser, patchUser, refreshTokenRequest } from "../../utils/api";
-import { deleteCookie, setCookie } from "../../utils/utils";
+import { deleteCookie, getCookie, setCookie } from "../../utils/utils";
 
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
@@ -19,6 +19,9 @@ export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';
 export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
+export const VERIFY_AUTHORIZATION_REQUEST = 'VERIFY_AUTHORIZATION_REQUEST';
+export const VERIFY_AUTHORIZATION_SUCCESS = 'VERIFY_AUTHORIZATION_SUCCESS';
+export const VERIFY_AUTHORIZATION_FAILED = 'VERIFY_AUTHORIZATION_FAILED';
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILED = 'LOG_IN_FAILED';
@@ -34,10 +37,12 @@ export function createNewUser(email, password, name) {
       .then(data => {
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
-        console.log(data)
+        // console.log(data)
         dispatch({
           type: USER_REGISTER_SUCCESS,
-          user: data.user
+          user: data.user,
+          isAuthenticated: data.success,
+          accessToken: data.accessToken
         });
       })
       .catch(error => {
@@ -47,15 +52,17 @@ export function createNewUser(email, password, name) {
   }
 }
 
-export function getCurrentUser(accessToken) {
+export function getCurrentUser() {
   return function(dispatch) {
     dispatch({ type: GET_USER_REQUEST });
 
-    getUser(accessToken)
+    getUser()
       .then(data => {
+        
         dispatch({
           type: GET_USER_SUCCESS,
-          user: data.user
+          user: data.user,
+          isAuthenticated: data.success,
         });
       })
       .catch(error => {
@@ -119,7 +126,7 @@ export function editUser(name, email, password, accessToken) {
   }
 }
 
-export function refreshToken(refreshToken) {
+export function refreshToken(refreshToken, request,) {
   return function(dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
@@ -130,13 +137,28 @@ export function refreshToken(refreshToken) {
         dispatch({ type: REFRESH_TOKEN_SUCCESS });
         return data;
       })
-      .then(data => {
-        getCurrentUser(data.accessToken.split('Bearer ')[1]);
-      })
+      // .then(data => {
+      //   getCurrentUser(data.accessToken.split('Bearer ')[1]);
+      // })
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: REFRESH_TOKEN_FAILED });
       })
+  }
+}
+
+export function verifyAuthorization() {
+  return function(dispatch) {
+    dispatch({ type: VERIFY_AUTHORIZATION_REQUEST });
+
+    const accessToken = getCookie('accessToken');
+    console.log('accessToken: ', accessToken);
+
+    if (!!accessToken) {
+      dispatch(getCurrentUser({ accessToken: `Bearer ${accessToken}` }));
+    }
+
+    dispatch({ type: VERIFY_AUTHORIZATION_SUCCESS });
   }
 }
 
@@ -148,10 +170,12 @@ export function logInUser(email, password) {
       .then(data => {
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
-        console.log('data.refreshToken: ', data.refreshToken);
+        console.log('data.refreshToken: ', data);
         dispatch({
           type: LOG_IN_SUCCESS,
-          user: data.user
+          user: data.user,
+          isAuthenticated: data.success,
+          accessToken: data.accessToken
         });
       })
       .catch(error => {
@@ -170,7 +194,7 @@ export function logOutUser(refreshToken) {
         deleteCookie('accessToken');
         localStorage.removeItem('refreshToken');
         dispatch({ type: LOG_OUT_SUCCESS, user: null });
-        console.log(data)
+        console.log('log out')
       })
       .catch(error => {
         console.error('Error:', error);

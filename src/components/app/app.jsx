@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import { getBurgerIngredients } from '../../services/actions/ingredients';
@@ -18,6 +18,9 @@ import Layout from '../layout/layout';
 import NotFound404 from '../../pages/not-found-404/not-found-404';
 import Modal from '../modals/modal/modal';
 import IngredientDetails from '../modals/ingredient-details/ingredient-details';
+import ProtectedRouteElement from '../protected-route/protected-route';
+import { getCurrentUser, verifyAuthorization } from '../../services/actions/user';
+import Loader from '../loader/loader';
 
 function App() {
   const dispatch = useDispatch();
@@ -25,14 +28,35 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
+  const { isAuthenticated, accessToken, verifyAuthorizationSuccess } = useSelector(store => ({
+    isAuthenticated: store.user.isAuthenticated,
+    accessToken: store.user.accessToken,
+    verifyAuthorizationSuccess: store.user.verifyAuthorizationSuccess
+  }));
+  // console.log('verifyAuthorizationSuccess: ', verifyAuthorizationSuccess);
+  console.log('accessToken: ', accessToken);
+  // console.log('isAuthenticated: ', isAuthenticated);
+
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    dispatch(getCurrentUser());
+    // dispatch(verifyAuthorization());
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     dispatch(getCurrentUser(accessToken));
+  //   }
+  // }, []);
 
   const handleClose = () => {
     navigate(-1);
   };
+
+  if (!verifyAuthorizationSuccess) {
+    return <Loader />;
+  }
   
   return (
     <div className={styles.app}>
@@ -40,7 +64,7 @@ function App() {
         <Routes location={background || location}>
           <Route path="/" element={<Homepage />}/>
             <Route element={<Layout />}>
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
