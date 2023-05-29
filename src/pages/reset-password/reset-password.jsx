@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import Form from '../../components/form/form';
@@ -9,18 +9,24 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { resetPassword } from '../../services/actions/user';
 
 function ResetPassword() {
   const [form, setForm] = useState({
     password: '',
     token: '',
   });
+  const dispatch = useDispatch();
 
-  const { user, passwordRecoverySuccess } = useSelector(store => ({
+  const { user, passwordRecoverySuccess, passwordResetSuccess, isAuthenticated } = useSelector(store => ({
     user: store.user.user,
     passwordRecoverySuccess: store.user.passwordRecoverySuccess,
-  }))
-  // console.log('user: ', user);
+    passwordResetSuccess: store.user.passwordResetSuccess,
+    isAuthenticated: store.user
+  }));
+  // console.log('passwordResetSuccess: ', passwordResetSuccess);
+  console.log('isAuthenticated: ', isAuthenticated);
+  console.log('user: ', user);
 
   const handleChange = (e) => {
     const target = e.target;
@@ -30,20 +36,26 @@ function ResetPassword() {
         ...prevFormData,
         [target.name]: target.value,
       }
-    })
+    });
   };
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-  }, []);
+    dispatch(resetPassword(form.password, form.token));
+    // console.log('reset');
+  }, [dispatch, form.password, form.token]);
 
-  // if (!user && !passwordRecoverySuccess) {
-  //   return <Navigate to="/forgot-password" replace />
-  // }
+  if (!user && !passwordRecoverySuccess) {
+    return <Navigate to="/forgot-password" replace />
+  }
 
-  // if (user) {
-  //   return <Navigate to="/" replace />
-  // }
+  if (passwordResetSuccess) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user) {
+    return <Navigate to="/" replace />
+  }
 
   return (
     <Form title="Восстановление пароля">

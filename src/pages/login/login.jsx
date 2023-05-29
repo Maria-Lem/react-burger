@@ -7,7 +7,7 @@ import FormInputContainer from '../../components/form/form-input-container/form-
 import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn';
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
-import { logInUser } from '../../services/actions/user';
+import { logInUser, resetPasswordRecoveryReducers } from '../../services/actions/user';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -40,6 +40,7 @@ function Login() {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(logInUser(form.email, form.password));
+    dispatch(resetPasswordRecoveryReducers());
   }, [dispatch, form.email, form.password]);
   
   if (user && !logOutRequest) {

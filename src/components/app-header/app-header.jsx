@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import styles from './app-header.module.css';
 
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -24,14 +24,14 @@ function AppHeader() {
             </NavLink>
           </li>
           <li className={`${styles.menu__item} pl-5 pr-5`}>
-            <NavLink to="/orders" className={activeLinkStyle}>
+            <NavLink to="/profile/orders" className={activeLinkStyle}>
               <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
               <span className={`text text_type_main-default ml-2`}>Лента заказов</span>
             </NavLink>
           </li>
         </ul>
       </nav>
-      <div className={styles.logo}><Logo /></div>
+      <Link to="/" className={styles.logo}><Logo /></Link>
       <div className={`${styles.menu__item} pl-5 pr-5`}>
         <NavLink to="/profile" className={activeLinkStyle}>
           <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />

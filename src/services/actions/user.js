@@ -19,15 +19,16 @@ export const EDIT_USER_FAILED = 'EDIT_USER_FAILED';
 export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
 export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
 export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED';
-export const VERIFY_AUTHORIZATION_REQUEST = 'VERIFY_AUTHORIZATION_REQUEST';
-export const VERIFY_AUTHORIZATION_SUCCESS = 'VERIFY_AUTHORIZATION_SUCCESS';
-export const VERIFY_AUTHORIZATION_FAILED = 'VERIFY_AUTHORIZATION_FAILED';
+// export const VERIFY_AUTHORIZATION_REQUEST = 'VERIFY_AUTHORIZATION_REQUEST';
+// export const VERIFY_AUTHORIZATION_SUCCESS = 'VERIFY_AUTHORIZATION_SUCCESS';
+// export const VERIFY_AUTHORIZATION_FAILED = 'VERIFY_AUTHORIZATION_FAILED';
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_FAILED = 'LOG_IN_FAILED';
 export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
 export const LOG_OUT_FAILED = 'LOG_OUT_FAILED';
+export const RESET_PASSWORD_RECOVERY_REDUCERS = 'RESET_PASSWORD_RECOVERY_REDUCERS';
 
 export function createNewUser(email, password, name) {
   return function(dispatch) {
@@ -41,8 +42,8 @@ export function createNewUser(email, password, name) {
         dispatch({
           type: USER_REGISTER_SUCCESS,
           user: data.user,
-          isAuthenticated: data.success,
-          accessToken: data.accessToken
+          // isAuthenticated: data.success,
+          // accessToken: data.accessToken
         });
       })
       .catch(error => {
@@ -58,11 +59,10 @@ export function getCurrentUser() {
 
     getUser()
       .then(data => {
-        
         dispatch({
           type: GET_USER_SUCCESS,
           user: data.user,
-          isAuthenticated: data.success,
+          // isAuthenticated: data.success,
         });
       })
       .catch(error => {
@@ -147,20 +147,20 @@ export function refreshToken(refreshToken, request,) {
   }
 }
 
-export function verifyAuthorization() {
-  return function(dispatch) {
-    dispatch({ type: VERIFY_AUTHORIZATION_REQUEST });
+// export function verifyAuthorization() {
+//   return function(dispatch) {
+//     dispatch({ type: VERIFY_AUTHORIZATION_REQUEST });
 
-    const accessToken = getCookie('accessToken');
-    console.log('accessToken: ', accessToken);
+//     const accessToken = getCookie('accessToken');
+//     console.log('accessToken: ', accessToken);
 
-    if (!!accessToken) {
-      dispatch(getCurrentUser({ accessToken: `Bearer ${accessToken}` }));
-    }
+//     if (!!accessToken) {
+//       dispatch(getCurrentUser({ accessToken: `Bearer ${accessToken}` }));
+//     }
 
-    dispatch({ type: VERIFY_AUTHORIZATION_SUCCESS });
-  }
-}
+//     dispatch({ type: VERIFY_AUTHORIZATION_SUCCESS });
+//   }
+// }
 
 export function logInUser(email, password) {
   return function(dispatch) {
@@ -174,8 +174,8 @@ export function logInUser(email, password) {
         dispatch({
           type: LOG_IN_SUCCESS,
           user: data.user,
-          isAuthenticated: data.success,
-          accessToken: data.accessToken
+          // isAuthenticated: data.success,
+          // accessToken: data.accessToken
         });
       })
       .catch(error => {
@@ -200,5 +200,11 @@ export function logOutUser(refreshToken) {
         console.error('Error:', error);
         dispatch({ type: LOG_OUT_FAILED });
       })
+  }
+}
+
+export function resetPasswordRecoveryReducers() {
+  return function(dispatch) {
+    dispatch({ type: RESET_PASSWORD_RECOVERY_REDUCERS });
   }
 }

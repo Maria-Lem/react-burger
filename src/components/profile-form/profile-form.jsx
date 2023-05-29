@@ -41,7 +41,7 @@ function ProfileForm() {
   const handleChange = (e, dataValue) => {
     console.log('dataValue: ', dataValue);
     const target = e.target;
-    const newValue = e?.target?.value;
+    const newValue = e.target.value;
     console.log('newValue: ', newValue);
 
     setForm(prevFormData => ({
@@ -61,7 +61,7 @@ function ProfileForm() {
     console.log('clicked');
     dispatch(editUser(form.name, form.email, form.password, accessToken));
     setIsFormChanged(false);
-  }, [accessToken, dispatch, form.email, form.name, form.password])
+  }, [accessToken, dispatch, form.email, form.name, form.password]);
 
   return (
     <Form>

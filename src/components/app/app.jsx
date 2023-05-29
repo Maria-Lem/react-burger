@@ -21,6 +21,7 @@ import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 import ProtectedRouteElement from '../protected-route/protected-route';
 import { getCurrentUser, verifyAuthorization } from '../../services/actions/user';
 import Loader from '../loader/loader';
+import OrderLibrary from '../../pages/order-library/order-library';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,18 +29,22 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const { isAuthenticated, accessToken, verifyAuthorizationSuccess } = useSelector(store => ({
+  const { isAuthenticated, accessToken, verifyAuthorizationSuccess, logInSuccess } = useSelector(store => ({
     isAuthenticated: store.user.isAuthenticated,
     accessToken: store.user.accessToken,
-    verifyAuthorizationSuccess: store.user.verifyAuthorizationSuccess
+    verifyAuthorizationSuccess: store.user.verifyAuthorizationSuccess,
+    logInSuccess: store.user.logInSuccess,
   }));
+  console.log('logInSuccess: ', logInSuccess);
   // console.log('verifyAuthorizationSuccess: ', verifyAuthorizationSuccess);
-  console.log('accessToken: ', accessToken);
+  // console.log('accessToken: ', accessToken);
   // console.log('isAuthenticated: ', isAuthenticated);
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    dispatch(getCurrentUser());
+    if (logInSuccess) {
+      dispatch(getCurrentUser());
+    }
     // dispatch(verifyAuthorization());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -54,9 +59,9 @@ function App() {
     navigate(-1);
   };
 
-  if (!verifyAuthorizationSuccess) {
-    return <Loader />;
-  }
+  // if (!verifyAuthorizationSuccess) {
+  //   return <Loader />;
+  // }
   
   return (
     <div className={styles.app}>
@@ -65,6 +70,7 @@ function App() {
           <Route path="/" element={<Homepage />}/>
             <Route element={<Layout />}>
               <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
+              <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
