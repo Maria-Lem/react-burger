@@ -5,7 +5,7 @@ import ProfileMenu from "../../components/profile-menu/profile-menu";
 
 function Profile() {
   return (
-    <main className={`${styles.main} pt-30`}>
+    <main className={`${styles.profileContent} pt-30`}>
       <ProfileMenu />
       <ProfileForm />
     </main>

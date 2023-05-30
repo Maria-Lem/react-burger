@@ -105,12 +105,12 @@ export const resetPasswordRequest = (password, token) => {
   });
 };
 
-export const refreshTokenRequest = (refreshToken) => {
+export const refreshTokenRequest = () => {
   return request(`${burgerApiUrl.baseUrl}/auth/token`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
     body: JSON.stringify({
-      token: refreshToken
+      token: localStorage.getItem('refreshToken')
     })
   });
 };

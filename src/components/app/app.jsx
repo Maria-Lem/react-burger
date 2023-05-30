@@ -68,21 +68,20 @@ function App() {
         <AppHeader />
         <Routes location={background || location}>
           <Route path="/" element={<Homepage />}/>
-            <Route element={<Layout />}>
-              <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
-              <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/ingredients/:id" element={<Ingredient />} />
-            </Route>
+          <Route element={<Layout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/ingredients/:id" element={<Ingredient />} />
+          </Route>
+          <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
+          <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
-          {
-            background &&
-            (
-            <Routes>
+        {
+          background && (
+          <Routes>
             <Route 
               path="ingredients/:id" 
               element={
@@ -91,9 +90,9 @@ function App() {
                 </Modal>
               }
             />
-            </Routes>
+          </Routes>
           )
-          }
+        }
     </div>
   );
 }

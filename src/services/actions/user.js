@@ -66,8 +66,13 @@ export function getCurrentUser() {
         });
       })
       .catch(error => {
-        console.error('Error:', error);
-        dispatch({ type: GET_USER_FAILED });
+        if (error.message === 'jwt expired') {
+          console.log('jwt expired');
+          dispatch(refreshToken());
+        } else {
+          console.error('Error:', error);
+          dispatch({ type: GET_USER_FAILED });
+        }
       });
   }
 }
@@ -120,22 +125,26 @@ export function editUser(name, email, password, accessToken) {
         })
       })
       .catch(error => {
-        console.error('Error:', error);
-        dispatch({ type: EDIT_USER_FAILED });
-      })
+        if (error.message === 'jwt expired') {
+          console.log('jwt expired');
+          dispatch(refreshToken());
+        } else {
+          console.error('Error:', error);
+          dispatch({ type: EDIT_USER_FAILED });
+        }})
   }
 }
 
-export function refreshToken(refreshToken, request,) {
+export function refreshToken() {
   return function(dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
-    refreshTokenRequest(refreshToken)
+    refreshTokenRequest()
       .then(data => {
+        console.log('data: ', data);
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch({ type: REFRESH_TOKEN_SUCCESS });
-        return data;
       })
       // .then(data => {
       //   getCurrentUser(data.accessToken.split('Bearer ')[1]);

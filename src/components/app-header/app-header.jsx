@@ -25,7 +25,7 @@ function AppHeader() {
           </li>
           <li className={`${styles.menu__item} pl-5 pr-5`}>
             <NavLink to="/profile/orders" className={activeLinkStyle}>
-              <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+              <ListIcon type={pathname === "/profile/orders" ? "primary" : "secondary"} />
               <span className={`text text_type_main-default ml-2`}>Лента заказов</span>
             </NavLink>
           </li>
@@ -33,7 +33,7 @@ function AppHeader() {
       </nav>
       <Link to="/" className={styles.logo}><Logo /></Link>
       <div className={`${styles.menu__item} pl-5 pr-5`}>
-        <NavLink to="/profile" className={activeLinkStyle}>
+        <NavLink end to="/profile" className={activeLinkStyle}>
           <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />
           <span className={`text text_type_main-default ml-2`}>Личный кабинет</span>
         </NavLink>

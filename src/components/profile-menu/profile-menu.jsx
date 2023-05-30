@@ -8,7 +8,7 @@ function ProfileMenu() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const activeLinkStyle = ({ isActive }) => {
+  const activeLinkStyle = ({ isActive }) =>  {
     return isActive ? `${styles.activeLink}` : `${styles.link} text_color_inactive`;
   };
 
@@ -30,7 +30,7 @@ function ProfileMenu() {
     <nav className={`${styles.profileMenu} pl-5 pr-15`}>
       <ul className={`${styles.menuList} mb-5 text text_type_main-medium`}>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
-          <NavLink to="/profile" className={activeLinkStyle}>Профиль</NavLink>
+          <NavLink end to="/profile" className={activeLinkStyle}>Профиль</NavLink>
         </li>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
           <NavLink to="/profile/orders" className={activeLinkStyle}>История заказов</NavLink>

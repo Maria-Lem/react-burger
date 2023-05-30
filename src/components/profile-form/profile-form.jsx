@@ -7,7 +7,6 @@ import FormInputContainer from '../form/form-input-container/form-input-containe
 import FormSubmitBtn from '../form/form-submit-btn/form-submit-btn';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { editUser } from '../../services/actions/user';
 import { getCookie } from '../../utils/utils';
@@ -19,11 +18,17 @@ function ProfileForm() {
     password: '',
   });
   const [isFormChanged, setIsFormChanged] = useState(false);
-  console.log('isFormChanged: ', isFormChanged);
+  const [active, setActive] = useState('');
+  // console.log('active: ', active);
+  // console.log('isFormChanged: ', isFormChanged);
+
+  const inputNameRef = useRef(null);
+  const inputEmailRef = useRef(null);
+  const inputPasswordRef = useRef(null);
 
   const dispatch = useDispatch();
-
   const { user } = useSelector(store => store.user);
+
   const accessToken = 'Bearer ' + getCookie('accessToken');
 
   useEffect(() => {
@@ -36,7 +41,15 @@ function ProfileForm() {
         email: user.email,
       }))
     }
-  }, [user])
+  }, [user]);
+
+  const handleFocus = useCallback((inputType) => {
+    setActive(inputType);
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    setActive('');
+  }, []);
   
   const handleChange = (e, dataValue) => {
     console.log('dataValue: ', dataValue);
@@ -52,9 +65,42 @@ function ProfileForm() {
     newValue === dataValue ? setIsFormChanged(false) : setIsFormChanged(true);
   };
 
-  const handleCancel = useCallback((e) => {
+  const handleCancel = useCallback(() => {
+    setForm(prevFormData => ({
+      ...prevFormData,
+      name: user.name,
+      email: user.email,
+    }));
     setIsFormChanged(false);
-  }, []);
+
+  }, [user.email, user.name]);
+
+  const onNameIconClick = () => {
+    // setForm(formData => ({
+    //   ...formData,
+    //   name: user.name
+    // }));
+
+    setTimeout(() => inputNameRef.current.focus(), 0);
+  };
+
+  const onEmailIconClick = () => {
+    // setForm(formData => ({
+    //   ...formData,
+    //   email: user.email
+    // }));
+
+    setTimeout(() => inputEmailRef.current.focus(), 0);
+  };
+
+  const onPasswordIconClick = () => {
+    // setForm(formData => ({
+    //   ...formData,
+    //   password: ''
+    // }));
+
+    setTimeout(() => inputPasswordRef.current.focus(), 0);
+  };
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -70,9 +116,14 @@ function ProfileForm() {
           type={'text'}
           placeholder={'Имя'}
           onChange={(e) => handleChange(e, user.name)}
+          onFocus={() => handleFocus('name')}
+          onBlur={handleBlur}
+          onIconClick={onNameIconClick}
+          // onIconClick={(e) => onIconClick(e, user.name)}
+          ref={inputNameRef}
           value={form.name}
           name={'name'}
-          icon={'EditIcon'}
+          icon={active === 'name' ? 'CloseIcon' : 'EditIcon'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}
@@ -83,9 +134,14 @@ function ProfileForm() {
           type={'text'}
           placeholder={'Логин'}
           onChange={(e) => handleChange(e, user.email)}
+          onFocus={() => handleFocus('email')}
+          onBlur={handleBlur}
+          onIconClick={onEmailIconClick}
+          // onIconClick={(e) => onIconClick(e, user.email)}
+          ref={inputEmailRef}
           value={form.email}
           name={'email'}
-          icon={'EditIcon'}
+          icon={active === 'email' ? 'CloseIcon' : 'EditIcon'}
           error={false}
           errorText={'Ошибка'}
           size={'default'}
@@ -96,9 +152,14 @@ function ProfileForm() {
             type={'text'}
             placeholder={'Пароль'}
             onChange={(e) => handleChange(e, user.password)}
+            onFocus={() => handleFocus('password')}
+            onBlur={handleBlur}
+            onIconClick={onPasswordIconClick}
+            // onIconClick={(e) => onIconClick(e, user.password)}
+            ref={inputPasswordRef}
             value={form.password}
             name={'password'}
-            icon={'EditIcon'}
+            icon={active === 'password' ? 'CloseIcon' : 'EditIcon'}
             error={false}
             errorText={'Ошибка'}
             size={'default'}
