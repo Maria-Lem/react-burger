@@ -7,8 +7,6 @@ import BurgerIngredients from '../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 
 function Homepage() {
-  // console.log('BurgerConstructor: ', BurgerConstructor);
-
   return (
     <main className={styles.main}>
       <DndProvider backend={HTML5Backend}>

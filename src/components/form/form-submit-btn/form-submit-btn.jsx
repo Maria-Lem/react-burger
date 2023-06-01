@@ -1,9 +1,9 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
-function FormSubmitBtn({ buttonName, handleSubmit }) {
+function FormSubmitBtn({ buttonName }) {
   return (
-    <Button htmlType="button" type="primary" size="medium" onClick={handleSubmit}>
+    <Button htmlType="submit" type="primary" size="medium">
       {buttonName}
     </Button>
   )

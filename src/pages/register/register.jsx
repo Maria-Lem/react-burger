@@ -47,7 +47,7 @@ function Register() {
   }
 
   return (
-    <Form title="Регистрация">
+    <Form title="Регистрация" handleSubmit={handleSubmit}>
       <FormInputContainer>
         <Input
           type={'text'}
@@ -80,7 +80,7 @@ function Register() {
       />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Зарегистрироваться" handleSubmit={handleSubmit} />
+        <FormSubmitBtn buttonName="Зарегистрироваться" />
       </div>
       <FormAdditionalActions text="Уже зарегистрированы?" linkName="Войти" pageName="login" />
     </Form>

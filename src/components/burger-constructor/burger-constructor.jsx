@@ -15,17 +15,20 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Loader from '../loader/loader';
 import Failed from '../failed/failed';
+import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
-  const { bun, filling, totalPrice, orderRequest, orderFailed } = useSelector(store => ({
+  const { bun, filling, totalPrice, orderRequest, orderFailed, user } = useSelector(store => ({
     bun: store.burger.bun,
     filling: store.burger.filling,
     totalPrice: store.burger.totalPrice,
     orderRequest: store.order.orderRequest,
     orderFailed: store.order.orderFailed,
+    user: store.user.user,
   }));
 
   const [{ isHover }, dropRef] = useDrop({
@@ -45,10 +48,14 @@ function BurgerConstructor() {
   };
 
   const openModal = () => {
-    setIsOpen(true);
-    dispatch(createNewOrder(orderListId()));
-    if (!orderRequest && !orderFailed) {
-      return dispatch(resetBurger());
+    if (!user) {
+      navigation('/login');
+    } else {
+      setIsOpen(true);
+      dispatch(createNewOrder(orderListId()));
+      if (!orderRequest && !orderFailed) {
+        return dispatch(resetBurger());
+      }
     }
   }
 

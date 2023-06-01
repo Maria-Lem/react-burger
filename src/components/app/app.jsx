@@ -22,6 +22,7 @@ import ProtectedRouteElement from '../protected-route/protected-route';
 import { getCurrentUser, verifyAuthorization } from '../../services/actions/user';
 import Loader from '../loader/loader';
 import OrderLibrary from '../../pages/order-library/order-library';
+import { resetBurger } from '../../services/actions/burgerConstructor';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function App() {
     verifyAuthorizationSuccess: store.user.verifyAuthorizationSuccess,
     logInSuccess: store.user.logInSuccess,
   }));
-  console.log('logInSuccess: ', logInSuccess);
+  // console.log('logInSuccess: ', logInSuccess);
   // console.log('verifyAuthorizationSuccess: ', verifyAuthorizationSuccess);
   // console.log('accessToken: ', accessToken);
   // console.log('isAuthenticated: ', isAuthenticated);
@@ -45,7 +46,6 @@ function App() {
     if (logInSuccess) {
       dispatch(getCurrentUser());
     }
-    // dispatch(verifyAuthorization());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -59,9 +59,9 @@ function App() {
     navigate(-1);
   };
 
-  // if (!verifyAuthorizationSuccess) {
-  //   return <Loader />;
-  // }
+  window.onbeforeunload = () => {
+    dispatch(resetBurger());
+  };
   
   return (
     <div className={styles.app}>

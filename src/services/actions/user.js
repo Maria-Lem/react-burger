@@ -65,9 +65,9 @@ export function getCurrentUser() {
           // isAuthenticated: data.success,
         });
       })
-      .catch(error => {
-        if (error.message === 'jwt expired') {
-          console.log('jwt expired');
+      .catch((error) => {
+        if (error === 'Error: 403' || error.message === 'jwt expired' || error.message === 'You should be authorised') {
+          console.log(error);
           dispatch(refreshToken());
         } else {
           console.error('Error:', error);
@@ -125,7 +125,7 @@ export function editUser(name, email, password, accessToken) {
         })
       })
       .catch(error => {
-        if (error.message === 'jwt expired') {
+        if (error === 'Error: 403' || error.message === 'jwt expired' || error.message === 'You should be authorised') {
           console.log('jwt expired');
           dispatch(refreshToken());
         } else {
@@ -141,14 +141,11 @@ export function refreshToken() {
 
     refreshTokenRequest()
       .then(data => {
-        console.log('data: ', data);
+        // console.log('data: ', data);
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
         dispatch({ type: REFRESH_TOKEN_SUCCESS });
       })
-      // .then(data => {
-      //   getCurrentUser(data.accessToken.split('Bearer ')[1]);
-      // })
       .catch(error => {
         console.error('Error:', error);
         dispatch({ type: REFRESH_TOKEN_FAILED });

@@ -25,8 +25,8 @@ function ProfileForm() {
   const inputNameRef = useRef(null);
   const inputEmailRef = useRef(null);
   const inputPasswordRef = useRef(null);
-
   const dispatch = useDispatch();
+
   const { user } = useSelector(store => store.user);
 
   const accessToken = 'Bearer ' + getCookie('accessToken');
@@ -110,7 +110,7 @@ function ProfileForm() {
   }, [accessToken, dispatch, form.email, form.name, form.password]);
 
   return (
-    <Form>
+    <Form handleSubmit={handleSubmit}>
       <FormInputContainer>
         <Input
           type={'text'}
@@ -169,7 +169,7 @@ function ProfileForm() {
         <Button htmlType="button" type="secondary" size="medium" onClick={handleCancel}>
           Отмена
         </Button>
-        <FormSubmitBtn buttonName="Сохранить" handleSubmit={handleSubmit} />
+        <FormSubmitBtn buttonName="Сохранить" />
       </div>}
     </Form>
   );

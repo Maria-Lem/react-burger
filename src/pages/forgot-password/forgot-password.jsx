@@ -46,7 +46,7 @@ function ForgotPassword() {
   }
 
   return (
-    <Form title="Восстановление пароля">
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
       <FormInputContainer>
         <Input
           type={'text'}
@@ -60,7 +60,7 @@ function ForgotPassword() {
         />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Восстановить" handleSubmit={handleSubmit} />
+        <FormSubmitBtn buttonName="Восстановить" />
       </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
       {/* <FormAdditionalActions text="Код для изменения пароля был отправлен Вам на почту." linkName="Изменить пароль" pageName="reset-password" /> */}

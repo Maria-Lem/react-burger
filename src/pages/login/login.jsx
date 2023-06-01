@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -23,10 +23,11 @@ function Login() {
     user: store.user.user,
     logOutRequest: store.user.logOutRequest
   }));
-  console.log('logOutRequest: ', logOutRequest);
-  // console.log('user: ', user);
   
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const from = location.state?.from || '/';
   
   const handleChange = useCallback((e) => {
     const target = e.target;
@@ -44,15 +45,13 @@ function Login() {
   }, [dispatch, form.email, form.password]);
   
   if (user && !logOutRequest) {
-    // console.log(user)
     return (
-      <Navigate to="/" replace />
+      <Navigate to={from} replace />
     );
   }
-    // console.log('user', user);
 
   return (
-    <Form title="Вход">
+    <Form title="Вход" handleSubmit={handleSubmit}>
       <FormInputContainer>
         <Input
           type={'text'}
@@ -73,7 +72,7 @@ function Login() {
         />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Войти" handleSubmit={handleSubmit} />
+        <FormSubmitBtn buttonName="Войти" />
       </div>
       <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="register" />
       <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="forgot-password" />

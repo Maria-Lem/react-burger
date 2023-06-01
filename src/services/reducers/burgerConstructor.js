@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import update from 'immutability-helper';
 import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT, RESET_INGREDIENT } from "../actions/burgerConstructor";
 
@@ -28,7 +27,7 @@ export function burgerConstructorReducer(state = initialBurgerConstructorState, 
       } else {
         return { 
           ...state,
-          filling: [...state.filling, { ...action.ingredient, nanoId: nanoid()}],
+          filling: [...state.filling, action.ingredient],
           totalPrice: state.totalPrice + action.ingredient.price,
         };
       }

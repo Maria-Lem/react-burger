@@ -1,7 +1,9 @@
 import { useCallback } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import styles from "./profile-menu.module.css";
+
 import { logOutUser } from "../../services/actions/user";
 
 function ProfileMenu() {
@@ -21,10 +23,6 @@ function ProfileMenu() {
   },
   [dispatch, navigate, refreshToken]
   );
-  // const handleLogOut = () => {
-  //   dispatch(logOutUser(refreshToken));
-  //   navigate('/login', {replace: true});
-  // }
 
   return (
     <nav className={`${styles.profileMenu} pl-5 pr-15`}>

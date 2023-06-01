@@ -42,7 +42,6 @@ function ResetPassword() {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     dispatch(resetPassword(form.password, form.token));
-    // console.log('reset');
   }, [dispatch, form.password, form.token]);
 
   if (!user && !passwordRecoverySuccess) {
@@ -58,7 +57,7 @@ function ResetPassword() {
   }
 
   return (
-    <Form title="Восстановление пароля">
+    <Form title="Восстановление пароля" handleSubmit={handleSubmit}>
       <FormInputContainer>
         <PasswordInput
           onChange={handleChange}
@@ -79,7 +78,7 @@ function ResetPassword() {
         />
       </FormInputContainer>
       <div className="mb-20">
-        <FormSubmitBtn buttonName="Сохранить" handleSubmit={handleSubmit} />
+        <FormSubmitBtn buttonName="Сохранить" />
       </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
     </Form>

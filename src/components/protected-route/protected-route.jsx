@@ -1,20 +1,12 @@
 import {  useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import Loader from "../loader/loader";
-import { getCurrentUser } from "../../services/actions/user";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRouteElement({ element }) {
-  const { user, isAuthenticated, verifyAuthorizationSuccess } = useSelector(store => ({
+  const { user } = useSelector(store => ({
     user: store.user.user,
-    isAuthenticated: store.user.user,
-    verifyAuthorizationSuccess: store.user.verifyAuthorizationSuccess,
   }));
 
-  // if (!isAuthenticated) {
-  //   return (
-  //   <Loader />
-  //   );
-  // }
+  const location = useLocation();
   
-  return user ? element : <Navigate to="/login" replace />;
+  return user ? element : <Navigate to='/login' state={{ from: location }} />;
 }
