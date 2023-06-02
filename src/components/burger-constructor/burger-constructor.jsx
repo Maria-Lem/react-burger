@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
+
+import styles from './burger-constructor.module.css';
+
 import { createNewOrder } from '../../services/actions/order';
 import { addIngredient, deleteIngredient } from '../../services/actions/burgerConstructor';
 import { resetBurger } from '../../services/actions/burgerConstructor';
 
-import styles from './burger-constructor.module.css';
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
 import Modal from '../modals/modal/modal';
 import OrderDetails from '../modals/order-details/order-details';
+import Loader from '../loader/loader';
+import Failed from '../failed/failed';
 
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import Loader from '../loader/loader';
-import Failed from '../failed/failed';
-import { useNavigate } from 'react-router-dom';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,4 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+
 import styles from './app-header.module.css';
 
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -24,8 +25,8 @@ function AppHeader() {
             </NavLink>
           </li>
           <li className={`${styles.menu__item} pl-5 pr-5`}>
-            <NavLink to="/profile/orders" className={activeLinkStyle}>
-              <ListIcon type={pathname === "/profile/orders" ? "primary" : "secondary"} />
+            <NavLink to="/feed" className={activeLinkStyle}>
+              <ListIcon type={pathname === "/pfeed" ? "primary" : "secondary"} />
               <span className={`text text_type_main-default ml-2`}>Лента заказов</span>
             </NavLink>
           </li>
