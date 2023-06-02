@@ -8,6 +8,11 @@
   cursor: grab;
 }
 
+.link {
+  color: #F2F2F3;
+  text-decoration: none;
+}
+
 .counter {
   position: absolute;
   top: 0;

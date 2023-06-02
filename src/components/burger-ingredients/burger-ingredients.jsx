@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Route, useLocation } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { setIngredientDetail,removeIngredientDetail } from '../../services/actions/ingredient';
 import { filterIngredientElements } from '../../utils/utils';
@@ -54,12 +55,12 @@ function BurgerIngredients() {
       openModal={() => openModal(card)}
       ingredient={card}
     />
-  ));
+    ));
 
   const bun = useMemo(
     () => filterIngredientElements(ingredientElement, 'bun'),
     [ingredientElement]
-  );
+    );
   const sauce = useMemo(
     () => filterIngredientElements(ingredientElement, 'sauce'),
     [ingredientElement]
@@ -96,9 +97,14 @@ function BurgerIngredients() {
           </BurgerIngredientsList>
         </div>
       </div>
-      <Modal openModal={isOpen} closeModal={closeModal}>
-        <IngredientDetails />
-      </Modal>
+      {/* {
+        state &&
+        <Route path="/ingredients/:id">
+          <Modal  closeModal={closeModal}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      } */}
     </>
   )
 }

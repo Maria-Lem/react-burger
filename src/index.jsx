@@ -7,6 +7,8 @@ import { rootReducer } from './services/reducers';
 import './index.css';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { loadFromLocalStorage, saveToLocalStorage } from './utils/utils';
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
@@ -14,13 +16,19 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store = createStore(rootReducer, enhancer);
+const store = createStore(rootReducer, loadFromLocalStorage(), enhancer);
+
+store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

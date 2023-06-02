@@ -25,7 +25,7 @@ function Modal({ children, openModal, closeModal }) {
   }, [closeModal, openModal]);
   
   if (!openModal) return null;
-
+  
   return ReactDOM.createPortal(
     (
       <>
@@ -43,10 +43,10 @@ function Modal({ children, openModal, closeModal }) {
   );
 }
 
-Modal.propTypes = {
-  children: PropTypes.object.isRequired,
-  openModal: PropTypes.bool.isRequired,
-  closeModal: PropTypes.func.isRequired
-};
+// Modal.propTypes = {
+//   children: PropTypes.object.isRequired,
+//   openModal: PropTypes.bool.isRequired,
+//   closeModal: PropTypes.func.isRequired
+// };
 
 export default Modal;

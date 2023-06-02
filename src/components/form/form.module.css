@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 680px;
+}
+
+.title {
+  text-align: center;
+}

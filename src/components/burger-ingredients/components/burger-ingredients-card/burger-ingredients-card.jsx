@@ -6,8 +6,11 @@ import styles from './burger-ingredients-card.module.css';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, useLocation } from 'react-router-dom';
 
 function BurgerIngredientsCard({ ingredient, openModal }) {
+  const location = useLocation();
+
   const { bun, filling } = useSelector(store => ({
     bun: store.burger.bun,
     filling: store.burger.filling
@@ -32,7 +35,12 @@ function BurgerIngredientsCard({ ingredient, openModal }) {
   }, [bun, filling]);
   
   return (
-    <>
+    <Link 
+      key={ingredient._id}
+      to={{pathname: `/ingredients/${ingredient._id}`}}
+      state={{ background: location }}
+      className={`${styles.link}`} 
+    >
       <li ref={dragRef} style={{opacity}} className={`${styles.card} pl-4 pr-2 mb-8`} onClick={openModal} draggable>
         {
           quantity > 0 && 
@@ -45,7 +53,7 @@ function BurgerIngredientsCard({ ingredient, openModal }) {
         </div>
         <p className={`${styles.cardTitle} text text_type_main-default`}>{ingredient.name}</p>
       </li>
-    </>
+    </Link>
   )
 }
 

@@ -1,0 +1,7 @@
+.formInputContainer > div {
+  width: 480px;
+}
+
+.formInputContainer > div > div {
+  width: 480px;
+}
