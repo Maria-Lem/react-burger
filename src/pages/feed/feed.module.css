@@ -1,0 +1,19 @@
+.feedContainer {
+  width: 608px;
+  max-width: 99%;
+  max-height: 73vh;
+  overflow-y: scroll;
+}
+
+.feedContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feedContainer::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.feedContainer::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
+}

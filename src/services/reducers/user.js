@@ -1,4 +1,3 @@
-import { getCookie } from '../../utils/utils';
 import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
@@ -18,9 +17,6 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAILED,
-  // VERIFY_AUTHORIZATION_REQUEST,
-  // VERIFY_AUTHORIZATION_SUCCESS,
-  // VERIFY_AUTHORIZATION_FAILED,
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
@@ -32,8 +28,6 @@ import {
 
 const initialUserState = {
   user: null,
-  // isAuthenticated: false,
-  // accessToken: null,
 
   registerRequest: false,
   registerSuccess: false,
@@ -60,10 +54,6 @@ const initialUserState = {
   refreshTokenSuccess: false,
   refreshTokenFailed: false,
 
-  // verifyAuthorizationRequest: false,
-  // verifyAuthorizationSuccess: false,
-  // verifyAuthorizationFailed: false,
-
   logInRequest: false,
   logInSuccess: false,
   logInFailed: false,
@@ -87,8 +77,6 @@ export const userReducer = (state = initialUserState, action) => {
       return {
         ...state,
         user: action.user,
-        // isAuthenticated: action.success,
-        // accessToken: action.accessToken,
         registerRequest: false,
         registerSuccess: true,
         registerFailed: false,
@@ -116,8 +104,6 @@ export const userReducer = (state = initialUserState, action) => {
         getUserRequest: false,
         getUserSuccess: true,
         getUserFailed: false,
-        // isAuthenticated: action.success,
-        // accessToken: action.accessToken,
         user: action.user
       };
     }
@@ -222,30 +208,6 @@ export const userReducer = (state = initialUserState, action) => {
         refreshTokenFailed: true,
       };
     }
-    // case VERIFY_AUTHORIZATION_REQUEST: {
-    //   return {
-    //     ...state,
-    //     verifyAuthorizationRequest: true,
-    //     verifyAuthorizationSuccess: false,
-    //     verifyAuthorizationFailed: false,
-    //   };
-    // }
-    // case VERIFY_AUTHORIZATION_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     verifyAuthorizationRequest: false,
-    //     verifyAuthorizationSuccess: true,
-    //     verifyAuthorizationFailed: false,
-    //   };
-    // }
-    // case VERIFY_AUTHORIZATION_FAILED: {
-    //   return {
-    //     ...state,
-    //     verifyAuthorizationRequest: false,
-    //     verifyAuthorizationSuccess: false,
-    //     verifyAuthorizationFailed: true,
-    //   };
-    // }
     case LOG_IN_REQUEST: {
       return {
         ...state,
@@ -260,8 +222,6 @@ export const userReducer = (state = initialUserState, action) => {
         logInRequest: false,
         logInSuccess: true,
         logInFailed: false,
-        // isAuthenticated: action.success,
-        // accessToken: action.accessToken,
         user: action.user
       };
     }
@@ -288,8 +248,6 @@ export const userReducer = (state = initialUserState, action) => {
         logOutSuccess: true,
         logOutFailed: false,
         logInSuccess: false,
-        // isAuthenticated: false,
-        // accessToken: null,
         user: null,
       };
     }
