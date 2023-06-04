@@ -3,18 +3,23 @@ import ReactDOM from 'react-dom/client';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/reducers';
-import './index.css';
-import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+
+import './index.css';
+
+import { rootReducer } from './services/reducers';
+import { socketMiddleware } from './services/middleware/socketMiddleware';
 import { loadFromLocalStorage, saveToLocalStorage } from './utils/utils';
+import { wsActions, wsUrl } from './utils/variables';
+
+import App from './components/app/app';
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
   : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions)));
 
 const store = createStore(rootReducer, loadFromLocalStorage(), enhancer);
 

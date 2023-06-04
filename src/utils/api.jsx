@@ -1,11 +1,12 @@
 import { getCookie } from "./utils";
+import { burgerApiUrl } from "./variables";
 
-const burgerApiUrl = {
-  baseUrl: 'https://norma.nomoreparties.space/api',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
+// const burgerApiUrl = {
+//   baseUrl: 'https://norma.nomoreparties.space/api',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// };
 
 const getResponse = (res) => {
   if (res.ok) {
