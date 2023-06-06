@@ -11,7 +11,7 @@ import { resetBurger } from '../../services/actions/burgerConstructor';
 
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
 import Modal from '../modals/modal/modal';
-import OrderDetails from '../modals/order-details/order-details';
+import OrderCreated from '../modals/order-created/order-created';
 import Loader from '../loader/loader';
 import Failed from '../failed/failed';
 
@@ -125,7 +125,7 @@ function BurgerConstructor() {
           : <Modal openModal={isOpen} closeModal={closeModal}>
               {orderFailed
                 ? <Failed />
-                : <OrderDetails />
+                : <OrderCreated />
               }
             </Modal>
       }

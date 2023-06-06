@@ -23,6 +23,7 @@ import IngredientDetails from '../modals/ingredient-details/ingredient-details';
 import ProtectedRouteElement from '../protected-route/protected-route';
 import OrderLibrary from '../../pages/order-library/order-library';
 import Feed from '../../pages/feed/feed';
+import OrderDetails from '../modals/order-details/order-details';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/ingredients/:id" element={<Ingredient />} />
+            <Route path="/feed/:id" element={<OrderDetails />} />
           </Route>
           <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
           <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
@@ -75,6 +77,14 @@ function App() {
               element={
                 <Modal openModal={true} closeModal={handleClose}>
                   <IngredientDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path="feed/:id"
+              element={
+                <Modal openModal={true} closeModal={handleClose}>
+                  <OrderDetails />
                 </Modal>
               }
             />

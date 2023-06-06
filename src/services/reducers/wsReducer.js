@@ -11,7 +11,7 @@ const initialWsState = {
   wsOpen: false,
   wsError: false,
   wsClosed: false,
-  orders: null,
+  orders: [],
   total: null,
   totalToday: null,
 };

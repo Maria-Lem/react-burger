@@ -2,8 +2,6 @@ import IngredientDetails from '../../components/modals/ingredient-details/ingred
 import styles from './ingredient.module.css';
 
 function Ingredient() {
-
-
   return (
     <div className={`${styles.ingredient}`}>
       <IngredientDetails align="center" />

@@ -6,10 +6,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      const { user } = getState().user;
-      if (type === wsInit && user) {
+      // const { user } = getState().user;
+      if (type === wsInit) {
         // объект класса WebSocket
-        socket = new WebSocket(`${wsUrl}?token=${user.token}`);
+        socket = new WebSocket(wsUrl);
       }
       if (socket) {
 
@@ -37,11 +37,11 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onClose, payload: event });
         };
 
-        if (type === wsSendMessage) {
-          // функция для отправки сообщения на сервер
-          const message = {...payload, token: user.token};
-          socket.send(JSON.stringify(message))
-        }
+        // if (type === wsSendMessage) {
+        //   // функция для отправки сообщения на сервер
+        //   const message = {...payload, token: user.token};
+        //   socket.send(JSON.stringify(message))
+        // }
       }
 
       next(action);
