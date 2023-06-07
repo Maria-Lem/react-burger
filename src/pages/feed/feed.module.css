@@ -47,3 +47,22 @@
 .ordersTable {
   display: flex;
 }
+
+.orderTableContent {
+  width: 272px;
+  height: 152px;
+  overflow-x: scroll;
+}
+
+.orderTableContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.orderTableContent::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.orderTableContent::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 1px solid #8585AD;
+}

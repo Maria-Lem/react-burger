@@ -1,5 +1,5 @@
-export default function OrderNumber() {
+export default function OrderNumber({ orderNum }) {
   return (
-    <span></span>
+    <p className={`text text_type_digits-default`}>{orderNum}</p>
   );
 }

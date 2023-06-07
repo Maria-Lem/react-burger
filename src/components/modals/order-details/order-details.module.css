@@ -1,0 +1,39 @@
+.ingredients {
+  padding: 0;
+  width: 608px;
+  max-width: 99%;
+  min-height: 310px;
+  max-height: 310px;
+  list-style-type: none;
+  overflow-y: scroll;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
+}
+
+.ingredientInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.orderPrice {
+  display: flex;
+  align-items: center;
+}
+
+.orderInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

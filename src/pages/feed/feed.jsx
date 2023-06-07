@@ -7,6 +7,8 @@ import { wsConnectionClosed, wsConnectionRequest } from '../../services/actions/
 
 import OrderCard from '../../components/feed-components/order-card/order-card';
 import OrderPreparationTitle from '../../components/feed-components/order-preparation-title/order-preparation-title';
+import TotalNumbers from '../../components/feed-components/total-numbers/total-numbers';
+import OrderNumber from '../../components/feed-components/order-number/order-number';
 
 export default function Feed() {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ export default function Feed() {
   // console.log('orders: ', orders);
 
   useEffect(() => {
-    dispatch(wsConnectionRequest());
+    dispatch(wsConnectionRequest('wss://norma.nomoreparties.space/orders/all'));
 
     return () => {
       dispatch(wsConnectionClosed());
@@ -34,7 +36,7 @@ export default function Feed() {
       orderCreatedAt={order.createdAt}
       orderIng={order.ingredients}
     />
-    ));
+  ));
     // console.log('orderElement: ', orderElement);
 
   return (
@@ -45,27 +47,39 @@ export default function Feed() {
           {orderElement}
         </ul>
         <div className={`${styles.orderPreparation} ml-15`}>
-          <div className={styles.ordersTable}>
-            <div>
+          <div className={`${styles.ordersTable} mb-15`}>
+            <div className={`mr-9`}>
               <OrderPreparationTitle title="Готовы:" />
-              <div>
-                <span></span>
+              <div className={`${styles.orderTableContent} mt-6`}>
+                {orders.map(order => {
+                  if (order.status === 'done') {
+                    return (
+                      <OrderNumber orderNum={order.number} />
+                    );
+                  }
+                })}
               </div>
             </div>
-            <div>
+            <div className={``}>
               <OrderPreparationTitle title="В работе:" />
-              <div>
-                <span></span>
+              <div className={`${styles.orderTableContent} mt-6`}>
+              {orders.map(order => {
+                  if (order.status === 'pending') {
+                    return (
+                      <OrderNumber orderNum={order.number} />
+                    );
+                  }
+                })}
               </div>
             </div>
           </div>
-          <div>
+          <div className={` mb-15`}>
             <OrderPreparationTitle title="Выполнено за все время:" />
-            <p></p>
+            <TotalNumbers totalNum={total} />
           </div>
-          <div>
+          <div className={``}>
             <OrderPreparationTitle title="Выполнено за сегодня:" />
-            <p></p>
+            <TotalNumbers totalNum={totalToday} />
           </div>
   
         </div>

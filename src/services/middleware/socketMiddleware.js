@@ -1,6 +1,7 @@
-export const socketMiddleware = (wsUrl, wsActions) => {
+export const socketMiddleware = (wsActions) => {
   return store => {
     let socket = null;
+    let url = '';
 
     return next => action => {
       const { dispatch, getState } = store;
@@ -8,9 +9,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
       // const { user } = getState().user;
       if (type === wsInit) {
+        url = payload;
+        console.log('url: ', url);
         // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(url);
       }
+
+      // if (type === wsInit)
       if (socket) {
 
         // функция, которая вызывается при открытии сокета

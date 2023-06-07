@@ -6,9 +6,10 @@ export const WS_GET_MESSAGE = 'WS_GET_MESSAGE';
 
 // export const WS_SEND_MESSAGE = 'WS_SEND_MESSAGE';
 
-export function wsConnectionRequest() {
+export function wsConnectionRequest(url) {
   return {
     type: WS_CONNECTION_REQUEST, 
+    payload: url
   };
 }
 

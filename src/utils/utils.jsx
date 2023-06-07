@@ -56,3 +56,19 @@ export function loadFromLocalStorage() {
     console.log(e);
   }
 }
+
+export const orderPrice = (order, ingredients) => {
+  let price = 0;
+  const bun = ingredients.find(ing => order.find(id => ing.type === 'bun' && ing._id === id));
+
+  order.forEach(ing => {
+    let current = ingredients.find(i => i._id === ing)
+
+    if (current.type !== 'bun') {
+      price += current.price;
+    } 
+
+  });
+
+  return price + (bun ? bun.price * 2 : 0);
+};

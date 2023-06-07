@@ -64,8 +64,12 @@
   z-index: 5;
 }
 
+.ingredientExtraIcon {
+  opacity: .4;
+}
+
 .extraIngText {
-  /* background: #000 url('../../../images/extra-ingredient.png') no-repeat center; */
-  z-index: 2;
+  position: absolute;
+  z-index: 10;
 }
 
