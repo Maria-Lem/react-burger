@@ -31,13 +31,13 @@ export default function Feed() {
     <OrderCard 
       key={order._id}
       id={order._id}
+      linkTo={"feed"}
       cardTitle={order.name}
       orderNumber={order.number}
       orderCreatedAt={order.createdAt}
       orderIng={order.ingredients}
     />
   ));
-    // console.log('orderElement: ', orderElement);
 
   return (
     <main className={styles.main}>
@@ -54,7 +54,7 @@ export default function Feed() {
                 {orders.map(order => {
                   if (order.status === 'done') {
                     return (
-                      <OrderNumber orderNum={order.number} />
+                      <OrderNumber key={order._id} orderNum={order.number} />
                     );
                   }
                 })}
@@ -66,7 +66,7 @@ export default function Feed() {
               {orders.map(order => {
                   if (order.status === 'pending') {
                     return (
-                      <OrderNumber orderNum={order.number} />
+                      <OrderNumber key={order._id} orderNum={order.number} />
                     );
                   }
                 })}

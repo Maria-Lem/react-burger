@@ -4,15 +4,17 @@
   align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
+  width: 1280px;
+  margin: 0 auto;
 }
 
 .feedContainer {
   margin: 0;
   padding: 0;
-  width: 608px;
+  width: 820px;
   max-width: 99%;
-  min-height: calc(100vh - 40px - 86px);
-  max-height: calc(100vh - 40px - 86px);
+  min-height: calc(100vh - 100px - 86px);
+  max-height: calc(100vh - 100px - 86px);
   list-style-type: none;
   overflow-y: scroll;
 }

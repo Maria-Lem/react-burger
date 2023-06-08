@@ -64,6 +64,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/ingredients/:id" element={<Ingredient />} />
             <Route path="/feed/:id" element={<OrderDetails />} />
+            <Route path="/profile/orders/:id" element={<OrderDetails />} />
           </Route>
           <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
           <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
@@ -82,6 +83,14 @@ function App() {
             />
             <Route
               path="feed/:id"
+              element={
+                <Modal openModal={true} closeModal={handleClose}>
+                  <OrderDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path="profile/orders/:id"
               element={
                 <Modal openModal={true} closeModal={handleClose}>
                   <OrderDetails />

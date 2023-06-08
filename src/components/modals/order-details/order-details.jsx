@@ -4,15 +4,15 @@ import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 
 import Loader from '../../loader/loader';
+import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
-import { orderPrice } from '../../../utils/utils';
+import { getFormattedDate, orderPrice } from '../../../utils/utils';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
 export default function OrderDetails() {
   const params = useParams();
-
+  
   const { orders, ingredients } = useSelector(store => ({
     orders: store.orders.orders,
     ingredients: store.ingredients.ingredients,
@@ -38,12 +38,26 @@ export default function OrderDetails() {
     return <Loader />
   }
 
+  const preparationStatus = 
+  order.status === 'done' 
+    ? 'Выполнен' 
+    : order.status === 'created'
+    ? 'Создан'
+    : 'Готовится';
+
+  const style = {
+    color: order.status === 'done' ? "#00CCCC" : "#FFFFFF",
+  };
+
+  console.log(getFormattedDate(new Date(Date.parse(order.createdAt)), new Date()));
+  // console.log('getDiffDays: ', getDiffDays(new Date(Date.parse(order.createdAt)), new Date()));
+  
   return (
     <>
       <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10`}>
         <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>#{order.number}</p>
         <h4 className={`${styles.title} text text_type_main-medium mb-3`}>{order.name}</h4>
-        <p className={`${styles.title} text text_type_main-default mb-15`}>{order.status}</p>
+        <p className={`${styles.title} text text_type_main-default mb-15`} style={ style }>{preparationStatus}</p>
         <p className={`${styles.title} text text_type_main-medium mb-6`}>Состав:</p>
         <ul className={`${styles.ingredients} mb-10`}>
           {uniqueOrderIngredients.map(ingredient => {
@@ -67,7 +81,7 @@ export default function OrderDetails() {
           })}
         </ul>
         <div className={`${styles.orderInfo}`}>
-          <p className={`${styles.orderCreatedAt} text text_type_main-default text_color_inactive`}>{order.createdAt}</p>
+          <p className={`${styles.orderCreatedAt} text text_type_main-default text_color_inactive`}>{getFormattedDate(new Date(Date.parse(order.createdAt)), new Date())}</p>
           <div className={`${styles.orderPrice}`}>
             <p className={`${styles.price} text text_type_digits-default mr-2`}>
               {orderPrice(order.ingredients, ingredients)}

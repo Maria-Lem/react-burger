@@ -33,6 +33,7 @@ export default function OrderLibrary() {
     <OrderCard 
       key={order._id}
       id={order._id}
+      linkTo={"profile/orders"}
       cardTitle={order.name}
       orderNumber={order.number}
       preparation={order.status}
@@ -44,9 +45,9 @@ export default function OrderLibrary() {
   return (
     <main className={`${styles.profileContent} pt-30`}>
       <ProfileMenu />
-      {/* <h2 className={`${styles.text} text text_type_main-medium`}>Здесь будет история Ваших заказов.</h2> */}
+      {!orders && <h2 className={`${styles.text} text text_type_main-medium`}>Здесь будет история Ваших заказов.</h2>}
       <ul className={`${styles.feedContainer}`}>
-        {orderElement}
+        {orderElement.reverse()}
       </ul>
     </main>
   );

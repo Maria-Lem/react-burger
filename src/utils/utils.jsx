@@ -72,3 +72,26 @@ export const orderPrice = (order, ingredients) => {
 
   return price + (bun ? bun.price * 2 : 0);
 };
+
+export const getDiffDays = (orderDate, today) => Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+
+export const getFormattedDate = (orderDate, today) => {
+  const getDiffDays = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+  
+  const orderMinutes = orderDate.getMinutes().toString().length < 2 ? `0${orderDate.getMinutes()}` : orderDate.getMinutes();
+
+  let formattedDate = '';
+
+  switch (getDiffDays) {
+    case 0:
+      return formattedDate = `Сегодня, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    case 1:
+      return formattedDate = `Вчера, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    case 2:
+    case 3:
+    case 4:
+      return formattedDate = `${getDiffDays} дня назад, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    default:
+      return formattedDate = `${getDiffDays} дней назад, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+  }
+};

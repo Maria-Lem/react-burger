@@ -73,3 +73,7 @@
   z-index: 10;
 }
 
+.orderPrice {
+  display: flex;
+  align-items: center;
+}
