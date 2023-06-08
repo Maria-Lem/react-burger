@@ -48,14 +48,11 @@ export default function OrderDetails() {
   const style = {
     color: order.status === 'done' ? "#00CCCC" : "#FFFFFF",
   };
-
-  console.log(getFormattedDate(new Date(Date.parse(order.createdAt)), new Date()));
-  // console.log('getDiffDays: ', getDiffDays(new Date(Date.parse(order.createdAt)), new Date()));
   
   return (
     <>
       <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10`}>
-        <p className={`${styles.orderNumber} text text_type_digits-default mb-10`}>#{order.number}</p>
+        <p className={`${styles.orderNumber} text text_type_digits-default mb-10`} style={style}>#{order.number}</p>
         <h4 className={`${styles.title} text text_type_main-medium mb-3`}>{order.name}</h4>
         <p className={`${styles.title} text text_type_main-default mb-15`} style={ style }>{preparationStatus}</p>
         <p className={`${styles.title} text text_type_main-medium mb-6`}>Состав:</p>

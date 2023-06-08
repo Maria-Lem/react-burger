@@ -73,8 +73,6 @@ export const orderPrice = (order, ingredients) => {
   return price + (bun ? bun.price * 2 : 0);
 };
 
-export const getDiffDays = (orderDate, today) => Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
-
 export const getFormattedDate = (orderDate, today) => {
   const getDiffDays = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
   

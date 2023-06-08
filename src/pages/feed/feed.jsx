@@ -47,14 +47,14 @@ export default function Feed() {
           {orderElement}
         </ul>
         <div className={`${styles.orderPreparation} ml-15`}>
-          <div className={`${styles.ordersTable} mb-15`}>
+          <div className={`${styles.ordersTable} mb-10`}>
             <div className={`mr-9`}>
               <OrderPreparationTitle title="Готовы:" />
               <div className={`${styles.orderTableContent} mt-6`}>
                 {orders.map(order => {
                   if (order.status === 'done') {
                     return (
-                      <OrderNumber key={order._id} orderNum={order.number} />
+                      <OrderNumber key={order._id} color="#00CCCC" orderNum={order.number} />
                     );
                   }
                 })}
@@ -73,7 +73,7 @@ export default function Feed() {
               </div>
             </div>
           </div>
-          <div className={` mb-15`}>
+          <div className={` mb-10`}>
             <OrderPreparationTitle title="Выполнено за все время:" />
             <TotalNumbers totalNum={total} />
           </div>

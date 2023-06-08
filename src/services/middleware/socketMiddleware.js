@@ -7,15 +7,12 @@ export const socketMiddleware = (wsActions) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
       const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
-      // const { user } = getState().user;
       if (type === wsInit) {
         url = payload;
-        console.log('url: ', url);
         // объект класса WebSocket
         socket = new WebSocket(url);
       }
 
-      // if (type === wsInit)
       if (socket) {
 
         // функция, которая вызывается при открытии сокета
@@ -41,12 +38,6 @@ export const socketMiddleware = (wsActions) => {
         socket.onclose = event => {
           dispatch({ type: onClose, payload: event });
         };
-
-        // if (type === wsSendMessage) {
-        //   // функция для отправки сообщения на сервер
-        //   const message = {...payload, token: user.token};
-        //   socket.send(JSON.stringify(message))
-        // }
       }
 
       next(action);
