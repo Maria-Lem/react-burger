@@ -38,11 +38,11 @@ function ForgotPassword() {
   }, [dispatch, form.email]);
 
   if (user) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/react-burger" replace />
   }
 
   if (passwordRecoverySuccess) {
-    return <Navigate to="/reset-password" replace />;
+    return <Navigate to="/react-burger/reset-password" replace />;
   }
 
   return (

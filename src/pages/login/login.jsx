@@ -27,7 +27,7 @@ function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const from = location.state?.from || '/';
+  const from = location.state?.from || '/react-burger/';
   
   const handleChange = useCallback((e) => {
     const target = e.target;
@@ -74,8 +74,8 @@ function Login() {
       <div className="mb-20">
         <FormSubmitBtn buttonName="Войти" />
       </div>
-      <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="register" />
-      <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="forgot-password" />
+      <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="/react-burger/register" />
+      <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="react-burger/forgot-password" />
     </Form>
   )
 };

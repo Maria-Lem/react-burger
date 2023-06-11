@@ -8,5 +8,5 @@ export default function ProtectedRouteElement({ element }) {
 
   const location = useLocation();
   
-  return user ? element : <Navigate to='/login' state={{ from: location }} />;
+  return user ? element : <Navigate to='/react-burger/login' state={{ from: location }} />;
 }

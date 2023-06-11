@@ -31,7 +31,7 @@ export default function Feed() {
     <OrderCard 
       key={order._id}
       id={order._id}
-      linkTo={"feed"}
+      linkTo={"react-burger/feed"}
       cardTitle={order.name}
       orderNumber={order.number}
       orderCreatedAt={order.createdAt}

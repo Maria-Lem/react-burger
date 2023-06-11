@@ -33,7 +33,7 @@ export default function OrderLibrary() {
     <OrderCard 
       key={order._id}
       id={order._id}
-      linkTo={"profile/orders"}
+      linkTo={"react-burger/profile/orders"}
       cardTitle={order.name}
       orderNumber={order.number}
       preparation={order.status}

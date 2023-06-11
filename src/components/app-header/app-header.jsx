@@ -20,23 +20,23 @@ function AppHeader() {
         <nav>
           <ul className={styles.menu}>
             <li className={`${styles.menu__item} pl-5 pr-5 mr-2`}>
-              <NavLink to="/" className={activeLinkStyle}>
-                <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
+              <NavLink end to="/react-burger" className={activeLinkStyle}>
+                <BurgerIcon type={pathname === "/react-burger" ? "primary" : "secondary"} />
                 <span className={`text text_type_main-default ml-2`}>Конструктор</span>
               </NavLink>
             </li>
             <li className={`${styles.menu__item} pl-5 pr-5`}>
-              <NavLink to="/feed" className={activeLinkStyle}>
-                <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
+              <NavLink to="/react-burger/feed" className={activeLinkStyle}>
+                <ListIcon type={pathname === "/react-burger/feed" ? "primary" : "secondary"} />
                 <span className={`text text_type_main-default ml-2`}>Лента заказов</span>
               </NavLink>
             </li>
           </ul>
         </nav>
-        <Link to="/" className={styles.logo}><Logo /></Link>
+        <Link to="/react-burger" className={styles.logo}><Logo /></Link>
         <div className={`${styles.menu__item} pl-5 pr-5`}>
-          <NavLink end to="/profile" className={activeLinkStyle}>
-            <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />
+          <NavLink end to="/react-burger/profile" className={activeLinkStyle}>
+            <ProfileIcon type={pathname === "/react-burger/profile" ? "primary" : "secondary"} />
             <span className={`text text_type_main-default ml-2`}>Личный кабинет</span>
           </NavLink>
         </div>

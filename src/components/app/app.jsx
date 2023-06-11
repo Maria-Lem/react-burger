@@ -55,19 +55,19 @@ function App() {
     <div className={styles.app}>
         <AppHeader />
         <Routes location={background || location}>
-          <Route path="/" element={<Homepage />}/>
-          <Route path="/feed" element={<Feed />} />
+          <Route path="/react-burger" element={<Homepage />}/>
+          <Route path="/react-burger/feed" element={<Feed />} />
           <Route element={<Layout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/ingredients/:id" element={<Ingredient />} />
-            <Route path="/feed/:id" element={<OrderDetails />} />
-            <Route path="/profile/orders/:id" element={<OrderDetails />} />
+            <Route path="/react-burger/login" element={<Login />} />
+            <Route path="/react-burger/register" element={<Register />} />
+            <Route path="/react-burger/forgot-password" element={<ForgotPassword />} />
+            <Route path="/react-burger/reset-password" element={<ResetPassword />} />
+            <Route path="/react-burger/ingredients/:id" element={<Ingredient />} />
+            <Route path="/react-burger/feed/:id" element={<OrderDetails />} />
+            <Route path="/react-burger/profile/orders/:id" element={<OrderDetails />} />
           </Route>
-          <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
-          <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
+          <Route path="/react-burger/profile" element={<ProtectedRouteElement element={<Profile />} />} />
+          <Route path="/react-burger/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
           <Route path="*" element={<NotFound404 />} />
         </Routes>
         {
@@ -82,7 +82,7 @@ function App() {
               }
             />
             <Route
-              path="feed/:id"
+              path="react-burger/feed/:id"
               element={
                 <Modal openModal={true} closeModal={handleClose}>
                   <OrderDetails />
@@ -90,7 +90,7 @@ function App() {
               }
             />
             <Route
-              path="profile/orders/:id"
+              path="react-burger/profile/orders/:id"
               element={
                 <Modal openModal={true} closeModal={handleClose}>
                   <OrderDetails />
