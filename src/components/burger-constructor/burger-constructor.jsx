@@ -15,9 +15,7 @@ import OrderCreated from '../modals/order-created/order-created';
 import Loader from '../loader/loader';
 import Failed from '../failed/failed';
 
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);

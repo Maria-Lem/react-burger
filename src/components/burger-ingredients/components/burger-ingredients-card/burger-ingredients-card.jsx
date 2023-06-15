@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd/dist/hooks';
-import { ingredientPropTypes } from '../../../../utils/types';
+import { Link, useLocation } from 'react-router-dom';
+
 import styles from './burger-ingredients-card.module.css';
 
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useLocation } from 'react-router-dom';
+import { ingredientPropTypes } from '../../../../utils/types';
+
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredientsCard({ ingredient, openModal }) {
   const location = useLocation();

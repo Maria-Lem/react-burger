@@ -13,8 +13,6 @@ export const burgerApiUrl = {
   }
 };
 
-export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-
 export const wsActions = {
   wsInit: WS_CONNECTION_REQUEST,
   onOpen: WS_CONNECTION_OPEN,

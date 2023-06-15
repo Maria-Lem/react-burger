@@ -30,16 +30,22 @@
 .ingredientInfo {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.orderPrice {
-  display: flex;
-  align-items: center;
 }
 
 .orderInfo {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.ingredientTitle {
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.orderPrice {
+  display: flex;
+  align-items: center;
 }

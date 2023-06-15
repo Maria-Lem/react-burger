@@ -2,42 +2,28 @@ import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+import { resetPassword } from '../../services/actions/user';
+
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
 import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn';
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { resetPassword } from '../../services/actions/user';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useForm } from '../../hooks/useForm';
 
 function ResetPassword() {
-  const [form, setForm] = useState({
-    password: '',
-    token: '',
+  const { form, handleChange } = useForm({ 
+    password: '', 
+    token: '', 
   });
   const dispatch = useDispatch();
 
-  const { user, passwordRecoverySuccess, passwordResetSuccess, isAuthenticated } = useSelector(store => ({
+  const { user, passwordRecoverySuccess, passwordResetSuccess } = useSelector(store => ({
     user: store.user.user,
     passwordRecoverySuccess: store.user.passwordRecoverySuccess,
     passwordResetSuccess: store.user.passwordResetSuccess,
-    isAuthenticated: store.user
   }));
-  // console.log('passwordResetSuccess: ', passwordResetSuccess);
-  console.log('isAuthenticated: ', isAuthenticated);
-  console.log('user: ', user);
-
-  const handleChange = (e) => {
-    const target = e.target;
-
-    setForm(prevFormData => {
-      return {
-        ...prevFormData,
-        [target.name]: target.value,
-      }
-    });
-  };
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();

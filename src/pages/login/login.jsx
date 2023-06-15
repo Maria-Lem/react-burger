@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
@@ -8,16 +8,15 @@ import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
 import { logInUser, resetPasswordRecoveryReducers } from '../../services/actions/user';
+import { useForm } from '../../hooks/useForm';
 
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
-  const [form, setForm] = useState({
-    email: '',
+  const { form, handleChange } = useForm({
+    email: '', 
     password: '',
   });
-  // console.log('form: ', form);
   
   const { user, logOutRequest } = useSelector(store => ({
     user: store.user.user,
@@ -27,16 +26,7 @@ function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const from = location.state?.from || '/react-burger/';
-  
-  const handleChange = useCallback((e) => {
-    const target = e.target;
-
-    setForm(prevFormData => ({
-      ...prevFormData,
-      [target.name]: target.value,
-    }))
-  }, []);
+  const from = location.state?.from || '/';
   
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -74,8 +64,8 @@ function Login() {
       <div className="mb-20">
         <FormSubmitBtn buttonName="Войти" />
       </div>
-      <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="/react-burger/register" />
-      <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="react-burger/forgot-password" />
+      <FormAdditionalActions text="Вы — новый пользователь?" linkName="Зарегистрироваться" pageName="/register" />
+      <FormAdditionalActions text="Забыли пароль?" linkName="Восстановить пароль" pageName="/forgot-password" />
     </Form>
   )
 };

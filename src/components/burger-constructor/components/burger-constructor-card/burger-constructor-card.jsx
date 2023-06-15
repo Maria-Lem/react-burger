@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { reorderFilling } from '../../../../services/actions/burgerConstructor';
-import { ingredientPropTypes } from '../../../../utils/types';
 
 import styles from './burger-constructor-card.module.css';
 
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { reorderFilling } from '../../../../services/actions/burgerConstructor';
+import { ingredientPropTypes } from '../../../../utils/types';
+
+import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
   const ref = useRef(null);

@@ -15,11 +15,10 @@ function ProfileMenu() {
   };
 
   const refreshToken = localStorage.getItem('refreshToken');
-  // console.log('refreshToken: ', refreshToken);
   
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser(refreshToken));
-    navigate("/react-burger/login");
+    navigate("/login");
   },
   [dispatch, navigate, refreshToken]
   );
@@ -28,10 +27,10 @@ function ProfileMenu() {
     <nav className={`${styles.profileMenu} pl-5 pr-15`}>
       <ul className={`${styles.menuList} mb-5 text text_type_main-medium`}>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
-          <NavLink end to="/react-burger/profile" className={activeLinkStyle}>Профиль</NavLink>
+          <NavLink end to="/profile" className={activeLinkStyle}>Профиль</NavLink>
         </li>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
-          <NavLink to="/react-burger/profile/orders" className={activeLinkStyle}>История заказов</NavLink>
+          <NavLink to="/profile/orders" className={activeLinkStyle}>История заказов</NavLink>
         </li>
         <li className={`${styles.menuItem} pt-5 pb-5`}>
           <button className={`${styles.button} text text_type_main-medium text_color_inactive`} onClick={handleLogOut}>

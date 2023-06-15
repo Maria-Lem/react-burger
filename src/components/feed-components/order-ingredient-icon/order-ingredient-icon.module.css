@@ -13,14 +13,13 @@
 .ingredientItem::after {
   content: '';
   position: absolute;
-  width: 59px;
-  height: 59px;
+  width: 58px;
+  height: 58px;
   background-color: #1c1c21;
   border-radius: 100px;
 }
 
 .ingredientIcon {
-  /* width: 64px; */
   height: 56px;
   object-fit: cover;
   z-index: 5;

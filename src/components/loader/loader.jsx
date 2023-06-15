@@ -1,5 +1,6 @@
-import ModalOverlay from '../modals/modal-overlay/modal-overlay';
 import styles from './loader.module.css';
+
+import ModalOverlay from '../modals/modal-overlay/modal-overlay';
 
 function Loader() {
   return (

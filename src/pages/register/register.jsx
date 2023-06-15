@@ -1,36 +1,26 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { createNewUser } from '../../services/actions/user';
+import { useForm } from '../../hooks/useForm';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
 import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn';
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Register() {
-  const { user } = useSelector(store => store.user);
-
-  const [form, setForm] = useState({
+  const { form, handleChange } = useForm({ 
     email: '',
     password: '',
     name: '',
   });
+  const { user } = useSelector(store => store.user);
 
   const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    const target = e.target;
-
-    setForm(prevFormData => ({
-      ...prevFormData,
-      [target.name]: target.value,
-    }))
-  };
 
   const handleSubmit = useCallback((e) => {
       console.log('clicked');

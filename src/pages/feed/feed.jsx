@@ -17,7 +17,6 @@ export default function Feed() {
     total: store.orders.total,
     totalToday: store.orders.totalToday,
   }));
-  // console.log('orders: ', orders);
 
   useEffect(() => {
     dispatch(wsConnectionRequest('wss://norma.nomoreparties.space/orders/all'));
@@ -31,7 +30,7 @@ export default function Feed() {
     <OrderCard 
       key={order._id}
       id={order._id}
-      linkTo={"react-burger/feed"}
+      linkTo={"feed"}
       cardTitle={order.name}
       orderNumber={order.number}
       orderCreatedAt={order.createdAt}
@@ -51,33 +50,25 @@ export default function Feed() {
             <div className={`mr-9`}>
               <OrderPreparationTitle title="Готовы:" />
               <div className={`${styles.orderTableContent} mt-6`}>
-                {orders.map(order => {
-                  if (order.status === 'done') {
-                    return (
-                      <OrderNumber key={order._id} color="#00CCCC" orderNum={order.number} />
-                    );
-                  }
-                })}
+                {
+                  orders.map(order => order.status === 'done' && <OrderNumber key={order._id} color="#00CCCC" orderNum={order.number} />)
+                }
               </div>
             </div>
-            <div className={``}>
+            <div>
               <OrderPreparationTitle title="В работе:" />
               <div className={`${styles.orderTableContent} mt-6`}>
-              {orders.map(order => {
-                  if (order.status === 'pending') {
-                    return (
-                      <OrderNumber key={order._id} orderNum={order.number} />
-                    );
-                  }
-                })}
+                {
+                  orders.map(order => order.status === 'pending' && <OrderNumber key={order._id} orderNum={order.number} />)
+                }
               </div>
             </div>
           </div>
-          <div className={` mb-10`}>
+          <div className={`mb-10`}>
             <OrderPreparationTitle title="Выполнено за все время:" />
             <TotalNumbers totalNum={total} />
           </div>
-          <div className={``}>
+          <div>
             <OrderPreparationTitle title="Выполнено за сегодня:" />
             <TotalNumbers totalNum={totalToday} />
           </div>

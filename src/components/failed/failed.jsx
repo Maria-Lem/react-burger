@@ -1,4 +1,3 @@
-// import Modal from '../modals/modal/modal';
 import styles from './failed.module.css';
 
 function Failed() {

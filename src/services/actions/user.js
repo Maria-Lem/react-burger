@@ -59,7 +59,7 @@ export function getCurrentUser() {
         });
       })
       .catch((error) => {
-        if (error === 'Error: 403' || error.message === 'jwt expired' || error.message === 'You should be authorised') {
+        if (error === 'Error: 403' || error === 'Error: 401' || error.message === 'jwt expired' || error.message === 'You should be authorised') {
           console.log(error);
           dispatch(refreshToken());
         } else {

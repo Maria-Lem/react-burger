@@ -1,13 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 
 import styles from './order-card.module.css';
+
+import OrderIngredientIcon from '../order-ingredient-icon/order-ingredient-icon';
 
 import { getFormattedDate, orderPrice } from '../../../utils/utils';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { nanoid } from 'nanoid';
-import OrderIngredientIcon from '../order-ingredient-icon/order-ingredient-icon';
 
 export default function OrderCard({ id, cardTitle, preparation = null, orderNumber, orderCreatedAt, orderIng, linkTo }) {
   const location = useLocation();

@@ -1,15 +1,16 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './profile-form.module.css';
+
+import { editUser } from '../../services/actions/user';
+import { getCookie } from '../../utils/utils';
 
 import Form from '../form/form';
 import FormInputContainer from '../form/form-input-container/form-input-container';
 import FormSubmitBtn from '../form/form-submit-btn/form-submit-btn';
 
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { editUser } from '../../services/actions/user';
-import { getCookie } from '../../utils/utils';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function ProfileForm() {
   const [form, setForm] = useState({

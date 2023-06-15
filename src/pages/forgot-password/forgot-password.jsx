@@ -1,6 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+
+import { forgotPassword } from '../../services/actions/user';
+import { useForm } from '../../hooks/useForm';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';
@@ -8,28 +11,16 @@ import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { forgotPassword } from '../../services/actions/user';
 
 function ForgotPassword() {
-  const [form, setForm] = useState({
-    email: '',
-  });
+  const { form, handleChange } = useForm({ email: '', });
+
   const dispatch = useDispatch();
 
   const { user, passwordRecoverySuccess } = useSelector(store => ({
     user: store.user.user,
     passwordRecoverySuccess: store.user.passwordRecoverySuccess,
   }));
-  console.log('user: ', user);
-  
-  const handleChange = (e) => {
-    const target = e.target;
-
-    setForm(prevFormData => ({
-      ...prevFormData,
-      [target.name]: target.value,
-    }))
-  };
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -38,11 +29,11 @@ function ForgotPassword() {
   }, [dispatch, form.email]);
 
   if (user) {
-    return <Navigate to="/react-burger" replace />
+    return <Navigate to="/" replace />
   }
 
   if (passwordRecoverySuccess) {
-    return <Navigate to="/react-burger/reset-password" replace />;
+    return <Navigate to="/reset-password" replace />;
   }
 
   return (
@@ -63,8 +54,6 @@ function ForgotPassword() {
         <FormSubmitBtn buttonName="Восстановить" />
       </div>
       <FormAdditionalActions text="Вспомнили пароль?" linkName="Войти" pageName="login" />
-      {/* <FormAdditionalActions text="Код для изменения пароля был отправлен Вам на почту." linkName="Изменить пароль" pageName="reset-password" /> */}
-        
     </Form>
   )
 };

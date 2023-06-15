@@ -1,12 +1,17 @@
+import { getCookie } from "../../utils/utils";
+import { refreshToken } from "../actions/user";
+
 export const socketMiddleware = (wsActions) => {
   return store => {
     let socket = null;
     let url = '';
 
     return next => action => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type, payload } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+      const accessToken = getCookie('accessToken');
+
       if (type === wsInit) {
         url = payload;
         // объект класса WebSocket
@@ -30,6 +35,9 @@ export const socketMiddleware = (wsActions) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
+          if (!accessToken) {
+            dispatch(refreshToken());
+          }
 
           dispatch({ type: onMessage, payload: restParsedData });
         };
