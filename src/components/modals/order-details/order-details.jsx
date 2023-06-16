@@ -6,11 +6,11 @@ import styles from './order-details.module.css';
 import Loader from '../../loader/loader';
 import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
-import { getFormattedDate, orderPrice } from '../../../utils/utils';
+import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor } from '../../../utils/utils';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function OrderDetails() {
+export default function OrderDetails({ align }) {
   const params = useParams();
   
   const { orders, ingredients, wsClosed } = useSelector(store => ({
@@ -44,32 +44,16 @@ export default function OrderDetails() {
     return <Navigate to="/" />
   }
 
-  // const preparationStatus = 
-  //   order.status === 'done' 
-  //     ? 'Выполнен' 
-  //     : order.status === 'created'
-  //     ? 'Создан'
-  //     : 'Готовится';
-
-  const preparationStatus = 
-    order.status === 'done' 
-      ? 'Выполнен' 
-      : order.status === 'created'
-      ? 'Создан'
-      : order.status === null
-      ? null
-      : 'Готовится';
-
   const style = {
-    color: order.status === 'done' ? "#00CCCC" : "#FFFFFF",
+    alignSelf: align,
   };
   
   return (
     <>
       <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10`}>
-        <p className={`${styles.orderNumber} text text_type_digits-default mb-10`} >#{order.number}</p>
+        <p className={`${styles.orderNumber} text text_type_digits-default mb-10`} style={style} >#{order.number}</p>
         <h4 className={`${styles.title} text text_type_main-medium mb-3`}>{order.name}</h4>
-        <p className={`${styles.title} text text_type_main-default mb-15`} style={ style }>{preparationStatus}</p>
+        <p className={`${styles.title} text text_type_main-default mb-15`} style={ preparationStatusColor(order.status)}>{preparationStatus(order.status)}</p>
         <p className={`${styles.title} text text_type_main-medium mb-6`}>Состав:</p>
         <ul className={`${styles.ingredients} mb-10`}>
           {uniqueOrderIngredients.map(ingredient => {

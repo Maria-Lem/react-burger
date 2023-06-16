@@ -6,7 +6,7 @@ import styles from './order-card.module.css';
 
 import OrderIngredientIcon from '../order-ingredient-icon/order-ingredient-icon';
 
-import { getFormattedDate, orderPrice } from '../../../utils/utils';
+import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor } from '../../../utils/utils';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -18,19 +18,6 @@ export default function OrderCard({ id, cardTitle, preparation = null, orderNumb
   }));
 
   const orderIngredients = ingredients.filter(ing => orderIng.includes(ing._id) && ing);
-
-  const preparationStatus = 
-    preparation === 'done' 
-      ? 'Выполнен' 
-      : preparation === 'created'
-      ? 'Создан'
-      : preparation === null
-      ? null
-      : 'Готовится';
-
-  const style = {
-    color: preparation === 'done' ? "#00CCCC" : "#FFFFFF",
-  };
 
   return (
     <Link 
@@ -44,7 +31,7 @@ export default function OrderCard({ id, cardTitle, preparation = null, orderNumb
           <p className={`${styles.orderCreatedAt} text text_type_main-default text_color_inactive`}>{getFormattedDate(new Date(Date.parse(orderCreatedAt)), new Date())}</p>
         </div>
         <h4 className={`${styles.cardTitle} text text_type_main-medium`}>{cardTitle}</h4>
-        <p className={`${styles.preparation} text text_type_main-small mt-2`} style={ style }>{preparationStatus}</p>
+        <p className={`${styles.preparation} text text_type_main-small mt-2`} style={preparationStatusColor(preparation)}>{preparationStatus(preparation)}</p>
         <div className={`${styles.ingredientsInfo} mt-6`}>
           <ul className={`${styles.ingredients}`}>
             {orderIngredients.slice(0, 5).map((ingredient, i) => {

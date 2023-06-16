@@ -63,8 +63,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/ingredients/:id" element={<Ingredient />} />
-            <Route path="/feed/:id" element={<OrderDetails />} />
-            <Route path="/profile/orders/:id" element={<OrderDetails />} />
+            <Route path="/feed/:id" element={<OrderDetails align="center" />} />
+            <Route path="/profile/orders/:id" element={<OrderDetails align="center" />} />
           </Route>
           <Route path="/profile" element={<ProtectedRouteElement element={<Profile />} />} />
           <Route path="/profile/orders" element={<ProtectedRouteElement element={<OrderLibrary />} />} />
