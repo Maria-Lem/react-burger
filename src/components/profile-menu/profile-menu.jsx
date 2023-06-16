@@ -15,11 +15,10 @@ function ProfileMenu() {
   };
 
   const refreshToken = localStorage.getItem('refreshToken');
-  console.log('refreshToken: ', refreshToken);
   
   const handleLogOut = useCallback(() => {
     dispatch(logOutUser(refreshToken));
-    navigate("/login", {replace: true});
+    navigate("/login");
   },
   [dispatch, navigate, refreshToken]
   );

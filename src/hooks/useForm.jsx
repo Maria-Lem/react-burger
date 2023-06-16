@@ -14,5 +14,5 @@ export function useForm( inputValues = {} ) {
     });
   };
 
-  return { form, setForm, handleChange };
+  return { form, handleChange, setForm };
 }

@@ -4,4 +4,30 @@
   align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
+  width: 1280px;
+  margin: 0 auto;
+}
+
+.feedContainer {
+  margin: 0;
+  padding: 0;
+  width: 820px;
+  max-width: 99%;
+  min-height: calc(100vh - 100px - 86px);
+  max-height: calc(100vh - 100px - 86px);
+  list-style-type: none;
+  overflow-y: scroll;
+}
+
+.feedContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.feedContainer::-webkit-scrollbar-track {
+  background: #2F2F37;
+}
+
+.feedContainer::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  border: 3px solid #8585AD;
 }

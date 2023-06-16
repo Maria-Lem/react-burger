@@ -2,6 +2,7 @@ export const filterIngredientElements = (ingredientElement, type) => {
   return ingredientElement.filter(el => el.props.ingredient.type === type)
 };
 
+// Cookies
 export function setCookie(name, value, props) {
   props = props || {};
   let exp = props.expires;
@@ -37,6 +38,7 @@ export function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 } 
 
+// Saving store to localStorage
 export function saveToLocalStorage(state) {
   try {
     const serializedState = JSON.stringify(state);
@@ -56,3 +58,58 @@ export function loadFromLocalStorage() {
     console.log(e);
   }
 }
+
+// Count order price
+export const orderPrice = (order, ingredients) => {
+  let price = 0;
+  const bun = ingredients.find(ing => order.find(id => ing.type === 'bun' && ing._id === id));
+
+  order.forEach(ing => {
+    let current = ingredients.find(i => i._id === ing)
+
+    if (current.type !== 'bun') {
+      price += current.price;
+    } 
+  });
+
+  return price + (bun ? bun.price * 2 : 0);
+};
+
+// Format the order date
+export const getFormattedDate = (orderDate, today) => {
+  const getDiffDays = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+  
+  const orderMinutes = orderDate.getMinutes().toString().length < 2 ? `0${orderDate.getMinutes()}` : orderDate.getMinutes();
+
+  let formattedDate = '';
+
+  switch (getDiffDays) {
+    case 0:
+      return formattedDate = `Сегодня, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    case 1:
+      return formattedDate = `Вчера, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    case 2:
+    case 3:
+    case 4:
+      return formattedDate = `${getDiffDays} дня назад, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+    default:
+      return formattedDate = `${getDiffDays} дней назад, ${orderDate.getHours()}:${orderMinutes} i-GMT+3`;
+  }
+};
+
+// Preparation status style
+export const preparationStatus = (preparation) => {
+  return preparation === 'done' 
+    ? 'Выполнен' 
+    : preparation === 'created'
+    ? 'Создан'
+    : preparation === null
+    ? null
+    : 'Готовится';
+}
+
+export const preparationStatusColor = (preparation) => {
+  return {
+    color: preparation === 'done' ? "#00CCCC" : "#FFFFFF",
+  }
+};

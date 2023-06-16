@@ -1,11 +1,12 @@
 import { getCookie } from "./utils";
+import { burgerApiUrl } from "./variables";
 
-const burgerApiUrl = {
-  baseUrl: 'https://norma.nomoreparties.space/api',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
+// const burgerApiUrl = {
+//   baseUrl: 'https://norma.nomoreparties.space/api',
+//   headers: {
+//     'Content-Type': 'application/json'
+//   }
+// };
 
 const getResponse = (res) => {
   if (res.ok) {
@@ -29,7 +30,10 @@ export const getIngredients = () => {
 export const createOrder = (orderList) => {
   return request(`${burgerApiUrl.baseUrl}/orders`, {
     method: 'POST',
-    headers: burgerApiUrl.headers,
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: 'Bearer ' + getCookie('accessToken')
+    },
     body: JSON.stringify({
       ingredients: orderList
     })

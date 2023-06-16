@@ -1,0 +1,26 @@
+.ingredientItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-right: -16px;
+  width: 64px;
+  height: 64px;
+  border-radius: 100px;
+  background: linear-gradient(45deg, #801ab2 0, #4c4cff 100%);
+}
+
+.ingredientItem::after {
+  content: '';
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  background-color: #1c1c21;
+  border-radius: 100px;
+}
+
+.ingredientIcon {
+  height: 56px;
+  object-fit: cover;
+  z-index: 5;
+}

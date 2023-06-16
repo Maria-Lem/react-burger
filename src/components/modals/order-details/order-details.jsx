@@ -1,24 +1,91 @@
+import { Navigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import styles from './order-details.module.css';
 
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Loader from '../../loader/loader';
+import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
-function OrderDetails() {
-  const { orderNumber } = useSelector(store => ({
-    orderNumber: store.order.orderNumber
+import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor } from '../../../utils/utils';
+
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+
+export default function OrderDetails({ align }) {
+  const params = useParams();
+  
+  const { orders, ingredients, wsClosed } = useSelector(store => ({
+    orders: store.orders.orders,
+    ingredients: store.ingredients.ingredients,
+    wsClosed: store.orders.wsClosed,
   }));
+  // console.log('orders: ', orders);
+
+  // if (wsClosed) {
+  //   console.log('hi')
+  //   return <Navigate to="/" />
+  // }
+
+  const order = orders.find(order => order._id === params.id);
+
+  const orderIngredients = order.ingredients.map(id => ingredients.find(ing => ing._id === id));
+  // console.log('orderIngredients: ', orderIngredients);
+  orderIngredients.forEach(ing => {
+    ing.quantity = 0;
+    orderIngredients.forEach(i => i._id === ing._id && ing.quantity++);
+
+    if (ing.type === 'bun' && ing.quantity !== 2) {
+      ing.quantity = 2;
+    }
+  });
+
+  const uniqueOrderIngredients = Array.from(orderIngredients.reduce((a, o) => a.set(o._id, o), new Map()).values());
+
+  if (!order) {
+    return <Navigate to="/" />
+  }
+
+  const style = {
+    alignSelf: align,
+  };
   
   return (
-    <div className={`${styles.modalContent} pt-30 pb-30`}>
-      <p className={`${styles.orderNumber} text text_type_digits-large mb-8`}>{orderNumber}</p>
-      <p className={`text text_type_main-medium mb-15`}>идентификатор заказа</p>
-      <div className={`${styles.checkmarkContainer} mb-15`}>
-        <CheckMarkIcon type="primary" />
+    <>
+      <div className={`${styles.modalContent} pt-10 pr-10 pb-15 pl-10`}>
+        <p className={`${styles.orderNumber} text text_type_digits-default mb-10`} style={style} >#{order.number}</p>
+        <h4 className={`${styles.title} text text_type_main-medium mb-3`}>{order.name}</h4>
+        <p className={`${styles.title} text text_type_main-default mb-15`} style={ preparationStatusColor(order.status)}>{preparationStatus(order.status)}</p>
+        <p className={`${styles.title} text text_type_main-medium mb-6`}>Состав:</p>
+        <ul className={`${styles.ingredients} mb-10`}>
+          {uniqueOrderIngredients.map(ingredient => {
+            return (
+              <li key={ingredient._id} className={`${styles.ingredientInfo} mb-4 mr-6`}>
+                <OrderIngredientIcon
+                  icon={ingredient.image_mobile} 
+                  name={ingredient.name} 
+                  index={0} 
+                  length={1}
+                />
+                <p className={`${styles.ingredientTitle} text text_type_main-default mr-4 ml-8`}>{ingredient.name}{ingredient.name}</p>
+                <div className={`${styles.orderPrice}`}>
+                  <p className={`${styles.ingredientPrice} text text_type_digits-default mr-2`}>
+                    {ingredient.quantity}&nbsp;x&nbsp;{ingredient.price}
+                  </p>
+                  <CurrencyIcon type="primary" />
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+        <div className={`${styles.orderInfo}`}>
+          <p className={`${styles.orderCreatedAt} text text_type_main-default text_color_inactive`}>{getFormattedDate(new Date(Date.parse(order.createdAt)), new Date())}</p>
+          <div className={`${styles.orderPrice}`}>
+            <p className={`${styles.price} text text_type_digits-default mr-2`}>
+              {orderPrice(order.ingredients, ingredients)}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
+        </div>
       </div>
-      <p className={`text text_type_main-default mb-2`}>Ваш заказ начали готовить</p>
-      <p className={`text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
-    </div>
-  )
+    </>
+  );
 }
-
-export default OrderDetails;

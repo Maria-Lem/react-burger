@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import styles from './form.module.css';
 
 function Form({ title = null, children, handleSubmit }) {
