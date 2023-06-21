@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import styles from './order-details.module.css';
 
-import Loader from '../../loader/loader';
 import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
 import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor } from '../../../utils/utils';
