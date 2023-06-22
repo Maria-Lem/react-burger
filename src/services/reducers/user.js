@@ -37,13 +37,12 @@ const initialUserState = {
   getUserSuccess: false,
   getUserFailed: false,
 
-  passwordRecoverySuccess: null,
-  passwordResetSuccess: null,
-
   passwordForgotRequest: false,
+  passwordRecoverySuccess: null,
   passwordForgotFailed: false,
-
+  
   passwordResetRequest: false,
+  passwordResetSuccess: null,
   passwordResetFailed: false,
 
   editUserRequest: false,

@@ -10,7 +10,7 @@ import FormSubmitBtn from '../../components/form/form-submit-btn/form-submit-btn
 import FormAdditionalActions from '../../components/form/form-additional-actions/form-additional-actions';
 
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../utils/hooks/useForm';
 
 function ResetPassword() {
   const { form, handleChange } = useForm({ 

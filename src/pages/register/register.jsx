@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import { createNewUser } from '../../services/actions/user';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../utils/hooks/useForm';
 
 import Form from '../../components/form/form';
 import FormInputContainer from '../../components/form/form-input-container/form-input-container';

@@ -7,27 +7,13 @@ import {
   RESET_INGREDIENT,
 } from '../constants/burgerConstructor';
 
-import { IIngredient } from "../../utils/interfaces/ingredient";
-
-export interface IAddIngredient {
-  readonly type: typeof ADD_INGREDIENT;
-  readonly ingredient: IIngredient;
-}
-
-export interface IDeleteIngredient {
-  readonly type: typeof DELETE_INGREDIENT;
-  readonly ingredient: IIngredient;
-}
-
-export interface IReorderFilling {
-  readonly type: typeof REORDER_INGREDIENT;
-  readonly dragIndex: number;
-  readonly hoverIndex: number;
-}
-
-export interface IResetBurger {
-  readonly type: typeof RESET_INGREDIENT;
-}
+import {
+  IAddIngredient,
+  IDeleteIngredient,
+  IReorderFilling,
+  IResetBurger,
+} from '../../utils/interfaces/burgerConstructor';
+import { IIngredient } from "../../utils/interfaces/data";
 
 export const addIngredient = (ingredient: IIngredient): IAddIngredient => {
   return {
