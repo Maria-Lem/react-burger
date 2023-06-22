@@ -1,13 +1,22 @@
 import update from 'immutability-helper';
-import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENT, RESET_INGREDIENT } from "../actions/burgerConstructor";
 
-const initialBurgerConstructorState = { 
+import { 
+  ADD_INGREDIENT, 
+  DELETE_INGREDIENT, 
+  REORDER_INGREDIENT, 
+  RESET_INGREDIENT 
+} from "../constants/burgerConstructor";
+
+import { IBurgerConstructorState } from '../../utils/interfaces/burgerConstructor';
+import { TBurgerConstructorActions } from '../../utils/types/types';
+
+const initialBurgerConstructorState: IBurgerConstructorState = { 
   bun: null,
   filling: [],
   totalPrice: 0,
 };
 
-export function burgerConstructorReducer(state = initialBurgerConstructorState, action) {
+export function burgerConstructorReducer(state = initialBurgerConstructorState, action: TBurgerConstructorActions): IBurgerConstructorState {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.ingredient.type === 'bun') {

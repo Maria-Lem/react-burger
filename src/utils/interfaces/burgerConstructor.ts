@@ -7,6 +7,12 @@ import {
 
 import { IIngredient } from './data';
 
+export interface IBurgerConstructorState {
+  bun: IIngredient | null;
+  filling: ReadonlyArray<IIngredient>;
+  totalPrice: number;
+}
+
 export interface IAddIngredient {
   readonly type: typeof ADD_INGREDIENT;
   readonly ingredient: IIngredient;

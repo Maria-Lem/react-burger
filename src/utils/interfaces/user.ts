@@ -26,12 +26,51 @@ import {
   RESET_PASSWORD_RECOVERY_REDUCERS,
 } from '../../services/constants/user';
 
+import { IUser } from './data';
+
+export interface IUserState {
+  user: IUser | null;
+
+  registerRequest: boolean;
+  registerSuccess: boolean;
+  registerFailed: boolean;
+
+  getUserRequest: boolean;
+  getUserSuccess: boolean;
+  getUserFailed: boolean;
+
+  passwordForgotRequest: boolean;
+  passwordRecoverySuccess: boolean | null;
+  passwordForgotFailed: boolean;
+  
+  passwordResetRequest: boolean;
+  passwordResetSuccess: boolean | null;
+  passwordResetFailed: boolean;
+
+  editUserRequest: boolean;
+  editUserSuccess: boolean;
+  editUserFailed: boolean;
+
+  refreshTokenRequest: boolean;
+  refreshTokenSuccess: boolean;
+  refreshTokenFailed: boolean;
+
+  logInRequest: boolean;
+  logInSuccess: boolean;
+  logInFailed: boolean;
+
+  logOutRequest: boolean;
+  logOutSuccess: boolean;
+  logOutFailed: boolean;
+}
+
 export interface IRegisterRequest {
   readonly type: typeof USER_REGISTER_REQUEST;
 }
 
 export interface IRegisterSuccess {
   readonly type: typeof USER_REGISTER_SUCCESS;
+  readonly user: IUser;
 }
 
 export interface IRegisterFailed {
@@ -44,6 +83,7 @@ export interface IGetUserRequest {
 
 export interface IGetUserSuccess {
   readonly type: typeof GET_USER_SUCCESS;
+  readonly user: IUser;
 }
 
 export interface IGetUserFailed {
@@ -56,6 +96,7 @@ export interface IPasswordForgotRequest {
 
 export interface IPasswordRecoverySuccess {
   readonly type: typeof PASSWORD_FORGOT_SUCCESS;
+  readonly success: boolean;
 }
 
 export interface IPasswordForgotFailed {
@@ -68,6 +109,7 @@ export interface IPasswordResetRequest {
 
 export interface IPasswordResetSuccess {
   readonly type: typeof PASSWORD_RESET_SUCCESS;
+  readonly success: boolean;
 }
 
 export interface IPasswordResetFailed {
@@ -80,6 +122,7 @@ export interface IEditUserRequest {
 
 export interface IEditUserSuccess {
   readonly type: typeof EDIT_USER_SUCCESS;
+  readonly user: IUser;
 }
 
 export interface IEditUserFailed {
@@ -104,6 +147,7 @@ export interface ILogInRequest {
 
 export interface ILogInSuccess {
   readonly type: typeof LOG_IN_SUCCESS;
+  readonly user: IUser;
 }
 
 export interface ILogInFailed {

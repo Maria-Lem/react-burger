@@ -2,15 +2,18 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
-} from '../actions/ingredients';
+} from '../constants/ingredients';
 
-const initialIngredientsState = {
+import { IGetIngredientsState } from '../../utils/interfaces/ingredients';
+import { TGetIngredientsActions } from '../../utils/types/types';
+
+const initialIngredientsState: IGetIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
-  ingredientsFailed: false
+  ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialIngredientsState, action) => {
+export const ingredientsReducer = (state = initialIngredientsState, action: TGetIngredientsActions): IGetIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

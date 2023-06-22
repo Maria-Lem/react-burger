@@ -6,8 +6,17 @@ import {
   WS_GET_MESSAGE,
 } from '../../services/constants/ws';
 
-import { IWsMessage } from './data';
+import { IOrder, IWsMessage } from './data';
 
+export interface IWsState {
+  wsRequest: boolean;
+  wsOpen: boolean;
+  wsError: boolean;
+  wsClosed: boolean;
+  orders: Array<IOrder>;
+  total: number | null;
+  totalToday: number | null;
+}
 
 export interface IWsRequest {
   readonly type: typeof WS_CONNECTION_REQUEST;

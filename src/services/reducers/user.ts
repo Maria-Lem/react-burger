@@ -24,9 +24,12 @@ import {
   LOG_OUT_SUCCESS,
   LOG_OUT_FAILED,
   RESET_PASSWORD_RECOVERY_REDUCERS,
-} from '../actions/user';
+} from '../constants/user';
 
-const initialUserState = {
+import { IUserState } from '../../utils/interfaces/user';
+import { TUserActions } from '../../utils/types/types';
+
+const initialUserState: IUserState = {
   user: null,
 
   registerRequest: false,
@@ -62,7 +65,7 @@ const initialUserState = {
   logOutFailed: false,
 };
 
-export const userReducer = (state = initialUserState, action) => {
+export const userReducer = (state = initialUserState, action: TUserActions): IUserState => {
   switch (action.type) {
     case USER_REGISTER_REQUEST: {
       return {

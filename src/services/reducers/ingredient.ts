@@ -1,14 +1,17 @@
 import { 
   SET_INGREDIENT_DETAIL, 
   REMOVE_INGREDIENT_DETAIL 
-} from '../actions/ingredient';
+} from '../constants/ingredient';
 
-const initialIngredientDetailState = {
+import { IIngredientDetailState } from '../../utils/interfaces/ingredient';
+import { TIngredientDetailActions } from '../../utils/types/types';
+
+const initialIngredientDetailState: IIngredientDetailState = {
   ingredient: null,
   isIngredientDetailOpen: false
 };
 
-export const ingredientDetailReducer = (state = initialIngredientDetailState, action) => {
+export const ingredientDetailReducer = (state = initialIngredientDetailState, action: TIngredientDetailActions): IIngredientDetailState => {
   switch (action.type) {
     case SET_INGREDIENT_DETAIL: {
       return {

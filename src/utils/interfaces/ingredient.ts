@@ -5,6 +5,11 @@ import {
 
 import { IIngredient } from "./data";
 
+export interface IIngredientDetailState {
+  ingredient: IIngredient | null;
+  isIngredientDetailOpen: boolean;
+}
+
 export interface ISetIngredientDetail {
   readonly type: typeof SET_INGREDIENT_DETAIL;
   readonly ingredient: IIngredient;

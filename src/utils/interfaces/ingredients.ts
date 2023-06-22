@@ -6,6 +6,12 @@ import {
 
 import { IIngredient } from "./data";
 
+export interface IGetIngredientsState {
+  ingredients: ReadonlyArray<IIngredient>;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+}
+
 export interface IGetIngredientsRequest {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
