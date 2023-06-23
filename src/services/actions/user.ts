@@ -28,8 +28,9 @@ import {
 
 import { register, forgotPasswordRequest, logOut, resetPasswordRequest, logIn, getUser, patchUser, refreshTokenRequest } from "../../utils/api";
 import { deleteCookie, setCookie } from "../../utils/utils";
+import { AppThunk } from '../types';
 
-export function createNewUser(email, password, name) {
+export function createNewUser(email: string, password: string, name: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: USER_REGISTER_REQUEST });
 
@@ -49,7 +50,7 @@ export function createNewUser(email, password, name) {
   }
 }
 
-export function getCurrentUser() {
+export function getCurrentUser(): AppThunk {
   return function(dispatch) {
     dispatch({ type: GET_USER_REQUEST });
 
@@ -72,7 +73,7 @@ export function getCurrentUser() {
   }
 }
 
-export function forgotPassword(email) {
+export function forgotPassword(email: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: PASSWORD_FORGOT_REQUEST });
 
@@ -90,7 +91,7 @@ export function forgotPassword(email) {
   }
 }
 
-export function resetPassword(password, token) {
+export function resetPassword(password: string, token: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: PASSWORD_RESET_REQUEST });
 
@@ -108,7 +109,7 @@ export function resetPassword(password, token) {
   }
 }
 
-export function editUser(name, email, password, accessToken) {
+export function editUser(name: string, email: string, password: string, accessToken: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: EDIT_USER_REQUEST });
 
@@ -130,7 +131,7 @@ export function editUser(name, email, password, accessToken) {
   }
 }
 
-export function refreshToken() {
+export function refreshToken(): AppThunk {
   return function(dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
@@ -147,7 +148,7 @@ export function refreshToken() {
   }
 }
 
-export function logInUser(email, password) {
+export function logInUser(email: string, password: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: LOG_IN_REQUEST });
 
@@ -168,7 +169,7 @@ export function logInUser(email, password) {
   }
 }
 
-export function logOutUser(refreshToken) {
+export function logOutUser(refreshToken: string): AppThunk {
   return function(dispatch) {
     dispatch({ type: LOG_OUT_REQUEST });
 
@@ -185,7 +186,7 @@ export function logOutUser(refreshToken) {
   }
 }
 
-export function resetPasswordRecoveryReducers() {
+export function resetPasswordRecoveryReducers(): AppThunk {
   return function(dispatch) {
     dispatch({ type: RESET_PASSWORD_RECOVERY_REDUCERS });
   }

@@ -1,15 +1,21 @@
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useMemo, FC } from 'react';
+// import { useSelector } from 'react-redux';
+import { useSelector } from '../../../../services/types/hooks';
 import { useDrag } from 'react-dnd/dist/hooks';
 import { Link, useLocation } from 'react-router-dom';
 
 import styles from './burger-ingredients-card.module.css';
 
-import { ingredientPropTypes } from '../../../../utils/types';
+import { IIngredient } from '../../../../utils/interfaces/data';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredientsCard({ ingredient, openModal }) {
+interface IBurgerIngredientCard {
+  ingredient: IIngredient;
+  openModal: () => void;
+}
+
+const BurgerIngredientsCard: FC<IBurgerIngredientCard> = ({ ingredient, openModal }) => {
   const location = useLocation();
 
   const { bun, filling } = useSelector(store => ({
@@ -56,10 +62,6 @@ function BurgerIngredientsCard({ ingredient, openModal }) {
       </li>
     </Link>
   )
-}
-
-BurgerIngredientsCard.propTypes = {
-  ingredient: ingredientPropTypes.isRequired
 }
 
 export default BurgerIngredientsCard;

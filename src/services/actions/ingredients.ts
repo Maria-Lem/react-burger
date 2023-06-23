@@ -5,8 +5,9 @@ import {
 } from '../constants/ingredients';
 
 import { getIngredients } from "../../utils/api";
+import { AppThunk } from '../types';
 
-export function getBurgerIngredients() {
+export function getBurgerIngredients(): AppThunk {
   return function(dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
 

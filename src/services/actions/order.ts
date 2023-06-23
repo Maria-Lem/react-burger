@@ -5,8 +5,9 @@ import {
 } from '../constants/order';
 
 import { createOrder } from "../../utils/api";
+import { AppThunk } from '../types';
 
-export function createNewOrder(orderList) {
+export function createNewOrder(orderList: string[]): AppThunk {
   return function(dispatch) {
     dispatch({ type: CREATE_ORDER_REQUEST });
 

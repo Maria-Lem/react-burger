@@ -1,5 +1,7 @@
 export interface IIngredient {
   type: 'bun' | 'filling' | 'sauce';
+  name: string;
+  image: string;
   price: number;
   _id: string;
   nanoId?: string;

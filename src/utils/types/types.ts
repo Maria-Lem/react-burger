@@ -106,3 +106,11 @@ export type TWsAction =
   | IWsError
   | IWsClosed
   | IWsGetMessage;
+
+export type TApplicationActions =
+  | TGetIngredientsActions
+  | TIngredientDetailActions
+  | TBurgerConstructorActions
+  | TCreateOrderActions
+  | TUserActions
+  | TWsAction;

@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/types/hooks';
 import { useInView } from 'react-intersection-observer';
 
 import styles from './burger-ingredients.module.css';
