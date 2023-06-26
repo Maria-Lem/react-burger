@@ -4,7 +4,7 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-} from '../services/actions/wsActionTypes';
+} from '../services/constants/ws';
 
 export const burgerApiUrl = {
   baseUrl: 'https://norma.nomoreparties.space/api',

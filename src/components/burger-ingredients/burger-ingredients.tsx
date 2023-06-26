@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState, useMemo, FC, ReactNode } from 'react';
 import { useSelector, useDispatch } from '../../services/types/hooks';
 import { useInView } from 'react-intersection-observer';
 
@@ -7,13 +6,14 @@ import styles from './burger-ingredients.module.css';
 
 import { setIngredientDetail } from '../../services/actions/ingredient';
 import { filterIngredientElements } from '../../utils/utils';
+import { IIngredient } from '../../utils/interfaces/data';
 
 import BurgerIngredientsList from './components/burger-ingredients-list/burger-ingredients-list';
 import BurgerIngredientsCard from './components/burger-ingredients-card/burger-ingredients-card';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
   const [current, setCurrent] = useState('bun');
 
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function BurgerIngredients() {
     ingredients: store.ingredients.ingredients,
   }));
   
-  const openModal = (card) => {
+  const openModal = (card: IIngredient) => {
     dispatch(setIngredientDetail(card));
   };
 

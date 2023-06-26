@@ -1,5 +1,4 @@
 import { useMemo, FC } from 'react';
-// import { useSelector } from 'react-redux';
 import { useSelector } from '../../../../services/types/hooks';
 import { useDrag } from 'react-dnd/dist/hooks';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,12 +9,12 @@ import { IIngredient } from '../../../../utils/interfaces/data';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
-interface IBurgerIngredientCard {
+interface IProps {
   ingredient: IIngredient;
   openModal: () => void;
 }
 
-const BurgerIngredientsCard: FC<IBurgerIngredientCard> = ({ ingredient, openModal }) => {
+const BurgerIngredientsCard: FC<IProps> = ({ ingredient, openModal }) => {
   const location = useLocation();
 
   const { bun, filling } = useSelector(store => ({
@@ -51,7 +50,9 @@ const BurgerIngredientsCard: FC<IBurgerIngredientCard> = ({ ingredient, openModa
       <li ref={dragRef} style={{opacity}} className={`${styles.card} pl-4 pr-2 mb-8`} onClick={openModal} draggable>
         {
           quantity > 0 && 
-            <Counter count={quantity} size="default" extraClass={`${styles.counter} m-1`} />
+            <div className={`${styles.counter} m-1`}>
+              <Counter count={quantity} size="default" />
+            </div>
         }
         <img className={`${styles.image} ml-4 mr-4`} src={ingredient.image} alt={ingredient.name}/>
         <div className={`${styles.price} mt-1 mb-1`}>

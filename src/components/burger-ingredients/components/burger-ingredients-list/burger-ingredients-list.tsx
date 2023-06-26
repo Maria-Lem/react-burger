@@ -1,9 +1,13 @@
-import { forwardRef } from 'react';
-// import PropTypes from 'prop-types';
+import { forwardRef, ReactNode } from 'react';
 
 import styles from './burger-ingredients-list.module.css';
 
-const BurgerIngredientsList = forwardRef(({ ingredientType, children }, ref) => {  
+interface IProps {
+  ingredientType: string; 
+  children: ReactNode;
+}
+
+const BurgerIngredientsList = forwardRef<HTMLDivElement, IProps>(({ ingredientType, children }, ref) => {  
   return (
     <div ref={ref}>
       <h3 className="text text_type_main-medium mt-10 mb-6">{ingredientType}</h3>
@@ -13,10 +17,5 @@ const BurgerIngredientsList = forwardRef(({ ingredientType, children }, ref) => 
     </div>
   )
 });
-
-// BurgerIngredientsList.propTypes = {
-//   ingredientType: PropTypes.string.isRequired,
-//   children: PropTypes.array.isRequired
-// };
 
 export default BurgerIngredientsList;
