@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, FC, ReactNode } from 'react';
+import { useEffect, useState, useMemo, FC } from 'react';
 import { useSelector, useDispatch } from '../../services/types/hooks';
 import { useInView } from 'react-intersection-observer';
 

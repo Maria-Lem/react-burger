@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import { getBurgerIngredients } from '../../services/actions/ingredients';

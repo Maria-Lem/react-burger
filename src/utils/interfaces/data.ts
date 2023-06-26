@@ -2,7 +2,14 @@ export interface IIngredient {
   type: 'bun' | 'filling' | 'sauce';
   name: string;
   image: string;
+  image_large?: string;
+  image_mobile?: string;
+  calories: number;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
   price: number;
+  quantity?: number;
   _id: string;
   nanoId?: string;
 }
@@ -13,7 +20,12 @@ export interface IUser {
 }
 
 export interface IOrder {
-
+  number: number;
+  name: string;
+  status: string;
+  ingredients: string[];
+  _id: string;
+  createdAt: string;
 }
 
 export interface IWsMessage {

@@ -1,43 +1,42 @@
+import { FC } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/types/hooks';
 
 import styles from './order-details.module.css';
 
 import OrderIngredientIcon from '../../feed-components/order-ingredient-icon/order-ingredient-icon';
 
 import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor } from '../../../utils/utils';
+import { IIngredient } from '../../../utils/interfaces/data';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function OrderDetails({ align }) {
+interface IProps {
+  align?: string;
+}
+
+const OrderDetails: FC<IProps> = ({ align }) => {
   const params = useParams();
   
-  const { orders, ingredients, wsClosed } = useSelector(store => ({
+  const { orders, ingredients } = useSelector(store => ({
     orders: store.orders.orders,
     ingredients: store.ingredients.ingredients,
-    wsClosed: store.orders.wsClosed,
   }));
-  // console.log('orders: ', orders);
-
-  // if (wsClosed) {
-  //   console.log('hi')
-  //   return <Navigate to="/" />
-  // }
 
   const order = orders.find(order => order._id === params.id);
 
-  const orderIngredients = order.ingredients.map(id => ingredients.find(ing => ing._id === id));
-  // console.log('orderIngredients: ', orderIngredients);
-  orderIngredients.forEach(ing => {
-    ing.quantity = 0;
-    orderIngredients.forEach(i => i._id === ing._id && ing.quantity++);
+  const orderIngredients = order?.ingredients.map(id => ingredients.find(ing => ing._id === id));
 
-    if (ing.type === 'bun' && ing.quantity !== 2) {
+  orderIngredients?.forEach(ing => {
+    ing && (ing.quantity = 0);
+    orderIngredients.forEach(i => i?._id === ing?._id && (ing && ing.quantity &&ing.quantity++));
+
+    if (ing?.type === 'bun' && ing?.quantity !== 2) {
       ing.quantity = 2;
     }
   });
 
-  const uniqueOrderIngredients = Array.from(orderIngredients.reduce((a, o) => a.set(o._id, o), new Map()).values());
+  const uniqueOrderIngredients: IIngredient[] = Array.from(orderIngredients.reduce((a, o) => a.set(o?._id, o), new Map()).values());
 
   if (!order) {
     return <Navigate to="/" />
@@ -87,4 +86,6 @@ export default function OrderDetails({ align }) {
       </div>
     </>
   );
-}
+};
+
+export default OrderDetails;

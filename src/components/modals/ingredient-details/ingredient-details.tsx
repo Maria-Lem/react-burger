@@ -1,11 +1,16 @@
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useSelector } from '../../../services/types/hooks';
 import { useParams } from 'react-router-dom';
 
 import styles from './ingredient-details.module.css';
 
 import Loader from '../../loader/loader';
 
-function IngredientDetails({ align }) {
+interface IProps {
+  align?: string;
+}
+
+const IngredientDetails: FC<IProps> = ({ align }) => {
   const params = useParams();
 
   const { ingredients } = useSelector(store => ({
