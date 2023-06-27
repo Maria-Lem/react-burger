@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
-
+import { FC, ReactNode } from 'react';
 import styles from './form.module.css';
 
-function Form({ title = null, children, handleSubmit }) {
+interface IProps {
+  title: string;
+  children: ReactNode;
+  handleSubmit: () => void;
+}
+
+const Form: FC<IProps> = ({ title = null, children, handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className={`${styles.form}`}>
       { 
@@ -11,11 +16,6 @@ function Form({ title = null, children, handleSubmit }) {
       {children}
     </form>
   )
-};
-
-Form.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.array.isRequired
 };
 
 export default Form;

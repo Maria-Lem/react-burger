@@ -2,15 +2,15 @@ export interface IIngredient {
   type: 'bun' | 'filling' | 'sauce';
   name: string;
   image: string;
-  image_large?: string;
-  image_mobile?: string;
+  image_large: string;
+  image_mobile: string;
   calories: number;
   proteins: number;
   fat: number;
   carbohydrates: number;
   price: number;
-  quantity?: number;
   _id: string;
+  quantity?: number;
   nanoId?: string;
 }
 
