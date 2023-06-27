@@ -1,5 +1,6 @@
+import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../services/types/hooks';
 import { nanoid } from 'nanoid';
 
 import styles from './order-card.module.css';
@@ -10,14 +11,25 @@ import { getFormattedDate, orderPrice, preparationStatus, preparationStatusColor
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function OrderCard({ id, cardTitle, preparation = null, orderNumber, orderCreatedAt, orderIng, linkTo }) {
+interface IProps {
+  id: string;
+  cardTitle: string;
+  preparation: string | null;
+  orderNumber: number;
+  orderCreatedAt: string; 
+  orderIng: string[];
+  linkTo: string;
+}
+
+const OrderCard: FC<IProps> = ({ id, cardTitle, preparation = null, orderNumber, orderCreatedAt, orderIng, linkTo }) => {
   const location = useLocation();
 
   const { ingredients } = useSelector(store => ({
     ingredients: store.ingredients.ingredients,
   }));
 
-  const orderIngredients = ingredients.filter(ing => orderIng.includes(ing._id) && ing);
+  const orderIngredients = 
+    ingredients.filter(ing => orderIng.includes(ing._id) && ing);
 
   return (
     <Link 
@@ -63,4 +75,6 @@ export default function OrderCard({ id, cardTitle, preparation = null, orderNumb
       </li>
     </Link>
   );
-}
+};
+
+export default OrderCard;
