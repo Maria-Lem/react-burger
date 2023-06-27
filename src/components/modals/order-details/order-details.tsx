@@ -36,7 +36,7 @@ const OrderDetails: FC<IProps> = ({ align }) => {
     }
   });
 
-  const uniqueOrderIngredients: IIngredient[] = Array.from(orderIngredients.reduce((a, o) => a.set(o?._id, o), new Map()).values());
+  const uniqueOrderIngredients: IIngredient[] | undefined = orderIngredients && (Array.from(orderIngredients.reduce((a, o) => a.set(o?._id, o), new Map()).values()));
 
   if (!order) {
     return <Navigate to="/" />
@@ -54,7 +54,7 @@ const OrderDetails: FC<IProps> = ({ align }) => {
         <p className={`${styles.title} text text_type_main-default mb-15`} style={ preparationStatusColor(order.status)}>{preparationStatus(order.status)}</p>
         <p className={`${styles.title} text text_type_main-medium mb-6`}>Состав:</p>
         <ul className={`${styles.ingredients} mb-10`}>
-          {uniqueOrderIngredients.map(ingredient => {
+          {uniqueOrderIngredients?.map(ingredient => {
             return (
               <li key={ingredient._id} className={`${styles.ingredientInfo} mb-4 mr-6`}>
                 <OrderIngredientIcon

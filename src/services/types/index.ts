@@ -13,6 +13,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
-
-// export const useDispatch = () => dispatchHook<AppDispatch>();
-// export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
