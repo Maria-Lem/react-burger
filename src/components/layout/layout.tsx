@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { Outlet } from "react-router-dom";
 
 import styles from "./layout.module.css";
 
-function Layout() {
+const Layout: FC = () => {
   return (
     <main className={`${styles.main}`}>
       <Outlet />

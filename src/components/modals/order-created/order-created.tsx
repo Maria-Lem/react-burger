@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useSelector } from '../../../services/types/hooks';
 
 import styles from './order-created.module.css';
 
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderCreated() {
+const OrderCreated: FC = () => {
   const { orderNumber } = useSelector(store => ({
     orderNumber: store.order.orderNumber
   }));
@@ -20,6 +21,6 @@ function OrderCreated() {
       <p className={`text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
     </div>
   )
-}
+};
 
 export default OrderCreated;
