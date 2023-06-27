@@ -1,16 +1,23 @@
-import { useRef } from 'react';
+import { useRef, FC } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
 import styles from './burger-constructor-card.module.css';
 
 import { reorderFilling } from '../../../../services/actions/burgerConstructor';
-import { ingredientPropTypes } from '../../../../utils/types';
+import { IIngredient } from '../../../../utils/interfaces/data';
 
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
-  const ref = useRef(null);
+interface IProps {
+  ingredient: IIngredient;
+  index: number;
+  id?:  string;
+  handleDelete: (ingredient: IIngredient) => void;
+}
+
+const BurgerConstructorCard: FC<IProps> = ({ ingredient, id, index, handleDelete }) => {
+  const ref = useRef<HTMLLIElement>(null);
   const dispatch = useDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
@@ -25,10 +32,7 @@ function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
 
   const [{ handlerId }, dropRef] = useDrop({
     accept: 'filling',
-    collect: monitor => ({
-      handlerId: monitor.getHandlerId()
-    }),
-    hover(item, monitor) {
+    hover(item: {index: number}, monitor) {
       if (!ref.current) return;
 
       const dragIndex = item.index;
@@ -37,13 +41,13 @@ function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
       if (dragIndex === hoverIndex) return;
 
       // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
       // Get vertical middle
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
@@ -57,7 +61,10 @@ function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
       dispatch(reorderFilling(dragIndex, hoverIndex));
 
       item.index = hoverIndex;
-    }
+    },
+    collect: monitor => ({
+      handlerId: monitor.getHandlerId()
+    }),
   });
 
   const opacity = isDragging ? 0 : 1;
@@ -75,10 +82,6 @@ function BurgerConstructorCard({ ingredient, id, index, handleDelete }) {
       />
     </li>
   )
-}
-
-BurgerConstructorCard.propTypes = {
-  ingredient: ingredientPropTypes.isRequired
-}
+};
 
 export default BurgerConstructorCard;

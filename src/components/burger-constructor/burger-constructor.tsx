@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, FC } from 'react';
+import { useSelector, useDispatch } from '../../services/types/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 
@@ -8,6 +8,7 @@ import styles from './burger-constructor.module.css';
 import { createNewOrder } from '../../services/actions/order';
 import { addIngredient, deleteIngredient } from '../../services/actions/burgerConstructor';
 import { resetBurger } from '../../services/actions/burgerConstructor';
+import { IIngredient } from '../../utils/interfaces/data';
 
 import BurgerConstructorCard from './components/burger-constructor-card/burger-constructor-card';
 import Modal from '../modals/modal/modal';
@@ -17,7 +18,7 @@ import Failed from '../failed/failed';
 
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -33,12 +34,12 @@ function BurgerConstructor() {
 
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
+    drop(ingredient: IIngredient) {
+      dispatch(addIngredient( ingredient))
+    },
     collect: monitor => ({
       isHover: monitor.isOver(),
     }),
-    drop(ingredient) {
-      dispatch(addIngredient(ingredient))
-    }
   });
 
   const orderListId = () => {
@@ -63,7 +64,7 @@ function BurgerConstructor() {
     setIsOpen(false);
   };
 
-  const handleDelete = (ingredient) => {
+  const handleDelete = (ingredient: IIngredient) => {
     dispatch(deleteIngredient(ingredient))
   }
 
@@ -113,7 +114,7 @@ function BurgerConstructor() {
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <Button type="primary" size="large" onClick={openModal}>
+        <Button type="primary" size="large" onClick={openModal} htmlType={'button'}>
           Оформить заказ
         </Button>
       </div>

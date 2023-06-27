@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import styles from './app-header.module.css';
@@ -9,10 +10,10 @@ import {
   ProfileIcon, 
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+const AppHeader: FC = () => {
   const { pathname } = useLocation();
-  
-  const activeLinkStyle = ({ isActive }) => {
+
+  const activeLinkStyle = ({ isActive }: { isActive: boolean }) => {
     return isActive ? `${styles.activeLink}` : `${styles.link} text_color_inactive`;
   };
 
