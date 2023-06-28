@@ -1,9 +1,15 @@
-export const filterIngredientElements = (ingredientElement, type) => {
+import { IIngredient } from "./interfaces/data";
+
+export const filterIngredientElements = (ingredientElement: any[], type: string) => {
   return ingredientElement.filter(el => el.props.ingredient.type === type)
 };
 
 // Cookies
-export function setCookie(name, value, props) {
+export function setCookie(
+  name: string, 
+  value: string, 
+  props: { [key: string]: any; } = {}
+) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -26,7 +32,7 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 } 
 
-export function getCookie(name) {
+export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
     // eslint-disable-next-line no-useless-escape
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
@@ -34,12 +40,12 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function deleteCookie(name) {
-  setCookie(name, null, { expires: -1 });
+export function deleteCookie(name: string) {
+  setCookie(name, '', { expires: -1 });
 } 
 
 // Saving store to localStorage
-export function saveToLocalStorage(state) {
+export function saveToLocalStorage(state: any) {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("state", serializedState);
@@ -60,15 +66,15 @@ export function loadFromLocalStorage() {
 }
 
 // Count order price
-export const orderPrice = (order, ingredients) => {
+export const orderPrice = (order: string[], ingredients: IIngredient[]) => {
   let price = 0;
   const bun = ingredients.find(ing => order.find(id => ing.type === 'bun' && ing._id === id));
 
   order.forEach(ing => {
     let current = ingredients.find(i => i._id === ing)
 
-    if (current.type !== 'bun') {
-      price += current.price;
+    if (current?.type !== 'bun') {
+      if (current) price += current.price;
     } 
   });
 
@@ -76,8 +82,8 @@ export const orderPrice = (order, ingredients) => {
 };
 
 // Format the order date
-export const getFormattedDate = (orderDate, today) => {
-  const getDiffDays = Math.floor((today - orderDate) / (1000 * 60 * 60 * 24));
+export const getFormattedDate = (orderDate:  Date, today: Date) => {
+  const getDiffDays = Math.floor((today.getTime() - orderDate.getTime()) / (1000 * 60 * 60 * 24));
   
   const orderMinutes = orderDate.getMinutes().toString().length < 2 ? `0${orderDate.getMinutes()}` : orderDate.getMinutes();
 
@@ -98,7 +104,7 @@ export const getFormattedDate = (orderDate, today) => {
 };
 
 // Preparation status style
-export const preparationStatus = (preparation) => {
+export const preparationStatus = (preparation: string | null) => {
   return preparation === 'done' 
     ? 'Выполнен' 
     : preparation === 'created'
@@ -108,7 +114,7 @@ export const preparationStatus = (preparation) => {
     : 'Готовится';
 }
 
-export const preparationStatusColor = (preparation) => {
+export const preparationStatusColor = (preparation: string | null) => {
   return {
     color: preparation === 'done' ? "#00CCCC" : "#FFFFFF",
   }

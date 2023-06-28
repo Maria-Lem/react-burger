@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from '../../services/types/hooks';
 
 import styles from './profile-form.module.css';
@@ -44,7 +44,7 @@ function ProfileForm() {
     }
   }, [user]);
 
-  const handleFocus = useCallback((inputType) => {
+  const handleFocus = useCallback((inputType: string) => {
     setActive(inputType);
   }, []);
 
@@ -52,7 +52,7 @@ function ProfileForm() {
     setActive('');
   }, []);
   
-  const handleChange = (e, dataValue) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>, dataValue: string) => {
     console.log('dataValue: ', dataValue);
     const target = e.target;
     const newValue = e.target.value;
@@ -69,12 +69,12 @@ function ProfileForm() {
   const handleCancel = useCallback(() => {
     setForm(prevFormData => ({
       ...prevFormData,
-      name: user.name,
-      email: user.email,
+      name: user!.name,
+      email: user!.email,
     }));
     setIsFormChanged(false);
 
-  }, [user.email, user.name]);
+  }, [user]);
 
   const onNameIconClick = () => {
     // setForm(formData => ({
@@ -103,7 +103,7 @@ function ProfileForm() {
     setTimeout(() => inputPasswordRef.current?.focus(), 0);
   };
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('clicked');
     dispatch(editUser(form.name, form.email, form.password, accessToken));
@@ -116,7 +116,7 @@ function ProfileForm() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={(e) => handleChange(e, user.name)}
+          onChange={(e) => handleChange(e, user!.name)}
           onFocus={() => handleFocus('name')}
           onBlur={handleBlur}
           onIconClick={onNameIconClick}
@@ -134,7 +134,7 @@ function ProfileForm() {
         <Input
           type={'text'}
           placeholder={'Логин'}
-          onChange={(e) => handleChange(e, user.email)}
+          onChange={(e) => handleChange(e, user!.email)}
           onFocus={() => handleFocus('email')}
           onBlur={handleBlur}
           onIconClick={onEmailIconClick}
@@ -152,7 +152,7 @@ function ProfileForm() {
         <Input
             type={'text'}
             placeholder={'Пароль'}
-            onChange={(e) => handleChange(e, user.password)}
+            onChange={(e) => handleChange(e, user!.password)}
             onFocus={() => handleFocus('password')}
             onBlur={handleBlur}
             onIconClick={onPasswordIconClick}

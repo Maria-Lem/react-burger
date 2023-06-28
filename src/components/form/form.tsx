@@ -2,7 +2,7 @@ import { FC, FormEvent, ReactNode } from 'react';
 import styles from './form.module.css';
 
 interface IProps {
-  title: string;
+  title?: string | null;
   children: ReactNode;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }

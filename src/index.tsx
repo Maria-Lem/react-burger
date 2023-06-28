@@ -23,7 +23,7 @@ const composeEnhancers = typeof window === 'object' && (window as any).__REDUX_D
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware( wsActions)));
   
 export const store = createStore(rootReducer, loadFromLocalStorage(), enhancer);
-  
+
 store.subscribe(() => saveToLocalStorage(store.getState()));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

@@ -7,7 +7,7 @@ import {
 import { IIngredient } from "./data";
 
 export interface IGetIngredientsState {
-  ingredients: ReadonlyArray<IIngredient>;
+  ingredients: Array<IIngredient>;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
 }

@@ -48,7 +48,7 @@ const BurgerIngredients: FC = () => {
       openModal={() => openModal(card)}
       ingredient={card}
     />
-    ));
+  ));
 
   const bun = useMemo(
     () => filterIngredientElements(ingredientElement, 'bun'),

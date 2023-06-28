@@ -1,21 +1,14 @@
 import { getCookie } from "./utils";
 import { burgerApiUrl } from "./variables";
 
-// const burgerApiUrl = {
-//   baseUrl: 'https://norma.nomoreparties.space/api',
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// };
-
-const getResponse = (res) => {
+const getResponse = (res: Response) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`Error: ${res.status}`);
 };
 
-export const request = (url, options) => {
+export const request = (url: string, options: any) => {
   return fetch(url, options)
     .then(getResponse);
 };
@@ -27,7 +20,7 @@ export const getIngredients = () => {
   });
 };
 
-export const createOrder = (orderList) => {
+export const createOrder = (orderList: string[] | undefined) => {
   return request(`${burgerApiUrl.baseUrl}/orders`, {
     method: 'POST',
     headers: {
@@ -40,7 +33,7 @@ export const createOrder = (orderList) => {
   });
 };
 
-export const register = (email, password, name) => {
+export const register = (email: string, password: string, name: string) => {
   return request(`${burgerApiUrl.baseUrl}/auth/register`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
@@ -52,7 +45,7 @@ export const register = (email, password, name) => {
   });
 };
 
-export const logIn = (email, password) => {
+export const logIn = (email: string, password: string) => {
   return request(`${burgerApiUrl.baseUrl}/auth/login`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
@@ -73,7 +66,12 @@ export const getUser = () => {
   })
 };
 
-export const patchUser = (name, email, password, accessToken) => {
+export const patchUser = (
+  name: string, 
+  email: string, 
+  password: string, 
+  accessToken: string
+) => {
   return request(`${burgerApiUrl.baseUrl}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -88,7 +86,7 @@ export const patchUser = (name, email, password, accessToken) => {
   })
 };
 
-export const forgotPasswordRequest = (email) => {
+export const forgotPasswordRequest = (email: string) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
@@ -98,7 +96,7 @@ export const forgotPasswordRequest = (email) => {
   });
 };
 
-export const resetPasswordRequest = (password, token) => {
+export const resetPasswordRequest = (password: string, token: string) => {
   return request(`${burgerApiUrl.baseUrl}/password-reset/reset`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
@@ -119,7 +117,7 @@ export const refreshTokenRequest = () => {
   });
 };
 
-export const logOut = (refreshToken) => {
+export const logOut = (refreshToken: string | null) => {
   return request(`${burgerApiUrl.baseUrl}/auth/logout`, {
     method: 'POST',
     headers: burgerApiUrl.headers,
