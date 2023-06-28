@@ -1,3 +1,11 @@
+import {
+  WS_CONNECTION_REQUEST,
+  WS_CONNECTION_OPEN,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_CLOSED,
+  WS_GET_MESSAGE,
+} from '../../services/constants/ws';
+
 export interface IIngredient {
   type: 'bun' | 'filling' | 'sauce';
   name: string;
@@ -17,6 +25,7 @@ export interface IIngredient {
 export interface IUser {
   name: string;
   email: string;
+  password: string;
 }
 
 export interface IOrder {
@@ -32,4 +41,12 @@ export interface IWsMessage {
   orders: Array<IOrder>;
   total: number | null;
   totalToday: number | null;
+}
+
+export interface IWsActions {
+  wsInit: typeof WS_CONNECTION_REQUEST,
+  onOpen: typeof WS_CONNECTION_OPEN,
+  onError: typeof WS_CONNECTION_ERROR,
+  onClose: typeof WS_CONNECTION_CLOSED,
+  onMessage: typeof WS_GET_MESSAGE
 }

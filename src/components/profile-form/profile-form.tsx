@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 
 import styles from './profile-form.module.css';
 
@@ -23,9 +23,9 @@ function ProfileForm() {
   // console.log('active: ', active);
   // console.log('isFormChanged: ', isFormChanged);
 
-  const inputNameRef = useRef(null);
-  const inputEmailRef = useRef(null);
-  const inputPasswordRef = useRef(null);
+  const inputNameRef = useRef<HTMLInputElement>(null);
+  const inputEmailRef = useRef<HTMLInputElement>(null);
+  const inputPasswordRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
   const { user } = useSelector(store => store.user);
@@ -82,7 +82,7 @@ function ProfileForm() {
     //   name: user.name
     // }));
 
-    setTimeout(() => inputNameRef.current.focus(), 0);
+    setTimeout(() => inputNameRef.current?.focus(), 0);
   };
 
   const onEmailIconClick = () => {
@@ -91,7 +91,7 @@ function ProfileForm() {
     //   email: user.email
     // }));
 
-    setTimeout(() => inputEmailRef.current.focus(), 0);
+    setTimeout(() => inputEmailRef.current?.focus(), 0);
   };
 
   const onPasswordIconClick = () => {
@@ -100,7 +100,7 @@ function ProfileForm() {
     //   password: ''
     // }));
 
-    setTimeout(() => inputPasswordRef.current.focus(), 0);
+    setTimeout(() => inputPasswordRef.current?.focus(), 0);
   };
 
   const handleSubmit = useCallback((e) => {

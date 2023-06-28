@@ -1,10 +1,10 @@
-import { FC, ReactNode } from 'react';
+import { FC, FormEvent, ReactNode } from 'react';
 import styles from './form.module.css';
 
 interface IProps {
   title: string;
   children: ReactNode;
-  handleSubmit: () => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
 const Form: FC<IProps> = ({ title = null, children, handleSubmit }) => {

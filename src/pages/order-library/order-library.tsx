@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 
 import styles from './order-library.module.css';
 
@@ -9,8 +9,6 @@ import Loader from '../../components/loader/loader';
 
 import { getCookie } from '../../utils/utils';
 import { wsConnectionClosed, wsConnectionRequest } from '../../services/actions/wsActionTypes';
-import { refreshToken } from '../../services/actions/user';
-import Failed from '../../components/failed/failed';
 import { Navigate } from 'react-router-dom';
 
 export default function OrderLibrary() {

@@ -1,7 +1,12 @@
-import {  useSelector } from "react-redux";
+import { FC, ReactElement } from 'react';
+import {  useSelector } from "../../services/types/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 
-export default function ProtectedRouteElement({ element }) {
+interface IProps {
+  element: ReactElement;
+}
+
+const ProtectedRouteElement: FC<IProps> = ({ element }) => {
   const { user } = useSelector(store => ({
     user: store.user.user,
   }));
@@ -9,4 +14,6 @@ export default function ProtectedRouteElement({ element }) {
   const location = useLocation();
   
   return user ? element : <Navigate to='/login' state={{ from: location }} />;
-}
+};
+
+export default ProtectedRouteElement;

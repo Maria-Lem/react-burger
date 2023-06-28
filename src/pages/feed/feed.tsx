@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, FC } from 'react';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 
 import styles from './feed.module.css';
 
@@ -10,7 +10,7 @@ import OrderPreparationTitle from '../../components/feed-components/order-prepar
 import TotalNumbers from '../../components/feed-components/total-numbers/total-numbers';
 import OrderNumber from '../../components/feed-components/order-number/order-number';
 
-export default function Feed() {
+const Feed: FC = () => {
   const dispatch = useDispatch();
   const { orders, total, totalToday } = useSelector(store => ({
     orders: store.orders.orders,
@@ -31,6 +31,7 @@ export default function Feed() {
       key={order._id}
       id={order._id}
       linkTo={"feed"}
+      preparation={null}
       cardTitle={order.name}
       orderNumber={order.number}
       orderCreatedAt={order.createdAt}
@@ -77,4 +78,6 @@ export default function Feed() {
       </div>
     </main>
   );
-}
+};
+
+export default Feed;

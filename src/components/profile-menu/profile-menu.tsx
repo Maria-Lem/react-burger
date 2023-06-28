@@ -1,16 +1,16 @@
-import { useCallback } from 'react';
+import { useCallback, FC } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/types/hooks";
 
 import styles from "./profile-menu.module.css";
 
 import { logOutUser } from "../../services/actions/user";
 
-function ProfileMenu() {
+const ProfileMenu: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const activeLinkStyle = ({ isActive }) =>  {
+  const activeLinkStyle = ({ isActive }: { isActive: boolean}) =>  {
     return isActive ? `${styles.activeLink}` : `${styles.link} text_color_inactive`;
   };
 

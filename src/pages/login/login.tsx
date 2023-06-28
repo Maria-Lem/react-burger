@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, FormEvent } from 'react';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Form from '../../components/form/form';
@@ -28,7 +28,7 @@ function Login() {
 
   const from = location.state?.from || '/';
   
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(logInUser(form.email, form.password));
     dispatch(resetPasswordRecoveryReducers());

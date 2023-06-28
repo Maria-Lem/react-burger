@@ -2,7 +2,7 @@ import { FC } from 'react';
 import styles from './total-numbers.module.css';
 
 interface IProps {
-  totalNum: number;
+  totalNum: number | null;
 }
 
 const TotalNumbers: FC<IProps> = ({ totalNum }) => {

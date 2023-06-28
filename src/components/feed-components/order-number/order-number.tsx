@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 interface IProps {
   orderNum: number;
-  color: string;
+  color?: string;
 }
 
 const OrderNumber: FC<IProps> = ({ orderNum, color = "#FFFFFF" }) => {

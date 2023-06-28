@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEvent, useCallback } from 'react';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Navigate } from 'react-router-dom';
 
 import { resetPassword } from '../../services/actions/user';
@@ -25,7 +25,7 @@ function ResetPassword() {
     passwordResetSuccess: store.user.passwordResetSuccess,
   }));
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword(form.password, form.token));
   }, [dispatch, form.password, form.token]);

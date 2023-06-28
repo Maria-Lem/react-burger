@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FormEvent, useCallback } from 'react';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Navigate } from 'react-router-dom';
 
 import { createNewUser } from '../../services/actions/user';
@@ -22,7 +22,7 @@ function Register() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
       console.log('clicked');
       e.preventDefault();
       dispatch(createNewUser(form.email, form.password, form.name));

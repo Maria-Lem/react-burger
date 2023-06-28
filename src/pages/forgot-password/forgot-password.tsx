@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCallback, FC, FormEvent } from 'react';
+import { useDispatch, useSelector } from '../../services/types/hooks';
 import { Navigate } from 'react-router-dom';
 
 import { forgotPassword } from '../../services/actions/user';
@@ -12,7 +12,7 @@ import FormAdditionalActions from '../../components/form/form-additional-actions
 
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
   const { form, handleChange } = useForm({ email: '', });
 
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function ForgotPassword() {
     passwordRecoverySuccess: store.user.passwordRecoverySuccess,
   }));
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(forgotPassword(form.email));
     console.log('password sent');

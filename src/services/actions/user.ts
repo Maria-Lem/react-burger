@@ -169,7 +169,7 @@ export function logInUser(email: string, password: string): AppThunk {
   }
 }
 
-export function logOutUser(refreshToken: string): AppThunk {
+export function logOutUser(refreshToken: string | null): AppThunk {
   return function(dispatch) {
     dispatch({ type: LOG_OUT_REQUEST });
 
