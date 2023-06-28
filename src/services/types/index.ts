@@ -1,4 +1,3 @@
-import { Action, ActionCreator, AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { TApplicationActions } from '../../utils/types/types';
 import { store } from '../..';
