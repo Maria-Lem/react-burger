@@ -8,7 +8,7 @@ const getResponse = (res: Response) => {
   return Promise.reject(`Error: ${res.status}`);
 };
 
-export const request = (url: string, options: any) => {
+export const request = (url: string, options: RequestInit) => {
   return fetch(url, options)
     .then(getResponse);
 };
